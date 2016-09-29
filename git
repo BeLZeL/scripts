@@ -1,0 +1,5 @@
+# Add a new file to the previous local commit, without launching an editor :
+git commit --amend --no-edit
+
+# Merge a branch to another
+... todo
