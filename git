@@ -1,5 +1,48 @@
+#--------------------------------------------------------
 # Add a new file to the previous local commit, without launching an editor :
 git commit --amend --no-edit
 
+#--------------------------------------------------------
 # Merge a branch to another
-... todo
+#!/bin/bash
+
+if [ $# -ne 2 ]
+then
+    echo "$0 <remote> <sha>"
+    echo "$0 v6-facebuster bf0cfdcbf32da4244427fd5c54af42d6d8d59692"
+    exit
+fi
+
+remote=$1
+sha=$2
+
+#$ git remote -v
+#$ git remote add <remote> ssh://<url>/<repo>.git
+#$ git fetch <remote>
+
+git cherry-pick -x $sha
+   echo "$sha" > branches/$remote \
+&& git add branches/$remote \
+&& git status
+# git add -A TODO in eclipse directly : Right Clic, Add to Index
+
+#--------------------------------------------------------
+# Validate commit or cherry-pick
+#!/bin/bash
+
+source ~/.bash_git
+
+mode=$(__git_ps1 | grep CHERRY)
+
+if [ -z "${mode}" ]
+then
+    echo "COMMIT" \
+    && git add -A \
+    && git commit --amend --no-edit \
+    && git push
+else
+    echo "PICK" \
+    && git add -A \
+    && git cherry-pick --continue \
+    && git push
+fi
