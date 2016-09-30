@@ -1,0 +1,8 @@
+#------------------------------------------------------------------
+# Debian Version
+$ lsb_release -a                                                                                                               
+No LSB modules are available.                                                                                                                                
+Distributor ID: Debian                                                                                                                                       
+Description:    Debian GNU/Linux 8.5 (jessie)                                                                                                                
+Release:        8.5                                                                                                                                          
+Codename:       jessie
