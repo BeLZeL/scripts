@@ -1,4 +1,8 @@
 #--------------------------------------------------------
+# Re-work on a local commit
+git reset HEAD~ --soft
+
+#--------------------------------------------------------
 # Add a new file to the previous local commit, without launching an editor :
 git commit --amend --no-edit
 
