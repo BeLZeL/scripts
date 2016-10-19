@@ -49,6 +49,12 @@ alias ll='ls -l'
 #----------------------------------------------------------
 # Functions
 
+# Show name of functions (typeset is obsolete)
+# declare -F
+
+# Show code of functions
+# declare -f <name>
+
 # Find an executable file in subdirectory
 findbin () { find . -type f -executable -name "*$**"; }
 
