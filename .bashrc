@@ -46,3 +46,25 @@ alias r='ssh -l root'
 alias jessie64='schroot -c jessie-64 -p'
 alias ll='ls -l'
 
+#----------------------------------------------------------
+# Functions
+
+# Find an executable file in subdirectory
+findbin () { find . -type f -executable -name "*$**"; }
+
+# Show JSON
+json () { echo "$*" | perl -p -e "s/\n//g" | python -mjson.tool; }
+
+# Show XML
+xml  () { echo "$*" | perl -p -e "s/\n//g" | xmlstarlet fo -s 4; }
+
+# Show XML nodes
+xml_root  () { echo "<xml_root>$*</xml_root>" | perl -p -e "s/\n//g" | xmlstarlet fo -s 4; }
+
+# Remove trailing spaces
+echo_clean() { echo "$*" | perl -p -e "s/\s*\n/\n/g"; }
+cat_clean () { cat "$*" | perl -p -e "s/\s*\n/\n/g"; }
+
+# Go and list directory
+cdl() { cd "$*" ; ls -l; }
+
