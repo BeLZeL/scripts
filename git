@@ -1,4 +1,14 @@
 #--------------------------------------------------------
+# Merge a branch
+git checkout master
+git pull
+git checkout <branch>
+git rebase master
+git checkout master
+git merge <branch>
+git push
+
+#--------------------------------------------------------
 # Re-work on a local commit
 git reset HEAD~ --soft
 
@@ -7,7 +17,7 @@ git reset HEAD~ --soft
 git commit --amend --no-edit
 
 #--------------------------------------------------------
-# Merge a branch to another
+# Merge a repo to another repo
 #!/bin/bash
 
 if [ $# -ne 2 ]
