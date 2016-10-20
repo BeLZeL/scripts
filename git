@@ -9,6 +9,40 @@ git merge <branch>
 git push
 
 #--------------------------------------------------------
+# Diff between commits
+git diff --stat 152cb7b 53886f6
+
+#--------------------------------------------------------
+# Debug with git : http://www.git-attitude.fr/2014/12/09/git-bisect/
+$ git bisect start
+$ git bisect bad <HEAD or commit>
+$ git bisect good d7ffe6a
+Bisecting: 34 revisions left to test after this (roughly 5 steps)
+[fca1e1f16e4dc56bd6c47e8d25f51b18598ba1f8] <message>
+$ git bisect good
+Bisecting: 17 revisions left to test after this (roughly 4 steps)
+[6524dc6c01bfda4848a7a4535bb3d611ee6cde0a] <message>
+$ git bisect good
+Bisecting: 8 revisions left to test after this (roughly 3 steps)
+[658bd0ce33fe033d290a3dc0ef745eb9e214e921] <message>
+$ git bisect good
+Bisecting: 4 revisions left to test after this (roughly 2 steps)
+[e83f14034dd63f7fd44799d3948013619a2af80a] <message>
+$ git bisect skip
+Bisecting: 3 revisions left to test after this (roughly 2 steps)
+[ffdd9e3971701107e9160c4fc383b7acb4ef4f58] <message>
+$ git bisect good
+Bisecting: 1 revision left to test after this (roughly 1 step)
+[5cade4df713952e19e81eef778df07b153f45c11] <message>
+$ git bisect good
+Bisecting: 0 revisions left to test after this (roughly 0 steps)
+[ea4c2e70644466b240ad8bc715071d4f23ceded1] <message>
+$ git bisect good
+53886f6367ea501007f660facde31f6d79c8c1ed is the first bad commit
+commit 53886f6367ea501007f660facde31f6d79c8c1ed
+<message>
+
+#--------------------------------------------------------
 # Re-work on a local commit
 git reset HEAD~ --soft
 
