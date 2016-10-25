@@ -1,0 +1,2 @@
+# Delete multiple keys
+/usr/bin/redis-cli -h <host> -p <port> -a <auth> --raw keys "PATTERN*" | xargs /usr/bin/redis-cli -h <host> -p <port> -a <auth> del 
