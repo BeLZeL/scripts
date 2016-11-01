@@ -1,3 +1,4 @@
+<pre>
 $ ~/bakasablepp 3
 Does it work?
 Foobar Start!
@@ -22,3 +23,4 @@ backtrace() returned 5 addresses
 /home/user/bakasablepp() [0x400b7f] <=== not found
 Foobar End!
 End!
+</pre>
