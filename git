@@ -58,3 +58,24 @@ git reset HEAD --hard
 #--------------------------------------------------------
 # Add a new file to the previous local commit, without launching an editor :
 git commit --amend --no-edit
+
+#--------------------------------------------------------
+# Git diff with tool
+$ git diff --color=always 1dd764e c242e1e --stat | head
+ CMakeLists.txt        |  10 +
+ libs/toto.cpp         | 156 +++++++++-
+ libs/toto.hpp         |  23 +-
+
+$ cat ~/.gitconfig
+[...]
+[diff]
+    tool = meld
+[difftool "meld"]
+    cmd = "/home/user/progs/meld-1.3.1/meld \"$LOCAL\" \"$REMOTE\""
+
+$ git difftool --color=always --tool=meld 1dd764e c242e1e
+
+$ git difftool --color=always --tool=meld 1dd764e c242e1e -- products/toto.c
+
+Viewing (1/1): 'products/toto.c'
+Launch 'meld' [Y/n]: 
