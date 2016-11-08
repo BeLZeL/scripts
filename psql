@@ -1,1 +1,6 @@
 \watch [SEC] : Execute query every SEC seconds
+
+-- usefull client commands : https://www.postgresql.org/docs/9.2/static/app-psql.html
+
+-- usefull to parse response
+psql -h <host> -U <user> <db> -P footer=off -qAc "select * from <table>;"
