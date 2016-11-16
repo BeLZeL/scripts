@@ -1,0 +1,40 @@
+#------------------------------------------------------------------------------
+# Time elapsed in milliseconds between two lines (format %H:%M:%S.xxx)
+
+echo "06:51:03.124 INFO   SUBSCRIBE on account [TOTO1]
+06:51:08.547 INFO   SUBSCRIBE on account [TOTO2]
+06:51:09.117 INFO   SUBSCRIBE on account [TOTO3]
+06:51:09.311 INFO   SUBSCRIBE on account [TOTO4]
+06:51:09.502 INFO   SUBSCRIBE on account [TOTO5]
+06:51:09.739 INFO   SUBSCRIBE on account [TOTO6]" | sed 's@\(..:..:......\).*\[\(.*\)\].*@\1\|\2@g' | awk -F "|" 'BEGIN {
+    previous_datetime=0
+    new_datetime=0
+    previous_account=""
+} {
+    current_datetime = $1
+    cmd = "date +\"%s\" -d \""current_datetime"\""
+    cmd | getline current_seconds
+    cmd = "date +\"%N\" -d \""current_datetime"\""
+    cmd | getline current_nano
+    
+    new_datetime = current_seconds * 1000 + current_nano / 1000000
+        
+    if (previous_datetime != 0)
+    {       
+        printf("%s %s\n", previous_account, new_datetime - previous_datetime); 
+    }
+    previous_account=$2
+    previous_datetime = new_datetime;
+} END {
+    if (previous_datetime != 0)
+    {
+        printf("%s %s\n", previous_account, new_datetime - previous_datetime); 
+    }
+}
+' | sort -k 2 -rn
+TOTO1 5423
+TOTO2 570
+TOTO5 237
+TOTO3 194
+TOTO4 191
+TOTO6 0
