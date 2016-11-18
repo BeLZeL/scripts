@@ -1,4 +1,21 @@
 #------------------------------------------------------------------------------
+# Transform to list
+echo -ne "AAA\nBBB\nCCC\n" | perl -00pe "s|^|<START>|sg" | perl -00pe "s|\n$|<END>|sg" | perl -pe "s/\n/<DELIM>/g"
+<START>AAA<DELIM>BBB<DELIM>CCC<END>
+
+# Transform to SQL list without quotes
+echo -ne "1\n2\n3\n" | perl -00pe "s|^|(|sg" | perl -00pe "s|\n$|)|sg" | perl -pe "s/\n/,/g"
+(1,2,3)
+
+# Transform to SQL list with quotes
+echo -ne "A\nB\nC\n" | perl -00pe "s|^|('|sg" | perl -00pe "s|\n$|')|sg" | perl -pe "s/\n/','/g"
+('A','B','C')
+
+# Transform to GREP list
+echo -ne "A\nB\nC\n" | perl -00pe 's|^|"|sg' | perl -00pe 's|\n$|"|sg' | perl -pe "s/\n/\\\|/g"
+"A\|B\|C"
+
+#------------------------------------------------------------------------------
 # Time elapsed in milliseconds between two lines (format %H:%M:%S.xxx)
 
 echo "06:51:03.124 INFO   SUBSCRIBE on account [TOTO1]
