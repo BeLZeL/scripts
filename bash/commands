@@ -1,0 +1,40 @@
+#------------------------------------------------------------------
+# Debian Version
+$ lsb_release -a                                                                                                               
+No LSB modules are available.                                                                                                                                
+Distributor ID: Debian                                                                                                                                       
+Description:    Debian GNU/Linux 8.5 (jessie)                                                                                                                
+Release:        8.5                                                                                                                                          
+Codename:       jessie
+
+#------------------------------------------------------------------
+# Copy some files and preserve tree view
+$ find . -name "*.ext" -exec cp --parents {} </PATH/> \;
+
+
+#------------------------------------------------------------------
+# memory of a process with name
+$ ps -p $(pidof BINNAME) -o vsz= -o rsz= | awk '{ printf "%s %s\n", $1/1024, $2/1024 } '
+7468.25 13.168
+
+#------------------------------------------------------------------
+# pgrep
+$ pgrep firefox : will list all processes whose commands match firefox
+$ pgrep -f firefox : will list all processes whose entire command lines match firefox
+$ pgrep -x firefox : will list all processes whose commands exactly match firefox
+
+
+#------------------------------------------------------------------------------
+# C'est pratique, la commande timeout
+timeout 5m netcat {ip} {port} > dump.txt
+Et hop, 5min de flux, pas besoin de surveiller.
+
+
+#------------------------------------------------------------------------------
+# Watch with differences
+watch -d ...
+
+
+#------------------------------------------------------------------------------
+# Access denied
+sudo iptables -I INPUT -s <ip> -j REJECT

@@ -1,0 +1,9 @@
+#---------------------------------------------------------
+# shebang
+#!/usr/bin/env python
+
+#---------------------------------------------------------
+# read stdin
+import sys
+for line in sys.stdin:   
+    print line.rstrip()

@@ -1,0 +1,89 @@
+$ psql -U proorder -h localhost customerlog
+psql (9.4.10)
+Type "help" for help.
+
+===============================================================================
+
+customerlog=> \d
+                   List of relations
+ Schema |          Name          |   Type   |  Owner   
+--------+------------------------+----------+----------
+ public | ab_channel             | table    | postgres
+ public | ab_channel_id_seq      | sequence | postgres
+[...]
+ public | workingorder           | table    | postgres
+ public | workingorder_id_seq    | sequence | postgres
+
+===============================================================================
+
+\d workingorder
+                                           Table "public.workingorder"
+         Column         |            Type             |                         Modifiers                         
+------------------------+-----------------------------+-----------------------------------------------------------
+ id                     | bigint                      | not null default nextval('workingorder_id_seq'::regclass)
+ action                 | ab_action                   | not null
+[...]
+Indexes:
+    "workingorder_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "workingorder_change_channel_id_fkey" FOREIGN KEY (change_channel_id) REFERENCES ab_channel(id)
+
+===============================================================================
+
+customerlog=> \dT
+           List of data types
+ Schema |       Name       | Description 
+--------+------------------+-------------
+ public | ab_action        | 
+
+===============================================================================
+
+customerlog=> select * from pg_enum;
+ enumtypid | enumsortorder |       enumlabel        
+-----------+---------------+------------------------
+     16388 |             1 | UPDATE
+     16388 |             2 | NEW
+     16388 |             3 | DELETE
+     16388 |             4 | RESTATE
+
+===============================================================================
+
+customerlog=> \dT+
+                                               List of data types
+ Schema |       Name       |  Internal name   | Size |        Elements        | Access privileges | Description 
+--------+------------------+------------------+------+------------------------+-------------------+-------------
+ public | ab_action        | ab_action        | 4    | UPDATE                +|                   | 
+        |                  |                  |      | NEW                   +|                   | 
+        |                  |                  |      | DELETE                +|                   | 
+        |                  |                  |      | RESTATE                |                   | 
+
+===============================================================================
+
+CREATE TYPE ab_action AS ENUM (
+    'UPDATE',
+    'NEW',
+    'DELETE',
+    'RESTATE'
+);
+
+===============================================================================
+
+customerlog=> select typname, enumlabel from pg_type as t, pg_enum as e where t.typelem = e.enumtypid order by typname, enumlabel;
+      typname      |       enumlabel        
+-------------------+------------------------
+ _ab_action        | DELETE
+ _ab_action        | NEW
+ _ab_action        | RESTATE
+ _ab_action        | UPDATE
+
+===============================================================================
+
+customerlog=> select enum_range(null::ab_action);
+              enum_range               
+---------------------------------------
+ {DELETE,NEW,RESTATE,UPDATE}
+(1 row)
+
+===============================================================================
+
+http://stackoverflow.com/questions/9535937/is-there-a-way-to-show-a-user-defined-postgresql-enumerated-type-definition#9537078

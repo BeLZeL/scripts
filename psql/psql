@@ -1,0 +1,144 @@
+===============================================================================
+
+\watch [SEC] : Execute query every SEC seconds
+
+===============================================================================
+
+-- usefull client commands : https://www.postgresql.org/docs/9.2/static/app-psql.html
+
+===============================================================================
+
+-- usefull to parse response
+psql -h <host> -U <user> <db> -P footer=off -qAc "select * from <table>;"
+
+===============================================================================
+
+-- Show result on one line
+select concat('(''', string_agg(id, ''','''), ''')' ) from table where condition;
+                      concat                       
+---------------------------------------------------
+ ('123456','456789')
+(1 row)
+
+===============================================================================
+
+-- Taille BDD
+
+SELECT
+    relname as "Table",
+    pg_size_pretty(pg_total_relation_size(relid)) As "Size",
+    pg_size_pretty(pg_total_relation_size(relid) - pg_relation_size(relid)) as "External Size"
+    FROM pg_catalog.pg_statio_user_tables ORDER BY pg_total_relation_size(relid) DESC;
+
+===============================================================================
+
+-- Variables
+-- http://stackoverflow.com/questions/36959/how-do-you-use-script-variables-in-postgresql
+
+\set myvariable value
+SELECT * FROM :myvariable.table1;
+SELECT * FROM table1 WHERE :myvariable IS NULL;
+
+\set myvariable 'value'
+\set quoted_myvariable '\'' :myvariable '\''
+INSERT INTO :myvariable.table1 SELECT * FROM table2 WHERE column1 = :quoted_myvariable;
+
+===============================================================================
+
+-- Taille des index et des tables avec le ratio
+-- Utile pour voir si les index sont fragmentés et ont besoin d'un REINDEX.
+
+SELECT nspname,relname,
+  round(100 * pg_relation_size(indexrelid) / pg_relation_size(indrelid)) / 100 AS index_ratio,
+  pg_size_pretty(pg_relation_size(indexrelid)) AS index_size,
+  pg_size_pretty(pg_relation_size(indrelid)) AS table_size
+FROM pg_index I
+LEFT JOIN pg_class C ON (C.oid = I.indexrelid)
+LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace)
+WHERE
+  nspname NOT IN ('pg_catalog','information_schema','pg_toast') AND c.relkind='i' AND pg_relation_size(indrelid) > 0;
+
+===============================================================================
+
+-- Export to a file
+
+\COPY ( select * from table ) TO '/tmp/file' (DELIMITER '|');
+
+
+===============================================================================
+
+-- Affichage sympa
+
+\set pprint   '\\pset border 2; \\pset linestyle unicode'
+\set nopprint '\\pset border 1; \\pset linestyle ascii'
+
+> select order_time, logtime, id, status from table;
+????????????????????????????????????????????????????????????????????????????????????????????????????
+?         order_time         ?          logtime           ?               id         ?   status    ?
+????????????????????????????????????????????????????????????????????????????????????????????????????
+? 2016-12-28 11:10:35.719    ? 2016-12-28 12:10:35.786562 ?       201612280735000000 ? STATUS1     ?
+? 2016-12-28 11:10:35.679729 ? 2016-12-28 12:10:35.748137 ?       201612280735000000 ? STATUS1     ?
+? 2016-12-28 07:35:00.576    ? 2016-12-28 08:35:00.696381 ?       201612280735000000 ? STATUS1     ?
+? 2016-12-28 07:35:00.484524 ? 2016-12-28 08:35:00.599463 ?       201612280735000000 ? STATUS1     ?
+? 2016-12-28 07:35:00        ? 2016-12-28 11:21:32.154439 ?       201612280735000000 ? STATUS1     ?
+????????????????????????????????????????????????????????????????????????????????????????????????????
+
+===============================================================================
+
+Les joins
+
+-- https://www.codeproject.com/KB/database/Visual_SQL_Joins/Visual_SQL_JOINS_orig.jpg
+
+<source lang=sql>
+# select * from unnest(ARRAY[1, 2, 3, 4]) u inner join unnest(ARRAY[4, 5, 6, 7]) u2 on u=u2;
+ u | u2
+---+----
+ 4 |  4
+(1 row)
+</source>
+
+<source lang=sql>
+# select * from unnest(ARRAY[1, 2, 3, 4]) u left outer join unnest(ARRAY[4, 5, 6, 7]) u2 on u=u2;
+ u | u2
+---+----
+ 1 |
+ 2 |
+ 3 |
+ 4 |  4
+(4 rows)
+</source>
+
+<source lang=sql>
+# select * from unnest(ARRAY[1, 2, 3, 4]) u right outer join unnest(ARRAY[4, 5, 6, 7]) u2 on u=u2;
+ u | u2
+---+----
+ 4 |  4
+   |  5
+   |  6
+   |  7
+(4 rows)
+</source>
+
+<source lang=sql>
+# select * from unnest(ARRAY[1, 2, 3, 4]) u full outer join unnest(ARRAY[4, 5, 6, 7]) u2 on u=u2;
+ u | u2
+---+----
+ 1 |
+ 2 |
+ 3 |
+ 4 |  4
+   |  5
+   |  6
+   |  7
+(7 rows)
+</source>
+
+<source lang=sql>
+# select * from unnest(ARRAY[1, 2, 3, 4]) u right outer join unnest(ARRAY[4, 5, 6, 7]) u2 on u=u2 where u is null;
+ u | u2
+---+----
+   |  5
+   |  6
+   |  7
+(3 rows)
+</source>

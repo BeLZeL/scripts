@@ -1,0 +1,12 @@
+# Slow
+
+for logfile in $(ls log*.bz2)
+do
+    fic=$(tempfile)
+    bzgrep "PATTERN" ${logfile} > ${fic}
+    while read line
+    do
+        echo "$line" | xmlstarlet sel -T -t -m /NODE -i "contains(child,'value')" -v "child2" -n
+    done < ${fic} 
+    rm -f ${fic}
+done

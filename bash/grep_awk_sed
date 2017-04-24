@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-# Transform to list
+# Transform lines to list
 echo -ne "AAA\nBBB\nCCC\n" | perl -00pe "s|^|<START>|sg" | perl -00pe "s|\n$|<END>|sg" | perl -pe "s/\n/<DELIM>/g"
 <START>AAA<DELIM>BBB<DELIM>CCC<END>
 
@@ -15,6 +15,14 @@ echo -ne "A\nB\nC\n" | perl -00pe "s|^|('|sg" | perl -00pe "s|\n$|')|sg" | perl 
 echo -ne "A\nB\nC\n" | perl -00pe 's|^|"|sg' | perl -00pe 's|\n$|"|sg' | perl -pe "s/\n/\\\|/g"
 "A\|B\|C"
 
+
+#------------------------------------------------------------------------------
+# Load files matching "AAA" without matching "BBB"
+$ kate -n $(find . -name "*.ext" | xargs grep -L "BBB" | xargs grep -l "AAA")
+$ kate -n $(find . -name "*.ext" | xargs grep -l "AAA" | xargs grep -L "BBB")
+
+
+
 #------------------------------------------------------------------------------
 # Time elapsed in milliseconds between two lines (format %H:%M:%S.xxx)
 
@@ -29,7 +37,7 @@ echo "06:51:03.124 INFO   SUBSCRIBE on account [TOTO1]
     previous_account=""
 } {
     current_datetime = $1
-    cmd = "date +\"%s\" -d \""current_datetime"\""
+        cmd = "date +\"%s\" -d \""current_datetime"\""
     cmd | getline current_seconds
     cmd = "date +\"%N\" -d \""current_datetime"\""
     cmd | getline current_nano

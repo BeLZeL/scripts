@@ -79,3 +79,17 @@ $ git difftool --color=always --tool=meld 1dd764e c242e1e -- products/toto.c
 
 Viewing (1/1): 'products/toto.c'
 Launch 'meld' [Y/n]: 
+
+#-------------------------------------------------------- 
+# Move a patch from a repo to another (TODO TEST)
+$ git log --pretty=email --patch-with-stat --reverse --full-index --binary -- tonjolifichier > /tmp/patch
+$ cd lenouveaurepo
+$ git am < /tmp/patch
+
+#-------------------------------------------------------- 
+# Checkout remote branch
+git checkout -b <NAME> origin/<NAME>
+
+#-------------------------------------------------------- 
+# Check diff added but not committed
+git diff --cached --stat
