@@ -15,12 +15,27 @@ echo -ne "A\nB\nC\n" | perl -00pe "s|^|('|sg" | perl -00pe "s|\n$|')|sg" | perl 
 echo -ne "A\nB\nC\n" | perl -00pe 's|^|"|sg' | perl -00pe 's|\n$|"|sg' | perl -pe "s/\n/\\\|/g"
 "A\|B\|C"
 
+# Transform to spaced list
+echo -ne "A\nB\nC\n" | tr '\n' ' '
+A B C 
+
 
 #------------------------------------------------------------------------------
 # Load files matching "AAA" without matching "BBB"
 $ kate -n $(find . -name "*.ext" | xargs grep -L "BBB" | xargs grep -l "AAA")
 $ kate -n $(find . -name "*.ext" | xargs grep -l "AAA" | xargs grep -L "BBB")
 
+
+#------------------------------------------------------------------------------
+# Grep datetime and extract some lines (with id)
+# Re-Grep only these lines
+$ egrep "^08:00:0" log | grep "Notification" > output
+$ cat output | sed "s/.*'\(.*\)'/\1/g" | sort | uniq -c | egrep "\s*1 " | sed 's/.* \([^ ]*\)/\1/g' | head
+id1
+id2
+id3
+$ cat output | sed "s/.*'\(.*\)'/\1/g" | sort | uniq -c | egrep "\s*1 " | sed 's/.* \([^ ]*\)/\1/g' | perl -00pe 's|^|"|sg' | perl -00pe 's|\n$|"|sg' | perl -pe "s/\n/\\\|/g" > mygrep
+$ grep -f "mygrep" output | less
 
 
 #------------------------------------------------------------------------------

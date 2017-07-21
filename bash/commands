@@ -38,3 +38,50 @@ watch -d ...
 #------------------------------------------------------------------------------
 # Access denied
 sudo iptables -I INPUT -s <ip> -j REJECT
+
+
+#------------------------------------------------------------------------------
+# Date with differences
+val1=$(date +%S.%N -d "00:00:12.400")
+val2=$(date +%S.%N -d "00:00:06.700")
+echo "$val2 / $val1" | bc -l
+.54032258064516129032
+echo "( 1 - $val2 / $val1 ) * 100 " | bc -l | cut -d'.' -f1
+45
+
+
+#------------------------------------------------------------------------------
+# Case insensitive search with less
+-> use the command "-i" inside less
+
+
+#------------------------------------------------------------------------------
+# Tunnel
+home@linux $ ssh -4 -N -f -L 2345:localhost:5432 user@remote
+home@linux $ psql -U user -h localhost bdd_name
+
+#------------------------------------------------------------------------------
+# Reverse Tunnel
+home@linux $ ssh -TN -R8086:localhost:8086 user@remote
+user@remote $ curl -i -XPOST 'http://localhost:8086/write?db=mydb' --data-binary 'temperature,machine=unit42 internal=42'
+
+
+#------------------------------------------------------------------------------
+# Rename file's extension or create dir/subdirs easily
+mv /big/path/truc.{txt,csv}
+mkdir -p {projectA,projectB}/{src,lib,test}
+
+#------------------------------------------------------------------------------
+# Rename multiple files
+touch toto.1
+touch toto.2
+touch toto.3
+rename 's/^toto./prefix.toto./g' toto.*
+ll
+prefix.toto.1
+prefix.toto.2
+prefix.toto.3
+
+#------------------------------------------------------------------------------
+# Delete empty files 
+find . -name "*.log" -size 0 | xargs rm

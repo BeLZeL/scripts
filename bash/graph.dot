@@ -1,0 +1,150 @@
+/*
+dot graph.dot -Tpng -o out.png ; gwenview out.png 
+
+http://www.graphviz.org/Gallery.php
+http://www.graphviz.org/doc/info/attrs.html
+*/
+
+digraph G {
+
+    subgraph cluster_Usine {
+        label = "Usine";
+        style=filled;
+        color=lightgrey;
+        node [style=filled,color=white];
+
+        Métal;
+        Bois;
+        Plastique;
+        Graine;
+        Pierre;
+        Fiole;
+        Textile;
+        Sucre;
+        Verre;
+        Nourriture;
+    }
+
+    subgraph cluster_Matériaux {
+        label = "Matériaux";
+        style=filled;
+        color=lightgrey;
+        node [color=red];
+
+        Clou    -> Métal  [ label="2",fontcolor=red,color=red ];
+        Planche -> Bois   [ label="2",fontcolor=red,color=red ];
+        Brique  -> Pierre [ label="2",fontcolor=red,color=red ];
+
+        Ciment -> Pierre   [ label="2",fontcolor=blue,color=blue ];
+        Ciment -> Fiole    [ label="1",fontcolor=blue,color=blue ];
+
+        Colle -> Plastique[ label="1",fontcolor=blue,color=blue ];
+        Colle -> Fiole    [ label="2",fontcolor=blue,color=blue ];
+
+        Peinture -> Métal  [ label="2",fontcolor=blue,color=blue ];
+        Peinture -> Pierre [ label="1",fontcolor=blue,color=blue ];
+        Peinture -> Fiole  [ label="2",fontcolor=blue,color=blue ];
+    }
+
+    subgraph cluster_Quincallerie {
+        label = "Quincallerie";
+        style=filled;
+        color=lightgrey;
+        node [color=blue];
+
+        Marteau -> Métal [ label="1",fontcolor=blue,color=blue ];
+        Marteau -> Bois  [ label="1",fontcolor=blue,color=blue ];
+
+        Mètre -> Métal     [ label="1",fontcolor=blue,color=blue ];
+        Mètre -> Plastique [ label="1",fontcolor=blue,color=blue ];
+
+        Pelle -> Métal     [ label="1",fontcolor=blue,color=blue ];
+        Pelle -> Bois      [ label="1",fontcolor=blue,color=blue ];
+        Pelle -> Plastique [ label="1",fontcolor=blue,color=blue ];
+
+        Ustencile -> Métal     [ label="2",fontcolor=purple,color=purple ];
+        Ustencile -> Bois      [ label="2",fontcolor=purple,color=purple ];
+        Ustencile -> Plastique [ label="2",fontcolor=purple,color=purple ];
+
+        Echelle -> Planche [ label="2",fontcolor=purple,color=purple ];
+        Echelle -> Métal   [ label="2",fontcolor=purple,color=purple ];
+    }
+
+    subgraph cluster_Meubles {
+        label = "Meubles";
+        style=filled;
+        color=lightgrey;
+        node [color=purple];
+
+        Chaise -> Bois     [ label="2",fontcolor=purple,color=purple ];
+        Chaise -> Clou     [ label="1",fontcolor=purple,color=purple ];
+        Chaise -> Marteau  [ label="1",fontcolor=purple,color=purple ];
+
+        Table -> Planche  [ label="1",fontcolor=purple,color=purple ];
+        Table -> Clou     [ label="2",fontcolor=purple,color=purple ];
+        Table -> Marteau  [ label="1",fontcolor=purple,color=purple ];
+    }
+
+    subgraph cluster_Jardin {
+        label = "Jardin";
+        style=filled;
+        color=lightgrey;
+        node [color=purple];
+
+        Herbe -> Graine [ label="1",fontcolor=purple,color=purple ];
+        Herbe -> Pelle  [ label="1",fontcolor=purple,color=purple ];
+
+        Pousse -> Graine [ label="2",fontcolor=purple,color=purple ];
+        Pousse -> Pelle  [ label="1",fontcolor=purple,color=purple ];
+
+        Mobilier -> Planche   [ label="2",fontcolor=purple,color=purple ];
+        Mobilier -> Plastique [ label="2",fontcolor=purple,color=purple ];
+        Mobilier -> Textile   [ label="2",fontcolor=purple,color=purple ];
+    }
+
+    subgraph cluster_Marché_Primeur {
+        label = "Marché Primeur";
+        style=filled;
+        color=lightgrey;
+        node [color=red];
+
+        Légume  -> Graine [ label="2",fontcolor=red,color=red ];
+
+        Farine  -> Graine  [ label="2",fontcolor=red,color=red ];
+        Farine  -> Textile [ label="2",fontcolor=red,color=red ];
+
+        Pastèque -> Graine  [ label="2",fontcolor=red,color=red ];
+        Pastèque -> Pousse  [ label="1",fontcolor=red,color=red ];
+    }
+
+    subgraph cluster_Mode {
+        label = "Mode";
+        style=filled;
+        color=lightgrey;
+        node [color=purple];
+
+        Casquette -> Textile [ label="2",fontcolor=purple,color=purple ];
+        Casquette -> Mètre   [ label="1",fontcolor=purple,color=purple ];
+
+        Basket -> Textile   [ label="2",fontcolor=purple,color=purple ];
+        Basket -> Plastique [ label="1",fontcolor=purple,color=purple ];
+        Basket -> Colle     [ label="1",fontcolor=purple,color=purple ];
+
+        Montre -> Plastique [ label="2",fontcolor=purple,color=purple ];
+        Montre -> Verre     [ label="1",fontcolor=purple,color=purple ];
+        Montre -> Fiole     [ label="1",fontcolor=purple,color=purple ];
+    }
+
+    subgraph cluster_Donut {
+        label = "Donut";
+        style=filled;
+        color=lightgrey;
+        node [color=purple];
+
+        Donut -> Sucre  [ label="1",fontcolor=purple,color=purple ];
+        Donut -> Farine [ label="1",fontcolor=purple,color=purple ];
+
+        Smoothie -> Pastèque [ label="1",fontcolor=purple,color=purple ];
+        Smoothie -> Légume   [ label="1",fontcolor=purple,color=purple ];
+    }
+}
