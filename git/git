@@ -13,6 +13,11 @@ git push
 git diff --stat 152cb7b 53886f6
 
 #--------------------------------------------------------
+# Diff for a specific commit
+git diff --stat --color dc14a600d17e7ddc579085f6f1a26a131cffd58d^ dc14a600d17e7ddc579085f6f1a26a131cffd58d | less -R 
+git diff --color dc14a600d17e7ddc579085f6f1a26a131cffd58d^ dc14a600d17e7ddc579085f6f1a26a131cffd58d | less -R
+
+#--------------------------------------------------------
 # Debug with git : http://www.git-attitude.fr/2014/12/09/git-bisect/
 $ git bisect start
 $ git bisect bad <HEAD or commit>
@@ -43,6 +48,24 @@ commit 53886f6367ea501007f660facde31f6d79c8c1ed
 <message>
 
 #--------------------------------------------------------
+# Hotfix
+git checkout <hash>
+git checkout -b <branch_name>
+git log -1 -p <hash> # show diff
+git revert <hash> # apply patch
+[...commit...]
+git push origin <branch_name> # push branch
+
+#--------------------------------------------------------
+# Hotfix (bis) with a pending stash
+git stash save "TMP"
+git checkout <hash>
+git checkout -b <branch_name>
+git stash pop
+[...commit...]
+git push origin <branch_name> # push branch
+
+#--------------------------------------------------------
 # Re-work on a local commit
 git reset HEAD~ --soft
 
@@ -58,6 +81,10 @@ git reset HEAD --hard
 #--------------------------------------------------------
 # Add a new file to the previous local commit, without launching an editor :
 git commit --amend --no-edit
+
+#-------------------------------------------------------- 
+# Modify last commit (not pushed yet)
+git commit --amend -m "New Message"
 
 #--------------------------------------------------------
 # Git diff with tool
@@ -82,9 +109,15 @@ Launch 'meld' [Y/n]:
 
 #-------------------------------------------------------- 
 # Move a patch from a repo to another (TODO TEST)
-$ git log --pretty=email --patch-with-stat --reverse --full-index --binary -- tonjolifichier > /tmp/patch
+$ git log --pretty=email --patch-with-stat --reverse --full-index --binary -- tonjolifichiersrc > /tmp/patch
 $ cd lenouveaurepo
 $ git am < /tmp/patch
+
+#-------------------------------------------------------- 
+# Move current changes from a repo to another
+# https://stackoverflow.com/questions/5159185/create-a-git-patch-from-the-changes-in-the-current-working-directory
+repos1 $ git diff > /tmp/patch
+repos2 $ git apply /tmp/patch
 
 #-------------------------------------------------------- 
 # Checkout remote branch
