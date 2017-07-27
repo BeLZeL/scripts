@@ -52,10 +52,14 @@ echo "06:51:03.124 INFO   SUBSCRIBE on account [TOTO1]
     previous_account=""
 } {
     current_datetime = $1
-        cmd = "date +\"%s\" -d \""current_datetime"\""
+
+    cmd = "date +\"%s\" -d \""current_datetime"\""
     cmd | getline current_seconds
+    close(cmd)
+
     cmd = "date +\"%N\" -d \""current_datetime"\""
     cmd | getline current_nano
+    close(cmd)
     
     new_datetime = current_seconds * 1000 + current_nano / 1000000
         
