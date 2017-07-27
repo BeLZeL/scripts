@@ -1,5 +1,61 @@
-# Slow
+#================#
+# XMLStarlet SEL #
+#================#
 
+###############################################################################
+# Extract only this path (with all childs) in a single string
+res=$(cat file.xml | xmlstarlet sel -t \
+ -c '/big/path/to/have')
+echo "<ROOT>${res}</ROOT>" | xmlstarlet fo -s 4
+
+###############################################################################
+# Extract path and attributes, order by attr1
+cat file.xml \
+| xmlstarlet sel -t \
+ -m '/big/path/to/have' -s A:T:U @attr1 \
+ -v 'concat(@attr1,"|",@attr2,"|",@attr3)' \
+ -n
+
+###############################################################################
+# Search each node having attr1 and extract it line by line
+xmlstarlet sel -t \
+    -m '/big/path' -i "node[@attr1]" -c "*" -n file.xml
+
+###############################################################################
+# Loop on each interesting line, using previous example
+FLEX_LINE_BY_LINE=$( ... see upside ... )
+echo "${FLEX_LINE_BY_LINE}" | \
+while IFS= read -r line
+do
+    echo "------------"
+    echo "${line}"
+    echo "${line}" | xmlstarlet sel -t \
+        -m '/path' -s A:T:U @attr1 \
+        -v 'concat(@attr1,"|",@attr2,"|",@attr3)' \
+        -n \
+    | sort -n
+done
+
+###############################################################################
+# Get specific node
+#<OrgName_mod>
+#    <OrgMod>
+#        <OrgMod_subtype value="strain">2</OrgMod_subtype>
+#        <OrgMod_subname>Mvs/Jiroft.IRN/14.15/1[B3]</OrgMod_subname>
+#    </OrgMod>
+#    <OrgMod>
+#        <OrgMod_subtype value="nat-host">21</OrgMod_subtype>
+#        <OrgMod_subname>Homo sapiens</OrgMod_subname>
+#    </OrgMod>
+#</OrgName_mod>
+
+cat file.xml | xmlstarlet sel -t -m "/OrgName_mod/OrgMod[OrgMod_subtype/@value='nat-host']" -v 'OrgMod_subname/text()' -n                                                                                          
+cat file.xml | xmlstarlet sel -t -m "//OrgMod[OrgMod_subtype/@value='nat-host']" -v 'OrgMod_subname/text()' -n
+cat file.xml | xmlstarlet sel -t -m "//OrgMod[2]" -v 'OrgMod_subname/text()' -n
+Homo sapiens  
+
+###############################################################################
+# Slow
 for logfile in $(ls log*.bz2)
 do
     fic=$(tempfile)
@@ -10,3 +66,39 @@ do
     done < ${fic} 
     rm -f ${fic}
 done
+
+
+
+#=====================#
+# XPath Documentation #
+#=====================#
+
+Documentations :
+https://www.w3.org/TR/xpath/
+http://xmlstar.sourceforge.net/doc/UG/xmlstarlet-ug.html
+http://xmlstar.sourceforge.net/doc/UG/ch04s01.html
+http://xmlstar.sourceforge.net/doc/xmlstarlet.txt
+https://openclassrooms.com/courses/structurez-vos-donnees-avec-xml/xpath-localiser-les-donnees
+
+Plusieurs dizaines d'exemples :
+http://zvon.org/xxl/XPathTutorial/Output_fre/example1.html
+https://xml.developpez.com/faq/?page=3
+
+Axes :
+http://www.w3.org/TR/xpath/#axes
+
+http://erwy.developpez.com/tutoriels/xml/xpath-liste-fonctions/
+* Position / Last
+* Count / Sum / Floor
+* Name / Local-name
+* Namespace_uri
+* Concat / Starts-with / Contains / Substring-before / Substring-after / Substring / String-length / Normalize-space / Translate
+
+http://xmlstar.sourceforge.net/doc/UG/ch04s01.html
+-v to <xsl:value-of>
+-c to <xsl:copy-of>
+-e to <xsl:element>
+-a to <xsl:attribute>
+-s to <xsl:sort>
+-m to <xsl:for-each>
+-i to <xsl:if>
