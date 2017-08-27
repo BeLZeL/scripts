@@ -1,0 +1,30 @@
+CREATE TABLE salaries (
+   id serial unique PRIMARY KEY,
+   Town varchar(30)
+);
+
+CREATE TABLE salaries (
+   uniqid              integer         NOT NULL PRIMARY KEY DEFAULT nextval('reqorders_seq'::text),
+   Town varchar(30)
+);
+
+db=# insert into salaries (Town) VALUES ('Ville');
+
+db=# select * from salaries;
+ uniqid | town  
+--------+-------
+      5 | Ville
+(1 ligne)
+
+$ cat /tmp/fic2
+City
+
+db=# COPY salaries (Town) FROM '/tmp/fic2' WITH (FORMAT CSV);
+COPY 1
+
+db=# select * from salaries;
+ uniqid | town  
+--------+-------
+      5 | Ville
+      6 | City
+(2 lignes)

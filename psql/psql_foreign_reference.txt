@@ -1,0 +1,93 @@
+https://dba.stackexchange.com/questions/46410/how-do-i-insert-a-row-which-contains-a-foreign-key
+
+$ psql -U user -h localhost customerlog
+psql (9.4.10)
+Type "help" for help.
+
+===============================================================================
+
+CREATE TABLE ab_locale (
+    id serial NOT NULL,
+    locale character varying(64) NOT NULL
+);
+
+CREATE TABLE workingorder (
+    id bigserial NOT NULL,
+    locale_id integer NOT NULL
+);
+
+ALTER TABLE ONLY workingorder
+    ADD CONSTRAINT workingorder_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY ab_locale
+    ADD CONSTRAINT ab_locale_locale_key UNIQUE (locale);
+
+ALTER TABLE ONLY ab_locale
+    ADD CONSTRAINT ab_locale_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY workingorder
+    ADD CONSTRAINT workingorder_locale_id_fkey FOREIGN KEY (locale_id) REFERENCES ab_locale(id);
+
+===============================================================================
+
+=> \d
+                   List of relations
+ Schema |          Name          |   Type   |  Owner   
+--------+------------------------+----------+----------
+ public | ab_locale              | table    | postgres                                                                                                                                                         
+ public | ab_locale_id_seq       | sequence | postgres
+[...]
+ public | workingorder           | table    | postgres
+ public | workingorder_id_seq    | sequence | postgres
+
+===============================================================================
+
+\d workingorder
+
+                                           Table "public.workingorder"
+         Column         |            Type             |                         Modifiers                         
+------------------------+-----------------------------+-----------------------------------------------------------
+ id                     | bigint                      | not null default nextval('workingorder_id_seq'::regclass)
+ [...]
+ locale_id              | integer                     | not null
+Indexes:
+    "workingorder_pkey" PRIMARY KEY, btree (id)
+
+Foreign-key constraints:
+    "workingorder_locale_id_fkey" FOREIGN KEY (locale_id) REFERENCES ab_locale(id)
+
+===============================================================================
+
+=> select * from ab_locale;
+ id | locale 
+----+--------
+  1 | it_IT
+  2 | en_GB
+  3 | fr_FR
+  4 | es_ES
+  5 | de_DE
+  6 | sv_SE
+  7 | nl_NL
+  8 | zh_TW
+  9 | ja_JP
+ 10 | zh_CN
+ 11 | en_ZA
+ 12 | fr_LU
+ 13 | no_NO
+ 14 | pt_PT
+ 15 | ar_AE
+
+=> select * from ab_locale_id_seq ;
+  sequence_name   | last_value | start_value | increment_by |      max_value      | min_value | cache_value | log_cnt | is_cycled | is_called 
+------------------+------------+-------------+--------------+---------------------+-----------+-------------+---------+-----------+-----------
+ ab_locale_id_seq |         15 |           1 |            1 | 9223372036854775807 |         1 |           1 |      32 | f         | t
+
+===============================================================================
+
+=> select id, locale_id from workingorder limit 1;
+   id    | locale_id 
+---------+-----------
+ 3361614 |        11
+
+===============================================================================
+

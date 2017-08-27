@@ -1,4 +1,11 @@
-$ psql -U proorder -h localhost customerlog
+https://www.postgresql.org/docs/9.4/static/functions-enum.html
+https://www.postgresql.org/docs/9.4/static/sql-altertype.html
+https://www.postgresql.org/docs/9.4/static/datatype-enum.html
+http://stackoverflow.com/questions/9535937/is-there-a-way-to-show-a-user-defined-postgresql-enumerated-type-definition#9537078
+
+===============================================================================
+
+$ psql -U user -h localhost customerlog
 psql (9.4.10)
 Type "help" for help.
 
@@ -82,8 +89,11 @@ customerlog=> select enum_range(null::ab_action);
               enum_range               
 ---------------------------------------
  {DELETE,NEW,RESTATE,UPDATE}
-(1 row)
 
 ===============================================================================
 
-http://stackoverflow.com/questions/9535937/is-there-a-way-to-show-a-user-defined-postgresql-enumerated-type-definition#9537078
+customerlog=> ALTER TYPE ab_action ADD VALUE 'OS Core';
+customerlog=> select enum_range(null::ab_action);
+              enum_range               
+---------------------------------------
+ {DELETE,NEW,RESTATE,UPDATE,OS Core}

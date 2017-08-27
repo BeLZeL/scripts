@@ -1,0 +1,9 @@
+https://www.postgresql.org/docs/9.1/static/arrays.html
+https://www.postgresql.org/docs/9.1/static/functions-array.html
+
+SELECT array_to_string('{1,2}'::bigint[], ' and ');
+ 1 and 2
+
+SELECT unnest('{1,2}'::bigint[]);
+      1
+      2

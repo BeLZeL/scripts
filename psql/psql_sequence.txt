@@ -1,0 +1,16 @@
+select currval('reqorders_seq');
+... fonctionne pas session, no return ...
+
+select max(uniqid) from order_events;
+135159820
+
+select setval('reqorders_seq', 135359820);
+ 135359820
+
+select nextval(('reqorders_seq'::text)::regclass);
+ 135355586
+
+select currval('reqorders_seq');
+ 135355586
+
+
