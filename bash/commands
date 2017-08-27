@@ -1,4 +1,19 @@
 #------------------------------------------------------------------
+# Compress and split
+$ tar -cvJf test.txz *
+$ gpg -c test.txz
+$ cat test.txz.gpg | split -b 500k --numeric-suffixes --additional-suffix .txz.gpg - split_
+# Compress and split (one line)
+$ FILE=test ; tar -cvJf ${FILE}.txz * ; gpg -c ${FILE}.txz ; cat ${FILE}.txz.gpg | split -b 250k --numeric-suffixes --additional-suffix .txz.gpg - split_ ; rm -f ${FILE}.txz ${FILE}.txz.gpg
+
+# Unsplit and Decompress
+$ cat split_* > test.txz.gpg
+$ gpg -d test.txz.gpg > test.txz
+$ tar -xvJf test.txz
+
++ script de compilation make et cmake
+
+#------------------------------------------------------------------
 # Debian Version
 $ lsb_release -a                                                                                                               
 No LSB modules are available.                                                                                                                                

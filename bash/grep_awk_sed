@@ -39,6 +39,11 @@ $ grep -f "mygrep" output | less
 
 
 #------------------------------------------------------------------------------
+# Sed Replace only matched lines
+sed -i '/pattern/s/string_scr/string_dest/g' file
+
+
+#------------------------------------------------------------------------------
 # Time elapsed in milliseconds between two lines (format %H:%M:%S.xxx)
 
 echo "06:51:03.124 INFO   SUBSCRIBE on account [TOTO1]
