@@ -1,0 +1,10 @@
+# http://valgrind.org/docs/manual/manual-core-adv.html#manual-core-adv.gdbserver
+# http://tromey.com/blog/?p=731
+# heeris.id.au/2016/valgrind-gdb/
+
+
+$ ~/tmpfs/bin$ valgrind --vgdb-error=0 ./bakasable
+
+$ ~/tmpfs/bin$ gdb ./bakasable
+-> target remote | vgdb --pid=...
+-> c
