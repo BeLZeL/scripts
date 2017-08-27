@@ -1,0 +1,6 @@
+$ git clone gogs@gogs.com:main/repo.git
+Clonage dans 'repo'...
+Permission denied (publickey).
+
+Go to Gogs / User Profile / Your settings / SSH Keys / Add key
+$ cat ~/.ssh/id_rsa.pub

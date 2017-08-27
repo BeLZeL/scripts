@@ -1,4 +1,14 @@
 #--------------------------------------------------------
+# Rebase a branch
+git checkout <branch>
+git rebase master
+git checkout master
+# If conflicts
+# Edit file
+git add <file>
+git rebase --continue
+
+#--------------------------------------------------------
 # Merge a branch
 git checkout master
 git pull
@@ -126,3 +136,23 @@ git checkout -b <NAME> origin/<NAME>
 #-------------------------------------------------------- 
 # Check diff added but not committed
 git diff --cached --stat
+
+#-------------------------------------------------------- 
+# Cancel a git add
+git reset
+git reset <file>
+
+#-------------------------------------------------------- 
+# Use Tag (https://git-scm.com/book/en/v2/Git-Basics-Tagging)
+git tag # List
+git tag -a v1.4 -m 'my version 1.4' <hash> # Create
+git show v1.4 # Show commit
+git push --tag[s] # Push tag
+git describe [--always] [--tags] # Show current tag
+
+#-------------------------------------------------------- 
+# Remote
+git remote -v
+git config --get remote.origin.url
+git remote add origin <url>
+git remote set-url origin <url>
