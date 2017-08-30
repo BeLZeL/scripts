@@ -1,0 +1,6 @@
+# ansible-playbook -i "localhost," -c local localhost_echo.yml
+# ansible all -i "localhost," -c local -m shell -a 'echo hello world > /tmp/test'
+---
+- hosts: all
+  tasks:
+    - shell: echo "hello world\n" > /tmp/test

@@ -1,0 +1,38 @@
+# To run this, name this file hello_world.yml and run the following in the same directory
+# ansible-playbook localhost_path_file.yml -t create
+# ansible-playbook localhost_path_file.yml -t clean
+# http://docs.ansible.com/ansible/latest/file_module.html
+#------------------------------------------------------------------------------
+
+- hosts:
+    - localhost
+
+  tasks:
+ 
+  - name: Create a directory
+    tags: create
+    file:
+        path=hello_world
+        state=directory
+
+  - name: Create a file
+    tags: create
+    file:
+        path=/tmp/hello_world.conf
+        state=touch
+
+#------------------------------------------------------------------------------
+
+  - name: Remove directory
+    tags: clean
+    file:
+        path=hello_world
+        state=absent
+
+  - name: Remove file
+    tags: clean
+    file:
+        path=/tmp/hello_world.conf
+        state=absent
+
+#------------------------------------------------------------------------------

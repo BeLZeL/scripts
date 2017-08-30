@@ -1,0 +1,10 @@
+# ansible-playbook remote_date.yml -i hosts.yml
+
+- name: Write now.txt on host
+  hosts: myvirtualhosts
+  # hosts: server1,server2 # and use -i 'server2,'
+  user: user # or -u user
+
+  tasks:
+    - name: Hello server
+      shell: date >> now.txt
