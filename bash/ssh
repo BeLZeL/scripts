@@ -1,0 +1,23 @@
+#----------------------------------------------------------
+# Create a persistant connection
+$ time ssh -o ControlMaster=auto -o ControlPersist=yes -o ControlPath=/tmp/ssh-%h-%p-%r <user>@<host> ls
+real    0m0.459s
+user    0m0.020s
+sys     0m0.008s
+
+$ time ssh -o ControlMaster=auto -o ControlPersist=yes -o ControlPath=/tmp/ssh-%h-%p-%r <user>@<host> ls
+real    0m0.039s
+user    0m0.004s
+sys     0m0.000s
+
+$ ls -lah /tmp/ssh-tvr*
+srw------- 1 toto toto 0 Aug 29 08:47 /tmp/ssh-<host>-22-<user>
+
+#----------------------------------------------------------
+# Automatic with ssh config
+$ head ~/.ssh/config
+USER=julienro
+
+ControlMaster auto
+ControlPersist yes
+ControlPath /tmp/ssh-%h-%p-%r

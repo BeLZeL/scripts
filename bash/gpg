@@ -1,0 +1,111 @@
+# Documentation
+https://www.gnupg.org/gph/en/manual/x56.html
+https://docs.abuledu.org/abuledu/mainteneur/creer_une_cle_gpg
+http://www.dg77.net/tekno/securite/gnupgcde.htm
+
+$ mkdir ~/.gnupg ; cp PGPpubkey.asc ~/.gnupg ; cd ~/.gnupg
+
+
+$ gpg --list-keys
+gpg: keyring `/home/user/.gnupg/pubring.gpg' created
+gpg: /home/user/.gnupg/trustdb.gpg: trustdb created
+
+
+$ gpg --import PGPpubkey.asc
+gpg: keyring `/home/user/.gnupg/secring.gpg' created
+gpg: key B0F391F2: public key "Nom (Description) <nom@mail.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1  (RSA: 1)
+
+
+$ gpg --list-keys
+/home/user/.gnupg/pubring.gpg
+---------------------------------
+pub   2048R/B0F391F2 2017-08-28
+uid                  Nom (Description) <nom@mail.com>
+sub   2048R/9CF26247 2017-08-28
+
+===============================================================================
+
+$ gpg --recipient B0F391F2 --encrypt /tmp/test
+gpg: 9CF26247: There is no assurance this key belongs to the named user                                                                                                                                        
+                                                                                                                                                                                                               
+pub  2048R/9CF26247 2017-08-28 Nom (Description) <nom@mail.com>                                                                         
+ Primary key fingerprint: 5F7F 23C0 278D F79B A348  0CF5 9275 A048 B0F3 91F2                                                                                                                                   
+      Subkey fingerprint: 4D96 79E0 C423 FFA6 61A6  D4AF 95FC 4DD0 9CF2 6247                                                                                                                                   
+                                                                                                                                                                                                               
+It is NOT certain that the key belongs to the person named                                                                                                                                                     
+in the user ID.  If you *really* know what you are doing,                                                                                                                                                      
+you may answer the next question with yes.                                                                                                                                                                     
+                                                                                                                                                                                                               
+Use this key anyway? (y/N)                                                                                                                                                                                     
+
+-------------------------------------------------------------------------------
+
+$ gpg --edit-key B0F391F2
+gpg (GnuPG) 1.4.18; Copyright (C) 2014 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+
+pub  2048R/B0F391F2  created: 2017-08-28  expires: never       usage: SC  
+                     trust: full          validity: unknown
+sub  2048R/9CF26247  created: 2017-08-28  expires: never       usage: E   
+[ unknown] (1). Nom (Description) <nom@mail.com>
+
+gpg> trust
+pub  2048R/B0F391F2  created: 2017-08-28  expires: never       usage: SC  
+                     trust: full          validity: unknown
+sub  2048R/9CF26247  created: 2017-08-28  expires: never       usage: E   
+[ unknown] (1). Nom (Description) <nom@mail.com>
+
+Please decide how far you trust this user to correctly verify other users' keys
+(by looking at passports, checking fingerprints from different sources, etc.)
+
+  1 = I don't know or won't say
+  2 = I do NOT trust
+  3 = I trust marginally
+  4 = I trust fully
+  5 = I trust ultimately
+  m = back to the main menu
+
+Your decision? 5
+Do you really want to set this key to ultimate trust? (y/N) y
+
+pub  2048R/B0F391F2  created: 2017-08-28  expires: never       usage: SC  
+                     trust: ultimate      validity: unknown
+sub  2048R/9CF26247  created: 2017-08-28  expires: never       usage: E   
+[ unknown] (1). Nom (Description) <nom@mail.com>
+Please note that the shown key validity is not necessarily correct
+unless you restart the program.
+
+gpg> quit
+
+-------------------------------------------------------------------------------
+
+$ gpg --recipient B0F391F2 --encrypt /tmp/test
+gpg: checking the trustdb
+gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+
+-------------------------------------------------------------------------------
+
+$ wc -c /tmp/test.gpg 
+350 /tmp/test.gpg
+
+===============================================================================
+
+#!/usr/bin/python
+
+import gnupg # aptitude install python-gnupg
+    
+def main():
+    gpg=gnupg.GPG(gnupghome="/home/user/.gnupg/")
+    gpg.encoding='utf-8'
+    pub_keys = gpg.list_keys()
+    
+    for i in pub_keys:
+        if 'user@mail.com' in i['uids'][0]:
+            fingerprint = i['fingerprint']
+    
+    print str(gpg.encrypt('Hello World',fingerprint))
