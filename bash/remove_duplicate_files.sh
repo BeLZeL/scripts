@@ -1,4 +1,7 @@
 #!/bin/bash
+# Go to ~/Shared/synchro
+# Scan R1 Directory
+# Search and delete duplicate files into R2 Directory
 
 cd ~/Shared/synchro
 
@@ -19,14 +22,14 @@ grep -f join_size_grep.txt R1_size_filename.txt > R1_duplicates.txt
 grep -f join_size_grep.txt R2_size_filename.txt > R2_duplicates.txt
 
 echo "Compute md5sum for duplicate files on R1"
-time cat R1_duplicates.txt | cut -d'|' -f2 | xargs -d'\n' md5sum | sort | sed 's/^\([^ ]\{32\}\)  /\1|/g' > R1_md5.txt
+time cat R1_duplicates.txt | cut -d'|' -f2 | sort -u | xargs -d'\n' md5sum | sort | sed 's/^\([^ ]\{32\}\)  /\1|/g' > R1_md5.txt
 
 echo "Compute md5sum for duplicate files on R2"
-time cat R2_duplicates.txt | cut -d'|' -f2 |  xargs -d'\n' md5sum | sort | sed 's/^\([^ ]\{32\}\)  /\1|/g' > R2_md5.txt
+time cat R2_duplicates.txt | cut -d'|' -f2 |  sort -u | xargs -d'\n' md5sum | sort | sed 's/^\([^ ]\{32\}\)  /\1|/g' > R2_md5.txt
 
 echo "----------"
 echo "----------"
-join -j 1 -t '|' -o 2.2 R1_md5.txt R2_md5.txt | grep -e '^R2/' | xargs -d'\n' rm -v
+join -j 1 -t '|' -o 2.2 R1_md5.txt R2_md5.txt | grep -e '^R2/' | sort -u | xargs -d'\n' rm -v
 
 echo "----------"
 echo "----------"
