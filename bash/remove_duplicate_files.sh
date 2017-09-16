@@ -1,7 +1,11 @@
 #!/bin/bash
 # Go to ~/Shared/synchro
 # Scan R1 Directory
-# Search and delete duplicate files into R2 Directory
+# Search duplicate files into R2 Directory
+# Delete duplicate files ONLY into R2 Directory
+
+# Search duplicate files into only one directory
+# find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum| sort | uniq -w32 --all-repeated=separate | less
 
 cd ~/Shared/synchro
 
