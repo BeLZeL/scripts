@@ -2,7 +2,6 @@
 # Rebase a branch
 git checkout <branch>
 git rebase master
-git checkout master
 # If conflicts
 # Edit file
 git add <file>
@@ -17,6 +16,15 @@ git rebase master
 git checkout master
 git merge <branch>
 git push
+
+#--------------------------------------------------------
+# Delete a local branch
+git branch -d <branch>
+
+#--------------------------------------------------------
+# Delete a remote branch
+git push origin :<branch>
+git push origin --delete <branch>
 
 #--------------------------------------------------------
 # Diff between commits
@@ -136,6 +144,10 @@ git checkout -b <NAME> origin/<NAME>
 #-------------------------------------------------------- 
 # Check diff added but not committed
 git diff --cached --stat
+
+#-------------------------------------------------------- 
+# Check diff between master and branch
+git diff master...<branch>
 
 #-------------------------------------------------------- 
 # Cancel a git add
