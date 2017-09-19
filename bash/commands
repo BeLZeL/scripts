@@ -1,15 +1,16 @@
 #------------------------------------------------------------------
 # Compress and split
-$ tar -cvJf test.txz *
-$ gpg -c test.txz
-$ cat test.txz.gpg | split -b 500k --numeric-suffixes --additional-suffix .txz.gpg - split_
+tar -cvJf test.txz *
+gpg -c test.txz
+cat test.txz.gpg | split -b 500k --numeric-suffixes --additional-suffix .txz.gpg - split_
+
 # Compress and split (one line)
-$ FILE=test ; tar -cvJf ${FILE}.txz * ; gpg -c ${FILE}.txz ; cat ${FILE}.txz.gpg | split -b 250k --numeric-suffixes --additional-suffix .txz.gpg - split_ ; rm -f ${FILE}.txz ${FILE}.txz.gpg
+FILE=test ; tar -cvJf ${FILE}.txz * ; gpg -c ${FILE}.txz ; cat ${FILE}.txz.gpg | split -b 250k --numeric-suffixes --additional-suffix .txz.gpg - split_ ; rm -f ${FILE}.txz ${FILE}.txz.gpg
 
 # Unsplit and Decompress
-$ cat split_* > test.txz.gpg
-$ gpg -d test.txz.gpg > test.txz
-$ tar -xvJf test.txz
+cat split_* > test.txz.gpg
+gpg -d test.txz.gpg > test.txz
+tar -xvJf test.txz
 
 + script de compilation make et cmake
 
@@ -104,3 +105,44 @@ find . -name "*.log" -size 0 | xargs rm
 #------------------------------------------------------------------------------
 # Create and go to new directory
 mkdir <dir> && cd $_
+
+#------------------------------------------------------------------------------
+# List a remote directory
+rsync -avz user@server:~/remote_dir
+
+#------------------------------------------------------------------------------
+# Array
+$ echo ${#test[*]}
+0
+$ test[${#test[*]}]=zero
+$ test[${#test[*]}]=un
+$ test[${#test[*]}]=deux
+$ test[${#test[*]}]=trois
+$ echo ${test[@]}
+zero un deux trois
+$ echo ${#test[@]}
+4
+$ echo ${!test[@]}
+0 1 2 3
+$ echo ${test[2]}
+deux
+
+#------------------------------------------------------------------------------
+# Array Uniq Sort (manage valid whitespace)
+$ array=("a c" b f "5 3") ; IFS=$'\n' sorted=($(sort -u <<< "${array[*]}")) ; unset IFS ; printf "[%s]\n" "${sorted[@]}"
+[5 3]
+[a c]
+[b]
+[f]
+
+#------------------------------------------------------------------------------
+# Array Uniq Sort (manage valid whitespace without IFS)
+$ array=(a c b "f f" 3 5)
+$ readarray -t sorted < <(printf '%s\n' "${array[@]}" | sort -u)
+$ printf "[%s]\n" "${sorted[@]}"
+[3]
+[5]
+[a]
+[b]
+[c]
+[f f]
