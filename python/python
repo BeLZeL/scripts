@@ -3,6 +3,14 @@
 #!/usr/bin/env python
 
 #---------------------------------------------------------
+# Documentation
+# pip :
+http://apprendre-python.com/page-pip-installer-librairies-automatiquement
+
+# virtualenv :
+http://apprendre-python.com/page-virtualenv-python-environnement-virtuel
+
+#---------------------------------------------------------
 # read stdin
 import sys
 for line in sys.stdin:   
