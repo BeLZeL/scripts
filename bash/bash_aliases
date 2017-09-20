@@ -1,4 +1,52 @@
-# Bash Alias
+# Install :
+# ln -s ~/Github/scripts/bash/bash_aliases ~/.bash_aliases
+
+#=============================================================================#
+# OVERRIDE VARIABLES                                                          #
+#=============================================================================#
+
+# Line Histo Session
+export HISTSIZE=15000
+
+# Line Histo Full
+export HISTFILESIZE=200000
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+#=============================================================================#
+# FUNCTIONS                                                                   #
+#=============================================================================#
+
+function rmdep  { find . -name "*.dep" -exec grep -q $@ \{} \; -print -delete; }
+
+json () { echo "$*" | perl -p -e "s/\n//g" | python -mjson.tool; }
+xml  () { echo "$*" | perl -p -e "s/\n//g" | xmlstarlet fo -s 4; }
+xml_root  () { echo "<xml_root>$*</xml_root>" | perl -p -e "s/\n//g" | xmlstarlet fo -s 4; }
+echo_clean() { echo "$*" | perl -p -e "s/\s*\n/\n/g"; }
+cat_clean () { cat "$*" | perl -p -e "s/\s*\n/\n/g"; }
+cdl() { cd "$*" ; ls -l; }
+
+function demon() { ( eval "$@" & ) }
+export -f demon
+
+findbin () { find . -type f -executable -name "*$**"; }
+
+#colored man
+man() {
+    env LESS_TERMCAP_mb=$'\E[01;31m' \
+    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+    LESS_TERMCAP_me=$'\E[0m' \
+    LESS_TERMCAP_se=$'\E[0m' \
+    LESS_TERMCAP_so=$'\E[38;5;246m' \
+    LESS_TERMCAP_ue=$'\E[0m' \
+    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+    man "$@"
+}
+
+#=============================================================================#
+# ALIAS                                                                       #
+#=============================================================================#
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -11,9 +59,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # LS
 alias ll='ls -l'
@@ -29,6 +74,22 @@ alias r='ssh -l root'
 alias rm='rm -i'
 #alias cp='cp -i'
 alias mv='mv -i'
+
+#=============================================================================#
+# COMMANDS                                                                    #
+#=============================================================================#
+
+if [ $(ssh-add -l | grep -c "$HOME/.ssh") -eq 0 ]
+then
+    ssh-add
+fi
+
+# autocomplete ssh commands
+complete -W "$(echo `cat ~/.bash_history | egrep '^ssh ' | sort | uniq | sed 's/^ssh //'`;)" ssh
+
+#=============================================================================#
+# CUSTOM AND NON-COMMITED THINGS                                              #
+#=============================================================================#
 
 if [ -f ~/.bash_aliases_custom ]; then
     . ~/.bash_aliases_custom
