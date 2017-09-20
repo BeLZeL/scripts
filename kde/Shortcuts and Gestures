@@ -1,0 +1,33 @@
+Description
+-----------
+
+The KDE global keyboard shortcuts: System Settings > Shortcuts and Gestures
+
+
+
+Custom Shortcuts
+----------------
+
+New / Global Shortcuts / Command
+* Launch Konsole : Favorite
+* Launch Kate : E-Mail
+
+
+
+Global Keyboard Shortcuts
+-------------------------
+
+KWIN :
+* Switch to Desktop 1 to 6 : CTRL + F1 to CTRL + F6
+* Window to Screen 2 - 0 - 1 : WIN + Shift + PRINT - Scrollback - Pause
+* Maximize Window : WIN + Shift + UP
+* Quick Tile Window to the left - right : WIN + Shift + LEFT - RIGHT
+* Quick Tile Window to the top left - right : WIN + Shift + Home - PgUp
+* Quick Tile Window to the bottom left - right : WIN + Shift + End - PgDown
+
+
+
+Help
+----
+
+https://askubuntu.com/questions/72077/how-do-i-control-window-placement-in-kde-with-keyboard
