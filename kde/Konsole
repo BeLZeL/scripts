@@ -1,0 +1,3 @@
+# Color in prompt :
+ Edit Profile -> General -> Environment -> Edit :
+ XTERM=xterm-color
