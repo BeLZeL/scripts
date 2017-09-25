@@ -28,3 +28,48 @@ db=# select * from salaries;
       5 | Ville
       6 | City
 (2 lignes)
+
+#===============================================================================
+# Copy TO and FROM different DB
+
+psql -U <user1> -h <host1> <db1> -c "COPY ( select id from salaries ) TO stdout (DELIMITER '|');" > /tmp/salaries
+
+psql -U <user2> -h <host2> <db2> -c "create table tmp_salaries ( tmp_id integer );"
+
+cat /tmp/salaries | psql -U <user2> -h <host2> <db2> -c "COPY tmp_salaries ( tmp_id ) FROM stdin (DELIMITER '|'); select * from tmp_salaries order by tmp_id;"
+ tmp_id 
+--------
+      1
+      2
+      3
+      4
+      5
+     12
+     13
+     14
+     15
+(9 lignes)
+
+psql -U <user2> -h <host2> <db2> -c "drop table tmp_salaries;"
+
+
+#===============================================================================
+# Copy TO and FROM different DB (with TEMP table)
+
+psql -U <user1> -h <host1> <db1> -c "COPY ( select id from salaries ) TO stdout (DELIMITER '|');" > /tmp/salaries
+
+cat /tmp/salaries | psql -U <user2> -h <host2> <db2> -c "CREATE TEMPORARY TABLE tmp_salaries ( tmp_id integer ); \
+COPY tmp_salaries ( tmp_id ) FROM stdin (DELIMITER '|');\
+select * from tmp_salaries order by tmp_id;"
+ tmp_id 
+--------
+      1
+      2
+      3
+      4
+      5
+     12
+     13
+     14
+     15
+(9 lignes)
