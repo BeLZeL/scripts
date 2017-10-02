@@ -103,6 +103,11 @@ prefix.toto.3
 find . -name "*.log" -size 0 | xargs rm
 
 #------------------------------------------------------------------------------
+# Find recently modified files
+find . -cmin -<minutes> -name "*"
+find . -ctime -<days> -name "*"
+
+#------------------------------------------------------------------------------
 # Create and go to new directory
 mkdir <dir> && cd $_
 
@@ -146,3 +151,4 @@ $ printf "[%s]\n" "${sorted[@]}"
 [b]
 [c]
 [f f]
+
