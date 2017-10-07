@@ -1,0 +1,33 @@
+#-------------------------------------------------------------------------------
+# NTP
+pi@raspberrypi ~ $ sudo ntpdate pool.ntp.org
+ 7 Oct 10:30:32 ntpdate[18032]: step time server 139.112.153.37 offset 6116.425094 sec
+
+#-------------------------------------------------------------------------------
+# Backup Entire SD Card to Freebox (xz)
+pi@raspberrypi ~ $ cat ~/backup.xz.sh
+#!/bin/bash
+sudo dd bs=1M conv=noerror,sparse if=/dev/mmcblk0 | xz --fast > /media/Freebox/Raspberry/raspberry-$(date +"%A").img.xz
+date >> backup.log
+
+#-------------------------------------------------------------------------------
+# Fastest Backup SD Card to Freebox (xz)
+pi@raspberrypi ~ $ cat ~/backup_light.sh
+#!/bin/bash
+
+# Dump Database (might be 'wikidb' or 'wiki'), then enter an SQL password if necessary
+mysqldump --user=root --password="....." wikidb > ~/backup_light/wikidb.sql
+
+# Generate crontab
+crontab -l >  ~/backup_light/crontab
+
+# Copy all files, lbc, mediawiki
+sudo cp backup.sh backup_light.sh blink.py crontab /etc/fstab /etc/apt/sources.list send_sms.sh ~/backup_light
+sudo cp -L /var/lib/mediawiki ~/backup_light/mediawiki
+sudo rsync -avz /var/lib/mediawiki/images  ~/backup_light/mediawiki
+
+# Rights
+sudo chown -R pi:pi ~/backup_light/*
+
+# Compress and save on Freebox
+sudo tar -cvzf /media/Freebox/Raspberry/backup_light_$(date +"%Y%m%d").tgz ~/backup_light/*
