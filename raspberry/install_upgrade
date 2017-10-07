@@ -1,0 +1,9 @@
+# https://www.raspberrypi.org/blog/raspbian-stretch/
+# https://linuxconfig.org/raspbian-gnu-linux-upgrade-from-jessie-to-raspbian-stretch-9
+
+sudo vim /etc/apt/sources.list
+sudo vim /etc/apt/sources.list.d/raspi.list
+:%s/jessie/stretch/g
+
+sudo aptitude update
+sudo aptitude dist-upgrade
