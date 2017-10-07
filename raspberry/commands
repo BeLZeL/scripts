@@ -4,6 +4,10 @@ pi@raspberrypi ~ $ sudo ntpdate pool.ntp.org
  7 Oct 10:30:32 ntpdate[18032]: step time server 139.112.153.37 offset 6116.425094 sec
 
 #-------------------------------------------------------------------------------
+# Clear SD Blocks (reduce backup size)
+pi@raspberrypi ~ $ dd if=/dev/zero of=asdf.txt ; rm -f asdf.txt 
+
+#-------------------------------------------------------------------------------
 # Backup Entire SD Card to Freebox (xz)
 pi@raspberrypi ~ $ cat ~/backup.xz.sh
 #!/bin/bash
