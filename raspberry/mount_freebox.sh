@@ -39,26 +39,26 @@ fi
 # crontab
 # @reboot <cmd>
 
-if [ -e /etc/crontab ]
-then
-    res=$(grep freebox /etc/crontab)
-    if [ -z "${res}" ]
-    then
-        sudo echo "# Automount Freebox during boot" >> /etc/crontab
-        sudo echo "@reboot sudo mount -t cifs //mafreebox.freebox.fr/Disque\ dur ${FREEBOX_DIR} -o user=freebox,password=password,uid=1000,gid=1000,rw,sec=ntlm" >> /etc/crontab
-        res=$(grep freebox /etc/crontab)
-        if [ -z "${res}" ]
-        then
-            echo "CRONTAB : installation FAILED"
-        else
-            echo "CRONTAB : installation OK"
-        fi
-    else
-        echo "CRONTAB : already installed"
-    fi
-else
-    echo "CRONTAB : can't install, file /etc/crontab doesn't exist"
-fi
+#if [ -e /etc/crontab ]
+#then
+#    res=$(grep freebox /etc/crontab)
+#    if [ -z "${res}" ]
+#    then
+#        sudo echo "# Automount Freebox during boot" >> /etc/crontab
+#        sudo echo "@reboot sudo mount -t cifs //mafreebox.freebox.fr/Disque\ dur ${FREEBOX_DIR} -o user=freebox,password=password,uid=1000,gid=1000,rw,sec=ntlm" >> /etc/crontab
+#        res=$(grep freebox /etc/crontab)
+#        if [ -z "${res}" ]
+#        then
+#            echo "CRONTAB : installation FAILED"
+#        else
+#            echo "CRONTAB : installation OK"
+#        fi
+#    else
+#        echo "CRONTAB : already installed"
+#    fi
+#else
+#    echo "CRONTAB : can't install, file /etc/crontab doesn't exist"
+#fi
 
 #-------------------------------------------------------------------------------
 
