@@ -47,7 +47,7 @@ MEDIAWIKI)
     ;;
 
 *)
-    date +"%Y%m%d %H%M%S $0 : Error with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} : Unknown MODE" >> ~/backup.log
+    date +"%Y%m%d %H%M%S $0 : Error with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} : Unknown MODE" >> ${REMOTE_DIR}/backup.log
     exit 1
     ;;
 
@@ -61,6 +61,6 @@ git -C ${GIT_REPO} commit -m "$(date)"
 
 #-------------------------------------------------------------------------------
 
-date +"%Y%m%d %H%M%S $0 : End with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} and GIT_REPO=${GIT_REPO}" >> ~/backup.log
+date +"%Y%m%d %H%M%S $0 : End with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} and GIT_REPO=${GIT_REPO}" >> ${REMOTE_DIR}/backup.log
 
 #-------------------------------------------------------------------------------

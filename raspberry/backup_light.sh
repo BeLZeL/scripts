@@ -51,7 +51,7 @@ MEDIAWIKI)
 
 
 *)
-    date +"%Y%m%d %H%M%S $0 : Error with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} and LIGHT_DIR=${LIGHT_DIR}: Unknown MODE" >> ~/backup.log
+    date +"%Y%m%d %H%M%S $0 : Error with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} and LIGHT_DIR=${LIGHT_DIR}: Unknown MODE" >> ${REMOTE_DIR}/backup.log
     exit 1
     ;;
 
@@ -59,6 +59,6 @@ esac
 
 #-------------------------------------------------------------------------------
 
-date +"%Y%m%d %H%M%S $0 : End with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR}" >> ~/backup.log
+date +"%Y%m%d %H%M%S $0 : End with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR}" >> ${REMOTE_DIR}/backup.log
 
 #-------------------------------------------------------------------------------

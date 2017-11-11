@@ -14,13 +14,13 @@ MEDIAWIKI)
     recently_modified=$(sudo find /var/lib/mysql/wikidb -cmin -1440 -name "*")
     if [ ! -z "${recently_modified}" ]  
     then
-		date +"%Y%m%d %H%M%S $0 : OK with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} : ${recently_modified}" >> ~/backup.log
+		date +"%Y%m%d %H%M%S $0 : OK with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} : ${recently_modified}" >> ${REMOTE_DIR}/backup.log
         DD="FULL"
     fi
     ;;
 
 *)
-    date +"%Y%m%d %H%M%S $0 : Error with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} : Unknown MODE" >> ~/backup.log
+    date +"%Y%m%d %H%M%S $0 : Error with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} : Unknown MODE" >> ${REMOTE_DIR}/backup.log
     exit 1
     ;;
 
@@ -39,7 +39,7 @@ ISO)
     ;;
   
 *)
-    date +"%Y%m%d %H%M%S $0 : ERROR with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} and DD=${DD} : Unknown DD" >> ~/backup.log
+    date +"%Y%m%d %H%M%S $0 : ERROR with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} and DD=${DD} : Unknown DD" >> ${REMOTE_DIR}/backup.log
     exit 1
     ;;
   
@@ -47,6 +47,6 @@ esac
 
 #-------------------------------------------------------------------------------
 
-date +"%Y%m%d %H%M%S $0 : End with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} and DD=${DD}" >> ~/backup.log
+date +"%Y%m%d %H%M%S $0 : End with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR} and DD=${DD}" >> ${REMOTE_DIR}/backup.log
 
 #-------------------------------------------------------------------------------

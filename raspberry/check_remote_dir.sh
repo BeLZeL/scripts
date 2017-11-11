@@ -32,6 +32,6 @@ fi
 
 #-------------------------------------------------------------------------------
 
-date +"%Y%m%d %H%M%S $0 : Start with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR}" >> ~/backup.log
+date +"%Y%m%d %H%M%S $0 : Start with MODE=${MODE} and REMOTE_DIR=${REMOTE_DIR}" >> ${REMOTE_DIR}/backup.log
 
 #-------------------------------------------------------------------------------

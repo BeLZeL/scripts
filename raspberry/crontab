@@ -1,3 +1,4 @@
+# crontab <this_file> : install crons
 # m h  dom mon dow   command
 
 # Automount Freebox during boot
