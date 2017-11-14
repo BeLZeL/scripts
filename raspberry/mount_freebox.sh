@@ -20,7 +20,7 @@ then
     if [ -z "${res}" ]
     then
         sudo echo "# Mount Freebox" >> /etc/fstab
-        sudo echo "//mafreebox.freebox.fr/Disque\040dur ${FREEBOX_DIR} cifs _netdev,rw,users,iocharset=utf8,uid=1000,sec=none,file_mode=0777,dir_mode=0777 0 0" >> /etc/fstab
+        sudo echo "//mafreebox.freebox.fr/Disque\040dur ${FREEBOX_DIR} cifs _netdev,rw,users,exec,iocharset=utf8,uid=1000,sec=none,file_mode=0777,dir_mode=0777 0 0" >> /etc/fstab
         res=$(grep freebox /etc/fstab)
         if [ -z "${res}" ]
         then
