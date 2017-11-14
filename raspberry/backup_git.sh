@@ -1,5 +1,6 @@
 #!/bin/bash
-source ~/check_remote_dir.sh
+# ./backup_git.sh [ DEFAULT | MEDIAWIKI ]
+source $(dirname $0)/check_remote_dir.sh
 
 #-------------------------------------------------------------------------------
 

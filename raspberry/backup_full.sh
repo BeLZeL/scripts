@@ -1,6 +1,6 @@
 #!/bin/bash
 # ./backup_full.sh [ DEFAULT | MEDIAWIKI ]
-source ~/check_remote_dir.sh
+source $(dirname $0)/check_remote_dir.sh
 
 #-------------------------------------------------------------------------------
 
