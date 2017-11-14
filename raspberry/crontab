@@ -5,7 +5,7 @@
 # @reboot sudo mount -t cifs //mafreebox.freebox.fr/Disque\ dur  /media/Freebox/ -o user=freebox,password=password,uid=1000,gid=1000,rw,sec=ntlm
 
 00 23 * * * sudo ntpdate pool.ntp.org
-00 05 * * * sudo ~/cron_upgrade.sh
+00 05 * * * ~/cron_upgrade.sh
 
 # Choose a full backup method
 # 00 00 * * * ~/backup_full.sh [ DEFAULT | MEDIAWIKI ]
