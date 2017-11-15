@@ -5,13 +5,13 @@
 # @reboot sudo mount -t cifs //mafreebox.freebox.fr/Disque\ dur  /media/Freebox/ -o user=freebox,password=password,uid=1000,gid=1000,rw,sec=ntlm
 
 00 23 * * * sudo ntpdate pool.ntp.org
-00 05 * * * ~/cron_upgrade.sh
+00 05 * * * ~/scripts/cron_upgrade.sh
 
 # Choose a full backup method
-# 00 00 * * * ~/backup_full.sh [ DEFAULT | MEDIAWIKI ]
+# 00 00 * * * ~/scripts/backup_full.sh [ DEFAULT | MEDIAWIKI ]
 
 # Choose a light backup method
-# 00 02 * * * ~/backup_light.sh [ DEFAULT | MEDIAWIKI ]
+# 00 02 * * * ~/scripts/backup_light.sh [ DEFAULT | MEDIAWIKI ]
 
 # Choose a git backup method
-# 00 03 * * * ~/backup_git.sh [ DEFAULT | MEDIAWIKI ]
+# 00 03 * * * ~/scripts/backup_git.sh [ DEFAULT | MEDIAWIKI ]
