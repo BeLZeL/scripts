@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Blink PIN11/ GPIO17 50 times
+# Push Button and Light LED
 
 #-- IMPORTS -------------------------------------
 
@@ -8,24 +8,19 @@ from gpio_class import *
 
 #-- CONST ---------------------------------------
 
-LEDPIN = 11 # GPIO017 + GND
+BUTTON = 15 # GPIO22 + 3V3
+LEDPIN = 11 # GPIO17 + GND
 
 #-- LOOP ----------------------------------------
-
-# blinking function
-def blink(self,pin):
-	self.set_on(pin)
-	time.sleep(1)
-	self.set_off(pin)
-	time.sleep(1)
-	return
-
+    
 def myloop(self):
-	for i in range(0,50):
-		blink(self,LEDPIN)
+	if self.is_on(BUTTON):
+		GPIO.output(LEDPIN,GPIO.HIGH)
+	else:
+		GPIO.output(LEDPIN,GPIO.LOW)
 
 #-- RUN -----------------------------------------
 
-gpio = myGPIO(myloop, OUT=[LEDPIN], verbose=1)
+gpio = myGPIO(myloop, IN=[BUTTON], OUT=[LEDPIN], loop_delay=.1, verbose=1)
 
 #-- EOD -----------------------------------------
