@@ -20,8 +20,7 @@ git branch -d <branch> (or -D to force)
 
 #--------------------------------------------------------
 # Apply Modifications from a branch as Patch
-git diff master...<branch> > /tmp/patch
-git apply /tmp/patch
+git diff master...<branch> | git apply
 
 
 
