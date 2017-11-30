@@ -8,6 +8,7 @@ SELECT unnest('{1,2}'::bigint[]);
       1
       2
 
+
 #--------------
 # Sort array
 
@@ -28,3 +29,15 @@ SELECT id, array_agg(alert_ids ORDER BY alert_ids) FROM ( SELECT id, unnest(aler
   8 | {5}
   9 | {1,2,3,4,5}
 (4 lignes)
+
+
+#--------------
+# Transforms a string to integer list
+
+select * from table where myint = ANY (string_to_array('1234,5678',',')::integer[]);
+
+
+#--------------
+# Search in array (dirty ?)
+
+select * from (select id, unnest(alert_ids) as aid from meta_alerts) as foo where aid=2510;
