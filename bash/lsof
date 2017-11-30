@@ -1,0 +1,30 @@
+# https://debian-facile.org/doc:systeme:lsof
+# https://www.system-linux.eu/index.php?post/2009/03/18/La-commande-lsof
+
+# Fichier ouverts par l'utilisateur "toto"
+lsof -u toto
+
+# Savoir qui utilise les fichiers d'un repertoire
+lsof +D /tmp 
+
+# Pour lister tous les fichiers ouverts sur le peripherique /dev/hd4
+# (pratique pour trouver le fichier encore ouvert sur une partition qui ne peut donc pas etre demontee):
+lsof /dev/hd4
+
+# Trouver la liste des fichiers ouverts par un processus :
+lsof -p PID
+
+# Afficher la liste de toutes les connexions reseaux :
+lsof -i
+
+# Afficher les connexions internet ouvertes par un processus :
+lsof -i -p 1234
+
+# Pour connaitre tous les ports reseau ouvert par le processus qui a le pid 1234 (-a est interprete comme AND)
+lsof -i -a -p 1234
+
+# La forme suivante de la commande permet de connaitre tous les fichiers ouverts par l'utilisateur 500 ou toto ou par le processus 1234 ou 12345 :
+lsof -p 1234,12345 -u 500,toto
+
+# Trouver le processus qui ecoute sur le port 80 :
+sudo lsof -nP -i tcp:80 | grep LISTEN
