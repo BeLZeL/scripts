@@ -18,6 +18,11 @@ git checkout <branch>
 git checkout master
 git branch -d <branch> (or -D to force)
 
+#--------------------------------------------------------
+# Apply Modifications from a branch as Patch
+git diff master...<branch> > /tmp/patch
+git apply /tmp/patch
+
 
 
 #===================#
