@@ -34,6 +34,9 @@ select concat('(''', string_agg(id, ''','''), ''')' ) from table where condition
 ===============================================================================
 
 -- Taille BDD
+-- Table : The name of the table
+-- Size : The total size that this table takes
+-- External Size : The size that related objects of this table like indices take
 
 SELECT
     relname as "Table",
@@ -163,3 +166,16 @@ SELECT * FROM table_1 t1
 LEFT OUTER JOIN table_2 t2
 ON t1.id = t2.id
 WHERE t2.id IS NULL AND t1.cum_qty != 0 LIMIT 5;
+
+===============================================================================
+-- Show source of PLSQL function
+
+SELECT p.proname,p.prosrc from pg_proc as p where p.proname='my_function';
+
+
+===============================================================================
+
+-- Return number of lines in column 'body'
+select length(regexp_replace(body, E'[^\\n]', '', 'g')) from table;
+
+===============================================================================
