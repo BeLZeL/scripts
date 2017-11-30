@@ -1,32 +1,4 @@
 #--------------------------------------------------------
-# Rebase a branch
-git checkout <branch>
-git rebase master
-# If conflicts
-# Edit file
-git add <file>
-git rebase --continue
-
-#--------------------------------------------------------
-# Merge a branch
-git checkout master
-git pull
-git checkout <branch>
-git rebase master
-git checkout master
-git merge <branch>
-git push
-
-#--------------------------------------------------------
-# Delete a local branch
-git branch -d <branch>
-
-#--------------------------------------------------------
-# Delete a remote branch
-git push origin :<branch>
-git push origin --delete <branch>
-
-#--------------------------------------------------------
 # Diff between commits
 git diff --stat 152cb7b 53886f6
 
@@ -64,24 +36,6 @@ $ git bisect good
 53886f6367ea501007f660facde31f6d79c8c1ed is the first bad commit
 commit 53886f6367ea501007f660facde31f6d79c8c1ed
 <message>
-
-#--------------------------------------------------------
-# Hotfix
-git checkout <hash>
-git checkout -b <branch_name>
-git log -1 -p <hash> # show diff
-git revert <hash> # apply patch
-[...commit...]
-git push origin <branch_name> # push branch
-
-#--------------------------------------------------------
-# Hotfix (bis) with a pending stash
-git stash save "TMP"
-git checkout <hash>
-git checkout -b <branch_name>
-git stash pop
-[...commit...]
-git push origin <branch_name> # push branch
 
 #--------------------------------------------------------
 # Re-work on a local commit
@@ -138,16 +92,8 @@ repos1 $ git diff > /tmp/patch
 repos2 $ git apply /tmp/patch
 
 #-------------------------------------------------------- 
-# Checkout remote branch
-git checkout -b <NAME> origin/<NAME>
-
-#-------------------------------------------------------- 
 # Check diff added but not committed
 git diff --cached --stat
-
-#-------------------------------------------------------- 
-# Check diff between master and branch
-git diff master...<branch>
 
 #-------------------------------------------------------- 
 # Cancel a git add
@@ -156,6 +102,9 @@ git reset <file>
 
 #-------------------------------------------------------- 
 # Use Tag (https://git-scm.com/book/en/v2/Git-Basics-Tagging)
+# Commit before tag, and just :
+git tag v1.2.3
+# Or
 git tag # List
 git tag -a v1.4 -m 'my version 1.4' <hash> # Create
 git show v1.4 # Show commit
@@ -168,3 +117,7 @@ git remote -v
 git config --get remote.origin.url
 git remote add origin <url>
 git remote set-url origin <url>
+
+#-------------------------------------------------------- 
+# Log and filename
+git log --name-status
