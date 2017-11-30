@@ -15,3 +15,14 @@ http://apprendre-python.com/page-virtualenv-python-environnement-virtuel
 import sys
 for line in sys.stdin:   
     print line.rstrip()
+
+#---------------------------------------------------------
+# Python: about catching ANY exception
+# https://stackoverflow.com/questions/4990718/python-about-catching-any-exception
+import traceback
+import logging
+try:
+    whatever()
+except Exception as e:
+    logging.error(traceback.format_exc())
+    # Logs the error appropriately. 
