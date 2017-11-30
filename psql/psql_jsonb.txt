@@ -25,11 +25,21 @@ VALUES
  (
  '{ "customer": "Mary Clark", "items": {"product": "Toy Train","qty": 2}}'
  );
+
 SELECT info FROM zzz_jsonb;
+{"key": "value", "key2": "value2"}
+
 SELECT info -> 'customer' AS customer FROM zzz_jsonb;
+"value"
+
 SELECT info ->> 'customer' AS customer FROM zzz_jsonb;
+value
+
 SELECT info -> 'items' ->> 'product' as product FROM zzz_jsonb ORDER BY product;
 SELECT info ->> 'customer' AS customer FROM zzz_jsonb WHERE info -> 'items' ->> 'product' = 'Diaper';
 SELECT info ->> 'customer' AS customer, info -> 'items' ->> 'product' AS product FROM zzz_jsonb WHERE CAST ( info -> 'items' ->> 'qty' AS INTEGER ) = 2;
 SELECT info -> 'items' as product FROM zzz_jsonb ORDER BY product;
 SELECT jsonb_object_keys(info -> 'items') as product FROM zzz_jsonb GROUP BY product ORDER BY product;
+
+# Nb Keys in jsonb
+select id, count(*) as nb_headers from (select id, creation, jsonb_each(headers) from mails) as foo group by id, creation;
