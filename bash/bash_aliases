@@ -5,11 +5,47 @@
 # OVERRIDE VARIABLES                                                          #
 #=============================================================================#
 
+# Check there are no running jobs before exit
+shopt -s checkjobs
+
+# Save multi-line commands as one command
+shopt -s cmdhist
+ 
+# avoid execution of copy-paste blocks of code
+# only from bash 4.4
+bind "set enable-bracketed-paste on"
+ 
+# by default, readline will autocomplete with the first choice
+# show-all-if-ambiguous will not autocomplete, just show a list of possibilities
+# show-all-if-unmodified permits to autocomplete common parts, and show a list of possiblities
+bind "set show-all-if-unmodified on"
+ 
+# Be more intelligent when autocompleting by also looking at the text after
+# the cursor. For example, when the current line is "cd ~/src/mozil", and
+# the cursor is on the "z", pressing Tab will not autocomplete it to "cd
+# ~/src/mozillail", but to "cd ~/src/mozilla". (This is supported by the
+# Readline used by Bash 4.)
+bind "set skip-completed-text on"
+
+# ignore case with completion, once you taste it, you can't go without it
+bind "set completion-ignore-case on"
+ 
+# Treat hyphens and underscores as equivalent for completion
+bind "set completion-map-case on"
+ 
+# add a character after the file name in completion list (like ls -F)
+bind "set visible-stats on"
+
 # Line Histo Session
 export HISTSIZE=15000
 
 # Line Histo Full
 export HISTFILESIZE=200000
+
+# Use standard ISO 8601 timestamp
+# %F equivalent to %Y-%m-%d
+# %T equivalent to %H:%M:%S (24-hours format)
+export HISTTIMEFORMAT='%F %T '
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
