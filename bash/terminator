@@ -1,0 +1,57 @@
+
+----------------------------------
+
+man terminator_config
+
+cat ~/.config/terminator/config
+[global_config]
+window_state = maximise
+borderless = True
+[keybindings]
+[profiles]
+  [[default]]
+    force_no_bell = True
+    background_image = None
+    split_to_group = True
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]
+
+----------------------------------
+
+    Ctrl-Shift-E : Scinder la fenetre v[E]rticalement
+    Ctrl-Shift-O : Scinder la fenetre h[O]rizontalement.
+    Ctrl-Shift-N ou Ctrl-Tab : Deplacer le curseur dans la [N]ext fenetre
+    Ctrl-Shift-P ou Ctrl-Shift-Tab : Deplacer le curseur dans la [P]revious fenetre
+    Ctrl-Shift-W : Fermer la fenetre courante
+    Ctrl-Shift-Fleche : Agrandir ou retrecir la fenetre courante
+
+    Ctrl-Shift-T : Nouvel [T]ab
+    Ctrl-Shift-I : Nouvelle W[I]ndow
+    Ctrl-Shift-S : Afficher/masquer la [S]crollbar
+
+    Ctrl-Shift-Q : Tout fermer
+
+    Ctrl+Shift+Plus : Augmenter police (pas numpad)
+    Ctrl+Moins : Diminuer police (pas numpad)
+    Ctrl+Shift+0 : Reset police (pas numpad)
+
+
+----------------------------------
+
+Options de lancement :
+    -m : Maximiser la fenetre (prend tout l'ecran, mais laisse la barre de menu visible)
+    -f : Fullscreen (comme maximiser mais cette fois, cela prend absolument tout l'ecran)
+    -b : borderless (sans les bords, convient avec -m)
+    -p fichier : lance Terminator avec un fichier de profile passe en parametre
+
+----------------------------------
+
+https://doc.ubuntu-fr.org/terminator
+https://www.generation-linux.fr/index.php?post/2008/12/09/Le-terminal-le-plus-pratique-au-monde-%3A-Terminator
