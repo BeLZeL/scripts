@@ -152,3 +152,34 @@ $ printf "[%s]\n" "${sorted[@]}"
 [c]
 [f f]
 
+#------------------------------------------------------------------------------
+# Short Bash test, do echo condition is false
+
+[ 1 -eq 0 ] || {
+    echo "Pass here if condition is false"
+}
+
+# Equivalent to 
+# if [ ! 1 -eq 0 ]
+# then
+#     echo "Pass here if condition is false"
+# fi
+
+#------------------------------------------------------------------------------
+# Short Bash test, do echo condition is true
+
+[ 1 -eq 1 ] && {
+    echo "Pass here if condition is true"
+}
+
+# Equivalent to 
+# if [ 1 -eq 1 ]
+# then
+#     echo "Pass here if condition is true"
+# fi
+
+#------------------------------------------------------------------------------
+#Another version of cat
+
+res=$(cat $file)
+res=$(< $file)
