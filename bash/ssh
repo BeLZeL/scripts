@@ -16,8 +16,55 @@ srw------- 1 toto toto 0 Aug 29 08:47 /tmp/ssh-<host>-22-<user>
 #----------------------------------------------------------
 # Automatic with ssh config
 $ head ~/.ssh/config
-USER=julienro
+USER=<user>
 
 ControlMaster auto
 ControlPersist yes
 ControlPath /tmp/ssh-%h-%p-%r
+
+#----------------------------------------------------------
+
+$ ssh user@server "$( cat << 'EOT'
+> echo "Variables like '${HOSTNAME}' and commands like $( uname -a )"
+> echo "will be interpolated on the server, thanks to the single quotes"
+> echo "around 'EOT' above."
+> pwd
+> cd /tmp
+> pwd
+> EOT
+> )"
+Variables like 'server' and commands like Linux server 3.2.0-4-amd64 #1 SMP Debian 3.2.93-1 x86_64 GNU/Linux
+will be interpolated on the server, thanks to the single quotes
+around 'EOT' above.
+/home/user
+/tmp
+
+$ ssh user@server "$( cat << EOT
+> echo "If you want '${HOSTNAME}' and $( uname -a ) to be interpolated"
+> echo "on the client instead, omit the the single quotes around EOT."
+> pwd
+> cd /tmp
+> pwd
+> EOT
+> )"
+If you want 'my-linux' and Linux my-linux 3.16.0-4-amd64 #1 SMP Debian 3.16.43-2+deb8u5 (2017-09-19) x86_64 GNU/Linux to be interpolated
+on the client instead, omit the the single quotes around EOT.
+/home/user
+/tmp
+
+#----------------------------------------------------------
+# Example with loop, remove some files on remote slaves
+
+for PORT in 1201 1203 1204 1205 1206 1208
+do
+    for REMOTE_DIR in dir1 dir2
+    do
+        echo "${PORT} -> Clean ${REMOTE_DIR}"
+        ssh root@localhost -i .ssh/id_rsa_slaves -p ${PORT} "$( cat << EOT
+        cd /home/user/${REMOTE_DIR}
+        pwd
+        find . -name '*.so' | xargs rm -fr
+EOT
+)"
+    done
+done
