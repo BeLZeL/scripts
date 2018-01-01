@@ -4,11 +4,12 @@
 # Connect a wire from two last pins
 # After 3 seconds, Raspberry Pi shutdowns
 
+# sudo aptitude install python3-rpi.gpio
 # Copy shutdown.py to /home/pi
 # use this command
 # sudo nano /etc/rc.local
 # to add this line just before "exit 0"
-# sudo python3 /home/pi/unplug.py &
+# sudo python3 /home/pi/shutdown.py &
 
 #-- IMPORTS -------------------------------------
 
