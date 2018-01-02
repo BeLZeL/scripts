@@ -60,7 +60,7 @@ INSERT INTO :myvariable.table1 SELECT * FROM table2 WHERE column1 = :quoted_myva
 ===============================================================================
 
 -- Taille des index et des tables avec le ratio
--- Utile pour voir si les index sont fragmentés et ont besoin d'un REINDEX.
+-- Utile pour voir si les index sont fragmentÃ©s et ont besoin d'un REINDEX.
 
 SELECT nspname,relname,
   round(100 * pg_relation_size(indexrelid) / pg_relation_size(indrelid)) / 100 AS index_ratio,
@@ -179,3 +179,10 @@ SELECT p.proname,p.prosrc from pg_proc as p where p.proname='my_function';
 select length(regexp_replace(body, E'[^\\n]', '', 'g')) from table;
 
 ===============================================================================
+
+-- Delete duplicate entries (ctid is an hidden psql column)
+DELETE FROM table WHERE ctid IN (
+SELECT MAX(ctid) as ctid
+FROM     table
+GROUP BY column1, column2, column3, ...
+HAVING   COUNT(*) > 1);
