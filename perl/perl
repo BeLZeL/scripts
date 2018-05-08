@@ -9,3 +9,13 @@ if ( ... )
 #------------------------------------------
 # Check if key+value exists
 if ( exists $Hash{$key} )
+
+#------------------------------------------
+#!/usr/bin/perl
+# Read params
+my $nb = @ARGV;
+if ( @ARGV == 1 )
+{
+    printf "%d\n", $nb;
+    printf "%s\n", $ARGV[0];
+}
