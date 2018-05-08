@@ -1,7 +1,7 @@
 Description
 -----------
 
-The KDE global keyboard shortcuts: System Settings > Shortcuts and Gestures
+The KDE global keyboard shortcuts: System Settings > Shortcuts and Gestures ("Raccourcis globaux")
 
 
 
@@ -18,12 +18,15 @@ Global Keyboard Shortcuts
 -------------------------
 
 KWIN :
-* Switch to Desktop 1 to 6 : CTRL + F1 to CTRL + F6
-* Window to Screen 2 - 0 - 1 : WIN + Shift + PRINT - Scrollback - Pause
-* Maximize Window : WIN + Shift + UP
-* Quick Tile Window to the left - right : WIN + Shift + LEFT - RIGHT
-* Quick Tile Window to the top left - right : WIN + Shift + Home - PgUp
-* Quick Tile Window to the bottom left - right : WIN + Shift + End - PgDown
+* Switch to Desktop / Aller au bureau [1 - 6] : CTRL + F1 to CTRL + F6 : 
+* Window to Screen / Envoyer la fenêtre sur l'écran [2 - 0 - 1] : WIN + Shift + Print - Scrollback - Pause
+* Maximize Window / Maximiser une fenêtre : WIN + Shift + Shift
+* Minimize Window / Réduire une fenêtre : WIN + Shift + Del
+* Quick Tile Window to the / Mettre rapidement en mosaïque une fenêtre
+** top - bottom : WIN + Shift + Up - Down
+** left - right : WIN + Shift + Left - Right
+** top left - top right : WIN + Shift + Home - PgUp
+** bottom left - bottom right : WIN + Shift + End - PgDown
 
 
 
