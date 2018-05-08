@@ -1,0 +1,15 @@
+less
+----
+
+g – go to the start of file
+G – go to the end of file
+F – same as tail -f
+/ – search pattern forward
+n – for next match in forward
+N – for previous match in backward
+CTRL+G – show the current file name along with line, byte and percentage statistics.
+&pattern – display only the matching lines, not all.
+ma – mark the current position with the letter ‘a’,
+'a – go to the marked position ‘a’.
+
+sources : https://www.thegeekstuff.com/2010/02/unix-less-command-10-tips-for-effective-navigation/
