@@ -68,3 +68,18 @@ EOT
 )"
     done
 done
+
+#----------------------------------------------------------
+# Get some remote informations
+
+for server in server1 server2
+do
+    ssh user@$server "$( cat << 'EOT'
+    for profile in $(ls -d some_dirs_*)
+    do
+        result=$(grep SOMETHING $profile/file.conf)
+        echo "$(hostname), $profile, $result"
+    done
+EOT
+    )"
+done
