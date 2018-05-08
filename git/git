@@ -38,6 +38,13 @@ commit 53886f6367ea501007f660facde31f6d79c8c1ed
 <message>
 
 #--------------------------------------------------------
+# git bisect to search commit that fixing bug
+# https://stackoverflow.com/questions/15407075/how-could-i-use-git-bisect-to-find-the-first-good-commit
+git bisect start --term-new=fixed --term-old=unfixed
+git bisect fixed master
+git bisect unfixed $some-old-sha1
+
+#--------------------------------------------------------
 # Re-work on a local commit
 git reset HEAD~ --soft
 
@@ -119,5 +126,26 @@ git remote add origin <url>
 git remote set-url origin <url>
 
 #-------------------------------------------------------- 
+# Push local commits to Remote
+git remote add origin <url>
+git push -u origin master
+
+#-------------------------------------------------------- 
 # Log and filename
 git log --name-status
+
+#-------------------------------------------------------- 
+# Git pull rebase and stash : https://stackoverflow.com/questions/30208928/can-git-pull-automatically-stash-and-pop-pending-changes
+# with 3 commands
+git stash save "TMP" ; git pull --rebase ; git stash pop
+# with one command (A TESTER)
+git pull --rebase --autostash
+# with git config
+git config [--global ] pull.rebase true
+git config [--global ] rebase.autoStash true
+
+
+#-------------------------------------------------------- 
+# History of a function
+# -L <start>,<end>:<file>, -L :<regex>:<file>
+git log -L :main:toto.c
