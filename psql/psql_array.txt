@@ -41,3 +41,13 @@ select * from table where myint = ANY (string_to_array('1234,5678',',')::integer
 # Search in array (dirty ?)
 
 select * from (select id, unnest(alert_ids) as aid from meta_alerts) as foo where aid=2510;
+
+
+#--------------
+# merge same values with array_agg
+
+select array_agg(reporter) from alerts where id in ( ... ) ;
+{"Myself","Myself","Myself","Myself","Myself"}
+
+select array_agg(distinct reporter) from alerts where id in ( ... ) ;
+{"Myself"}
