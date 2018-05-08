@@ -56,14 +56,47 @@ watch -d ...
 sudo iptables -I INPUT -s <ip> -j REJECT
 
 
+#=============================================================================#
+# STRING                                                                      #
+#=============================================================================#
+
+
 #------------------------------------------------------------------------------
-# Date with differences
+# Remove ext
+$ filename_ext="toto.txt"
+$ echo ${filename_ext%.txt}
+toto
+
+
+#=============================================================================#
+# DATE                                                                        #
+#=============================================================================#
+
+
+#------------------------------------------------------------------------------
+# Difference between Dates
+falcon_heavy='20180206'
+echo "scale=0; ( `date +"%s"` - `date -d "$falcon_heavy" +"%s"` ) / (24*3600) + 1" | bc -l
+
+#------------------------------------------------------------------------------
+# Difference between millis
 val1=$(date +%S.%N -d "00:00:12.400")
 val2=$(date +%S.%N -d "00:00:06.700")
 echo "$val2 / $val1" | bc -l
 .54032258064516129032
 echo "( 1 - $val2 / $val1 ) * 100 " | bc -l | cut -d'.' -f1
 45
+
+
+
+#=============================================================================#
+# DATE                                                                        #
+#=============================================================================#
+
+
+#------------------------------------------------------------------------------
+# du with hidden files/folders
+du -sch .[!.]* * | sort -rh | head
 
 
 #------------------------------------------------------------------------------
@@ -99,13 +132,22 @@ prefix.toto.2
 prefix.toto.3
 
 #------------------------------------------------------------------------------
-# Delete empty files 
+# Find and delete empty files 
+find . -size 0c -type f -name "*" -exec rm {} \;
 find . -name "*.log" -size 0 | xargs rm
 
 #------------------------------------------------------------------------------
 # Find recently modified files
 find . -cmin -<minutes> -name "*"
 find . -ctime -<days> -name "*"
+
+#------------------------------------------------------------------------------
+# Find empty and recent files
+find . -size 0c -ctime -2 -type f -name "*" -exec ls -l {} \;
+
+#------------------------------------------------------------------------------
+# Find big files
+find . -size +100M -type f -name "*" -exec ls -l {} \;
 
 #------------------------------------------------------------------------------
 # Create and go to new directory
@@ -131,6 +173,13 @@ $ echo ${!test[@]}
 0 1 2 3
 $ echo ${test[2]}
 deux
+
+#------------------------------------------------------------------------------
+# Array Join (https://zaiste.net/posts/how_to_join_elements_of_an_array_in_bash/)
+$ SOURCES=("TOTO" "TUTU")
+$ function join_by { local IFS="$1"; shift; echo "$*"; }
+$ join_by '/' "${SOURCES[@]}"
+TOTO/TUTU
 
 #------------------------------------------------------------------------------
 # Array Uniq Sort (manage valid whitespace)
@@ -179,7 +228,57 @@ $ printf "[%s]\n" "${sorted[@]}"
 # fi
 
 #------------------------------------------------------------------------------
+# Short Bash test (if then else)
+# https://www.commitstrip.com/fr/2014/05/16/russian-roulette/
+[ $(( $RANDOM % 6 )) == 0 ] && echo "Argh" || echo "Lucky Boy";
+
+# Equivalent to 
+# if [ $(( $RANDOM % 6 )) == 0 ]
+# then
+#     echo "Argh"
+# else
+#     echo "Lucky Boy"
+# fi
+
+#------------------------------------------------------------------------------
 #Another version of cat
 
 res=$(cat $file)
 res=$(< $file)
+
+
+#=============================================================================#
+# PACKAGING                                                                   #
+#=============================================================================#
+
+
+#------------------------------------------------------------------------------
+# Find files from package
+dpkg-query -L <package name>
+
+#------------------------------------------------------------------------------
+# Installed Package version
+dpkg -l $(dpkg -S <regex package name> 2>/dev/null | cut -d':' -f1)
+dpkg -l <exact package name>
+
+#------------------------------------------------------------------------------
+# NOT Installed Package version
+apt-cache policy <package name>
+
+#------------------------------------------------------------------------------
+# Find package from file
+# http://www.commentcamarche.net/faq/6947-trouver-a-quel-paquet-appartient-un-fichier
+dpkg -S <file>
+
+#------------------------------------------------------------------------------
+# Watch and build or upload 
+while true; do
+    inotifywait --quiet --recursive -e MODIFY --exclude 'swp$' .
+    [...] make or rsync [...]
+done
+
+
+#=============================================================================#
+# EOF                                                                         #
+#=============================================================================#
+
