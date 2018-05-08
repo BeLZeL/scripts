@@ -29,6 +29,10 @@ git diff master...<branch> | git apply
 #===================#
 
 #-------------------------------------------------------- 
+# List remote branch
+git ls-remote --heads
+
+#-------------------------------------------------------- 
 # Checkout remote branch
 git checkout -b <NAME> origin/<NAME>
 
@@ -52,13 +56,25 @@ git branch --unset-upstream"
 #===================#
 
 #--------------------------------------------------------
-# Rebase a branch
+# Rebase a branch (commit by commit)
 git checkout <branch>
-git rebase master
+git fetch origin
+git rebase origin/master
 # If conflicts
 # Edit file
 git add <file>
 git rebase --continue
+
+#--------------------------------------------------------
+# Rebase a branch (all commits)
+git checkout master
+git pull
+git checkout <branch>
+git merge master
+git push
+# If conflicts
+# Edit file
+git add <file>
 
 #--------------------------------------------------------
 # Merge a branch
