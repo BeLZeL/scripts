@@ -57,6 +57,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 function rmdep  { find . -name "*.dep" -exec grep -q $@ \{} \; -print -delete; }
 
 json () { echo "$*" | perl -p -e "s/\n//g" | python -mjson.tool; }
+json_sq () { echo "$*" | perl -p -e "s/\n//g" | sed s/\'/\"/g | python -mjson.tool; }
 xml  () { echo "$*" | perl -p -e "s/\n//g" | xmlstarlet fo -s 4; }
 xml_root  () { echo "<xml_root>$*</xml_root>" | perl -p -e "s/\n//g" | xmlstarlet fo -s 4; }
 echo_clean() { echo "$*" | perl -p -e "s/\s*\n/\n/g"; }
