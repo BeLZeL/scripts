@@ -24,11 +24,6 @@ Release:        8.5
 Codename:       jessie
 
 #------------------------------------------------------------------
-# Copy some files and preserve tree view
-$ find . -name "*.ext" -exec cp --parents {} </PATH/> \;
-
-
-#------------------------------------------------------------------
 # memory of a process with name
 $ ps -p $(pidof BINNAME) -o vsz= -o rsz= | awk '{ printf "%s %s\n", $1/1024, $2/1024 } '
 7468.25 13.168
@@ -88,15 +83,76 @@ echo "( 1 - $val2 / $val1 ) * 100 " | bc -l | cut -d'.' -f1
 45
 
 
+#=============================================================================#
+# FIND                                                                        #
+#=============================================================================#
+
+
+#------------------------------------------------------------------
+# Find a file and execute a specific command for each one
+/tmp/toto$ ls
+./toto1.txt
+./toto2.txt
+./toto3.txt
+
+/tmp/toto$ find . -name "toto*" -exec ls {} \;
+./toto1.txt
+./toto2.txt
+./toto3.txt
+
+/tmp/toto$ find . -name "toto*" -exec grep -H sdf {} \;
+./toto1.txt:sdf
+./toto1.txt:sdffgtfy
+
+/tmp/toto$ find . -name "toto*" -exec grep -l sdf {} \;
+./toto1.txt
+
+#------------------------------------------------------------------
+# Copy some files and preserve tree view
+$ find . -name "*.ext" -exec cp --parents {} </PATH/> \;
+
+#------------------------------------------------------------------------------
+# Find and delete empty files 
+find . -size 0c -type f -name "*" -exec rm {} \;
+find . -name "*.log" -size 0 | xargs rm
+
+#------------------------------------------------------------------------------
+# Find recently modified files
+find . -cmin -<minutes> -name "*"
+find . -ctime -<days> -name "*"
+
+#------------------------------------------------------------------------------
+# Find empty and recent files
+find . -size 0c -ctime -2 -type f -name "*" -exec ls -l {} \;
+
+#------------------------------------------------------------------------------
+# Find big files
+find . -size +100M -type f -name "*" -exec ls -l {} \;
+
 
 #=============================================================================#
-# DATE                                                                        #
+# SHORTCUTS                                                                   #
+#=============================================================================#
+
+Alt + . : find previous args
+Ctrl + Alt + e : extend alias (ls *txt -> ls --color=auto *txt)
+Ctrl + x then * : extend globs (ls *txt -> ls file1.txt file2.txt file3.txt)
+Ctrl + x then Ctrl + e : open command in vim and execute it
+
+
+#=============================================================================#
+# OTHERS                                                                      #
 #=============================================================================#
 
 
 #------------------------------------------------------------------------------
 # du with hidden files/folders
 du -sch .[!.]* * | sort -rh | head
+
+
+#------------------------------------------------------------------------------
+# Open file with default application
+xdg-open toto.jpg
 
 
 #------------------------------------------------------------------------------
@@ -130,24 +186,6 @@ ll
 prefix.toto.1
 prefix.toto.2
 prefix.toto.3
-
-#------------------------------------------------------------------------------
-# Find and delete empty files 
-find . -size 0c -type f -name "*" -exec rm {} \;
-find . -name "*.log" -size 0 | xargs rm
-
-#------------------------------------------------------------------------------
-# Find recently modified files
-find . -cmin -<minutes> -name "*"
-find . -ctime -<days> -name "*"
-
-#------------------------------------------------------------------------------
-# Find empty and recent files
-find . -size 0c -ctime -2 -type f -name "*" -exec ls -l {} \;
-
-#------------------------------------------------------------------------------
-# Find big files
-find . -size +100M -type f -name "*" -exec ls -l {} \;
 
 #------------------------------------------------------------------------------
 # Create and go to new directory
