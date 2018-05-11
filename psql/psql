@@ -209,3 +209,10 @@ SELECT p.proname,p.prosrc from pg_proc as p where p.proname='my_function';
 select length(regexp_replace(body, E'[^\\n]', '', 'g')) from table;
 
 ===============================================================================
+
+-- Delete duplicate entries (ctid is an hidden psql column)
+DELETE FROM table WHERE ctid IN (
+SELECT MAX(ctid) as ctid
+FROM     table
+GROUP BY column1, column2, column3, ...
+HAVING   COUNT(*) > 1);
