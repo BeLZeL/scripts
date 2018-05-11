@@ -74,6 +74,36 @@ WHERE
 
 ===============================================================================
 
+-- seq_tup_read   bigint  Number of live rows fetched by sequential scans
+-- idx_scan       bigint  Number of index scans initiated on this table -> 0 if index is unused
+-- idx_tup_fetch  bigint  Number of live rows fetched by index scans
+
+SELECT
+    t.tablename,
+    indexname,
+    c.reltuples AS num_rows,
+    pg_size_pretty(pg_relation_size(quote_ident(t.tablename)::text)) AS table_size,
+    pg_size_pretty(pg_relation_size(quote_ident(indexrelname)::text)) AS index_size,
+    CASE WHEN indisunique THEN 'Y'
+       ELSE 'N'
+    END AS UNIQUE,
+    idx_scan AS number_of_scans,
+    idx_tup_read AS tuples_read,
+    idx_tup_fetch AS tuples_fetched
+FROM pg_tables t
+LEFT OUTER JOIN pg_class c ON t.tablename=c.relname
+LEFT OUTER JOIN
+    ( SELECT c.relname AS ctablename, ipg.relname AS indexname, x.indnatts AS number_of_columns, idx_scan, idx_tup_read, idx_tup_fetch, indexrelname, indisunique FROM pg_index x
+           JOIN pg_class c ON c.oid = x.indrelid
+           JOIN pg_class ipg ON ipg.oid = x.indexrelid
+           JOIN pg_stat_all_indexes psai ON x.indexrelid = psai.indexrelid )
+    AS foo
+    ON t.tablename = foo.ctablename
+WHERE t.schemaname='public'
+ORDER BY 1,2;
+
+===============================================================================
+
 -- Export/Import to a file
 
 \COPY ( select col1, col2 from table ) TO '/tmp/file' (DELIMITER '|');
@@ -179,10 +209,3 @@ SELECT p.proname,p.prosrc from pg_proc as p where p.proname='my_function';
 select length(regexp_replace(body, E'[^\\n]', '', 'g')) from table;
 
 ===============================================================================
-
--- Delete duplicate entries (ctid is an hidden psql column)
-DELETE FROM table WHERE ctid IN (
-SELECT MAX(ctid) as ctid
-FROM     table
-GROUP BY column1, column2, column3, ...
-HAVING   COUNT(*) > 1);
