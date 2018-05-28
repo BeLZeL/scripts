@@ -57,6 +57,15 @@ SELECT * FROM table1 WHERE :myvariable IS NULL;
 \set quoted_myvariable '\'' :myvariable '\''
 INSERT INTO :myvariable.table1 SELECT * FROM table2 WHERE column1 = :quoted_myvariable;
 
+\set var '\'A\',\'B\''
+SELECT * FROM table1 WHERE column1 in ( :var );
+
+\set var '(\'A\',\'B\')'
+SELECT * FROM table1 WHERE column1 in :var;
+
+\set var 'column1 in (\'A\',\'B\')'
+SELECT * FROM table1 WHERE :var;
+
 ===============================================================================
 
 -- Taille des index et des tables avec le ratio
