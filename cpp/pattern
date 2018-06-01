@@ -1,0 +1,25 @@
+//------------------------------------------------
+// Two constructors
+
+object::object(_toto) : toto(_toto)
+{
+}
+
+object::object() : object(42)
+{
+}
+
+//------------------------------------------------
+// Two constructors + inheritance
+
+object::object(_toto) : mother(_toto)
+{
+    // init things
+}
+
+object::object() : object(42)
+{
+    // do nothing
+}
+
+
