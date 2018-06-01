@@ -3,10 +3,12 @@
 
 object::object(_toto) : toto(_toto)
 {
+    // init things
 }
-
+ 
 object::object() : object(42)
 {
+    // do nothing
 }
 
 //------------------------------------------------
