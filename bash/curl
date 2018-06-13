@@ -1,0 +1,19 @@
+Interesting options for curl :
+
+# Add a HTTP header
+--header "Content-Type: application/oms"
+
+# Post Data
+--data "<root>some datas</root>"
+
+# Use a cookie
+--cookie "session=1b7607ea628b66369c555da95d090de6|session2.th2|3"
+
+# Avoid warning for certificate
+--insecure
+
+# Pass through a proxy
+--proxy "host.com:3128"
+
+# Pass through socks5
+--socks5 127.0.0.1:9999
