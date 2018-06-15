@@ -12,4 +12,6 @@ CTRL+G – show the current file name along with line, byte and percentage stati
 ma – mark the current position with the letter ‘a’,
 'a – go to the marked position ‘a’.
 
+-i/pattern - search case insensitive
+
 sources : https://www.thegeekstuff.com/2010/02/unix-less-command-10-tips-for-effective-navigation/
