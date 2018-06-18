@@ -62,6 +62,14 @@ $ filename_ext="toto.txt"
 $ echo ${filename_ext%.txt}
 toto
 
+#------------------------------------------------------------------------------
+# Starts with
+$ res=$(echo "ERROR: truc")
+$ echo "${res}"
+ERROR: truc
+$ echo "${res::6}"
+ERROR:
+
 
 #=============================================================================#
 # DATE                                                                        #
