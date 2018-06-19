@@ -11,6 +11,13 @@ http://apprendre-python.com/page-pip-installer-librairies-automatiquement
 http://apprendre-python.com/page-virtualenv-python-environnement-virtuel
 
 #---------------------------------------------------------
+# Parse Args
+import sys
+print 'Number of arguments:', len(sys.argv), 'arguments.'
+print 'Argument List:', str(sys.argv)
+print 'Process:', str(sys.argv[0])
+
+#---------------------------------------------------------
 # read stdin
 import sys
 for line in sys.stdin:   
