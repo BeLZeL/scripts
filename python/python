@@ -33,3 +33,10 @@ try:
 except Exception as e:
     logging.error(traceback.format_exc())
     # Logs the error appropriately. 
+
+#---------------------------------------------------------
+# Diff time
+from datetime import datetime
+start = datetime.now()
+print(datetime.now() - start)
+-> 0:00:00.894091
