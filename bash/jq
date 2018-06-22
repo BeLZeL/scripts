@@ -1,0 +1,31 @@
+#------------------------------------------------------------------------------
+# Documentation
+https://stedolan.github.io/jq/
+https://stedolan.github.io/jq/manual/
+https://stedolan.github.io/jq/manual/v1.4/
+
+#------------------------------------------------------------------------------
+# Show
+$ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq
+{
+  "token": "eea2d65d-0c25-4600-ba64-db913f7ac6df",
+  "access": "read write",
+  "expires_in": 3599
+}
+
+#------------------------------------------------------------------------------
+# Get a parameter with quotes
+$ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq ".token"
+"eea2d65d-0c25-4600-ba64-db913f7ac6df"
+
+#------------------------------------------------------------------------------
+# Get a parameter without quotes
+$ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq -r ".token" > /tmp/output
+$ cat -e /tmp/output 
+eea2d65d-0c25-4600-ba64-db913f7ac6df$
+
+#------------------------------------------------------------------------------
+# Get a parameter without quotes and without newline (v1.5)
+$ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq -jr ".token" > /tmp/output
+$ cat -e /tmp/output 
+eea2d65d-0c25-4600-ba64-db913f7ac6df
