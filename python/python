@@ -11,6 +11,12 @@ http://apprendre-python.com/page-pip-installer-librairies-automatiquement
 http://apprendre-python.com/page-virtualenv-python-environnement-virtuel
 
 #---------------------------------------------------------
+# Run a command with pipe getting stdout
+import subprocess
+p = subprocess.run("date | cut -d' ' -f2", shell=True, stdout=subprocess.PIPE)
+print(p.stdout.decode('UTF-8'))
+
+#---------------------------------------------------------
 # Parse Args
 import sys
 print 'Number of arguments:', len(sys.argv), 'arguments.'
