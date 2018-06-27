@@ -5,7 +5,7 @@ https://stedolan.github.io/jq/manual/
 https://stedolan.github.io/jq/manual/v1.4/
 
 #------------------------------------------------------------------------------
-# Show
+# Show (v1.5)
 $ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq
 {
   "token": "eea2d65d-0c25-4600-ba64-db913f7ac6df",
@@ -13,13 +13,21 @@ $ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","e
   "expires_in": 3599
 }
 
+# Show (v1.4)
+$ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq '.'
+{
+  "token": "eea2d65d-0c25-4600-ba64-db913f7ac6df",
+  "access": "read write",
+  "expires_in": 3599
+}
+
 #------------------------------------------------------------------------------
-# Get a parameter with quotes
+# Get a parameter with quotes (v1.4 / v1.5)
 $ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq ".token"
 "eea2d65d-0c25-4600-ba64-db913f7ac6df"
 
 #------------------------------------------------------------------------------
-# Get a parameter without quotes
+# Get a parameter without quotes (v1.4 / v1.5)
 $ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq -r ".token" > /tmp/output
 $ cat -e /tmp/output 
 eea2d65d-0c25-4600-ba64-db913f7ac6df$
@@ -27,5 +35,10 @@ eea2d65d-0c25-4600-ba64-db913f7ac6df$
 #------------------------------------------------------------------------------
 # Get a parameter without quotes and without newline (v1.5)
 $ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq -jr ".token" > /tmp/output
+$ cat -e /tmp/output 
+eea2d65d-0c25-4600-ba64-db913f7ac6df
+
+# Get a parameter without quotes and without newline (v1.4)
+$ echo '{"token":"eea2d65d-0c25-4600-ba64-db913f7ac6df","access":"read write","expires_in":3599}' | jq -r ".token" | perl -pe 's/\n//g' > /tmp/output
 $ cat -e /tmp/output 
 eea2d65d-0c25-4600-ba64-db913f7ac6df
