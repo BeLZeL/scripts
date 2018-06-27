@@ -46,3 +46,7 @@ from datetime import datetime
 start = datetime.now()
 print(datetime.now() - start)
 -> 0:00:00.894091
+
+#---------------------------------------------------------
+# Read a file
+token=open("/home/user/token", "r").read()
