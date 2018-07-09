@@ -56,3 +56,8 @@ token=open("/home/user/token", "r").read()
 import os
 if not os.path.exists(directory):
     os.mkdir(directory)
+
+#---------------------------------------------------------
+# Functional programming
+ >>> [ x * x for x in range(10) if x % 2 ]
+ [1, 9, 25, 49, 81]
