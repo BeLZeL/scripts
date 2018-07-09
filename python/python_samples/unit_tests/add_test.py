@@ -1,4 +1,14 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
+
+'''
+$ ./add_test.py 
+3
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+'''
 
 import unittest
 from add import *

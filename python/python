@@ -50,3 +50,9 @@ print(datetime.now() - start)
 #---------------------------------------------------------
 # Read a file
 token=open("/home/user/token", "r").read()
+
+#---------------------------------------------------------
+# Create directory if not exists
+import os
+if not os.path.exists(directory):
+    os.mkdir(directory)
