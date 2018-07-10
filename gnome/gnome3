@@ -1,0 +1,6 @@
+== Afficher les secondes ==
+
+* Pour avoir la date, l'heure et les secondes dans la barre supérieure, il faut aller dans :
+** Outils de personnalisation ou lancer gnome-tweak-tool
+** Aller dans "barre supérieure"
+** Cocher "afficher les secondes"
