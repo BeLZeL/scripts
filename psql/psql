@@ -225,3 +225,17 @@ SELECT MAX(ctid) as ctid
 FROM     table
 GROUP BY column1, column2, column3, ...
 HAVING   COUNT(*) > 1);
+
+===============================================================================
+
+-- Get median
+SELECT max(id) FROM (
+    SELECT id, ntile(2) over (order by id) as median FROM (
+        SELECT unnest('{3,5,2,10,4,8,7,12,50,100,19,28,44,22,1}'::bigint[]) as id
+    ) as foo
+) as bar
+WHERE median = 1;
+
+ max
+-----
+  10
