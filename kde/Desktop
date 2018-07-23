@@ -1,0 +1,29 @@
+= Task Manager =
+
+Il faut cliquer sur l'icone "palette de couleur" puis :
+* Add Panel -> Empty Panel
+* Ajouter un widget Task Manager
+* Le configurer pour n'afficher que les taks from screen/desktop/activity s'il y a une barre par écran
+* Le configurer pour n'afficher que les taks from desktop/activity s'il y a une barre pour tous les écrans de la machine
+
+= Ajouter une icône dans la barre des tâches =
+
+Il faut tout d'abord faire ceci quelque soit le cas de figure :
+* Clic droit sur le panel, unlock Widgets
+
+Si c'est une application installée et reconnue, et lancée avec les paramètres par défaut :
+* Menu K et rechercher ce binaire
+* Drag & drop ensuite sur la barre d'icones
+
+Si c'est une application lancée avec des paramètres custom
+* Il faut retrouver le .desktop de l'application original
+ $ find /usr/share/applications -iname "*meld*.desktop"
+ /usr/share/applications/meld.desktop
+* Et le copier dans le répertoire custom : cp /usr/share/applications/meld.desktop ~/.local/share/applications
+* Pour ensuite modifier les paramètres par défaut
+* Menu K et rechercher ce binaire
+* Drag & drop ensuite sur la barre d'icones
+
+Si c'est un binaire custom, il faut récupérer un exemple et modifier les paramètres de lancement 
+ cp /usr/share/applications/meld.desktop ~/.local/share/applications/mybin.desktop
+ sed -i 's/meld/mybin/g' ~/.local/share/applications/mybin.desktop
