@@ -24,7 +24,7 @@ print 'Argument List:', str(sys.argv)
 print 'Process:', str(sys.argv[0])
 
 #---------------------------------------------------------
-# read stdin
+# read stdin (rstrip = chomp = trimmed = remove last 'blank' char
 import sys
 for line in sys.stdin:   
     print line.rstrip()
@@ -67,3 +67,8 @@ if not os.path.exists(directory):
 >>> import json
 >>> json.loads('{"buildDate": "2018-06-05T09:35:40Z","currentVersion": "1.0.0","metadata": {"timestamp": "2018-06-19T09:04:24Z","version": "1.0.0"}}')['buildDate']
 u'2018-06-05T09:35:40Z'
+
+#---------------------------------------------------------
+# Returns the current filename and the current line number in our program
+def func_line():
+    return inspect.currentframe().f_back.f_code.co_name + "@" + str(inspect.currentframe().f_back.f_lineno)
