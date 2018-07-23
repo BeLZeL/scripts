@@ -61,3 +61,9 @@ if not os.path.exists(directory):
 # Functional programming
  >>> [ x * x for x in range(10) if x % 2 ]
  [1, 9, 25, 49, 81]
+
+#---------------------------------------------------------
+# Parse JSON
+>>> import json
+>>> json.loads('{"buildDate": "2018-06-05T09:35:40Z","currentVersion": "1.0.0","metadata": {"timestamp": "2018-06-19T09:04:24Z","version": "1.0.0"}}')['buildDate']
+u'2018-06-05T09:35:40Z'
