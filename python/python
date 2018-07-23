@@ -72,3 +72,8 @@ u'2018-06-05T09:35:40Z'
 # Returns the current filename and the current line number in our program
 def func_line():
     return inspect.currentframe().f_back.f_code.co_name + "@" + str(inspect.currentframe().f_back.f_lineno)
+
+#---------------------------------------------------------
+# Compare two dictionnaries
+shared_items = {k: x[k] for k in x if k in y and x[k] == y[k]}
+print len(shared_items)
