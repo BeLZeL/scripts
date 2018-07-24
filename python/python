@@ -10,6 +10,22 @@ http://apprendre-python.com/page-pip-installer-librairies-automatiquement
 # virtualenv :
 http://apprendre-python.com/page-virtualenv-python-environnement-virtuel
 
+
+#=============================================================================#
+# STRING                                                                      #
+#=============================================================================#
+
+
+#---------------------------------------------------------
+# Most elegant way to check if the string is empty
+if not myString:
+
+
+#=============================================================================#
+# OTHERS                                                                      #
+#=============================================================================#
+
+
 #---------------------------------------------------------
 # Run a command with pipe getting stdout
 import subprocess
@@ -24,7 +40,7 @@ print 'Argument List:', str(sys.argv)
 print 'Process:', str(sys.argv[0])
 
 #---------------------------------------------------------
-# read stdin (rstrip = chomp = trimmed = remove last 'blank' char
+# read stdin (rstrip = chomp = trimmed = remove last 'blank' char)
 import sys
 for line in sys.stdin:   
     print line.rstrip()
