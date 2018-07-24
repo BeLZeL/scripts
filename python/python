@@ -35,15 +35,15 @@ print(p.stdout.decode('UTF-8'))
 #---------------------------------------------------------
 # Parse Args
 import sys
-print 'Number of arguments:', len(sys.argv), 'arguments.'
-print 'Argument List:', str(sys.argv)
-print 'Process:', str(sys.argv[0])
+print('Number of arguments:', len(sys.argv), 'arguments.')
+print('Argument List:', str(sys.argv))
+print('Process:', str(sys.argv[0]))
 
 #---------------------------------------------------------
 # read stdin (rstrip = chomp = trimmed = remove last 'blank' char)
 import sys
 for line in sys.stdin:   
-    print line.rstrip()
+    print(line.rstrip())
 
 #---------------------------------------------------------
 # Python: about catching ANY exception
@@ -92,4 +92,4 @@ def func_line():
 #---------------------------------------------------------
 # Compare two dictionnaries
 shared_items = {k: x[k] for k in x if k in y and x[k] == y[k]}
-print len(shared_items)
+print(len(shared_items))
