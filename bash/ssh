@@ -1,3 +1,13 @@
+#------------------------------------------------------------------------------
+# Tunnel
+home@linux $ ssh -4 -N -f -L 2345:localhost:5432 user@remote
+home@linux $ psql -U user -h localhost bdd_name
+
+#------------------------------------------------------------------------------
+# Reverse Tunnel
+home@linux $ ssh -TN -R8086:localhost:8086 user@remote
+user@remote $ curl -i -XPOST 'http://localhost:8086/write?db=mydb' --data-binary 'temperature,machine=unit42 internal=42'
+
 #----------------------------------------------------------
 # Classic connection (opened each time)
 $ for i in $(seq 1 3); do time ssh <user>@<host> ' ls ' 2>&1 >/dev/null ; done
