@@ -1,3 +1,91 @@
+#-----------------------------
+# Tutorial for vim
+$ vimtutor
+
+
+#-----------------------------
+# Install vim them
+# https://github.com/chriskempson/tomorrow-theme
+
+$ curl -fLo ~/.vim/colors/Tomorrow.vim                --create-dirs https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow.vim
+$ curl -fLo ~/.vim/colors/Tomorrow-Night.vim          --create-dirs https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
+$ curl -fLo ~/.vim/colors/Tomorrow-Night-Bright.vim   --create-dirs https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night-Bright.vim
+$ curl -fLo ~/.vim/colors/Tomorrow-Night-Eighties.vim --create-dirs https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night-Eighties.vim
+
+
+#-----------------------------
+# Install vim-plug
+# https://github.com/junegunn/vim-plug
+
+$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# Configure vim-plug
+$ vim ~/.vimrc
+call plug#begin('~/.vim/plugged')
+Plug 'https://github.com/vim-scripts/a.vim'
+call plug#end()
+
+# Call :PlugInstall to install plugins
+
+
+#-----------------------------
+# Plugins
+
+Files / Features ->
+    https://github.com/scrooloose/nerdtree
+    https://github.com/ctrlpvim/ctrlp.vim        " Fully path finder
+    https://github.com/mbbill/undotree
+
+GIT ->
+    https://github.com/tpope/vim-fugitive.git
+
+Multi-languages ->
+    https://github.com/tpope/vim-surround
+    https://github.com/tpope/vim-markdown
+    https://github.com/majutsushi/tagbar
+    https://github.com/tomtom/tcomment_vim
+    https://github.com/tpope/vim-commentary
+    https://github.com/garbas/vim-snipmate
+    https://github.com/Valloric/YouCompleteMe
+    https://github.com/Raimondi/delimitMate
+
+C/C++ ->
+    https://github.com/vim-scripts/a.vim         " Switch CPP / Headers
+    https://github.com/rhysd/vim-clang-format   
+    https://github.com/vim-syntastic/syntastic
+
+Ansible ->
+    https://github.com/pearofducks/ansible-vim
+
+
+#-----------------------------
+# vim-gtk3 for clipboard
+# Allow copy-paste out of vim
+aptitude install vim-gtk3
+vim --version | grep clipboard
+
+
+#-----------------------------
+# vimrc
+#Â https://stackoverflow.com/questions/3776117/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping
+nmap : shortcut for normal mode
+imap : shortcut for insert mode
+
+
+#-----------------------------
+# Neovim
+# https://neovim.io/
+
+# aptitude install neovim
+$ nvim <file>
+
+# vim toi neovim
+https://damien.pobel.fr/post/vim-neovim/
+
+###########################################################
+###########################################################
+###########################################################
+
 http://zzapper.co.uk/vimtips.html
 
 __BEGIN__
@@ -835,9 +923,9 @@ endfunction
 " Digraphs (non alpha-numerics)
 :digraphs                         : display table
 :h dig                            : help
-i<C-K>e'                          : enters é
-i<C-V>233                         : enters é (Unix)
-i<C-Q>233                         : enters é (Win32)
+i<C-K>e'                          : enters Ã©
+i<C-V>233                         : enters Ã© (Unix)
+i<C-Q>233                         : enters Ã© (Win32)
 ga                                : View hex value of any character
 #Deleting non-ascii characters (some invisible)
 :%s/[\x00-\x1f\x80-\xff]/ /g      : type this as you see it
