@@ -67,7 +67,7 @@ vim --version | grep clipboard
 
 #-----------------------------
 # vimrc
-#Â https://stackoverflow.com/questions/3776117/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping
+# https://stackoverflow.com/questions/3776117/what-is-the-difference-between-the-remap-noremap-nnoremap-and-vnoremap-mapping
 nmap : shortcut for normal mode
 imap : shortcut for insert mode
 
