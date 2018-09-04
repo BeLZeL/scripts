@@ -1,0 +1,87 @@
+" VIM Configuration File
+" Description: Optimized for C/C++ development, but useful also for other things.
+" Author: Gerhard Gappmeier, and tweak by myself
+" (http://vim.wikia.com/wiki/Example_vimrc)
+"
+
+" set ISO encoding
+set enc=utf-8
+set fenc=utf-8
+set termencoding=utf-8
+autocmd Filetype c set fileencoding=iso-8859-1
+autocmd Filetype h set fileencoding=iso-8859-1
+
+" Basic settings
+set t_Co=256                          " turn syntax highlighting on
+syntax on
+colorscheme Tomorrow-Night-Eighties
+set nocompatible
+set nopaste
+set pastetoggle=<F9>       " Toggle between 'paste' and 'nopaste'
+set autoindent smartindent " Display the cursor position on the last line of the screen
+set ruler                  " Display the cursor position on the last line of the screen
+set cmdheight=2            " Set the command window height to 2 lines
+set number                 " Display line numbers on the left
+set mouse=a                " Use Mouse Scroll Wheel
+set cursorline             " Highlight current line
+
+" Indentation settings for using 4 spaces instead of tabs.
+set shiftwidth=4 
+set softtabstop=4
+set expandtab
+
+set hls is                 " Show all research results (hlsearch, incsearch)
+" Redraw screen to also turn off search highlighting until the next search
+nnoremap <C-L> :nohl<CR><C-L>
+
+" shift+arrow selection
+nmap <S-Up> v<Up>
+nmap <S-Down> v<Down>
+nmap <S-Left> v<Left>
+nmap <S-Right> v<Right>
+" -
+vmap <S-Up> <Up>
+vmap <S-Down> <Down>
+vmap <S-Left> <Left>
+vmap <S-Right> <Right>
+" -
+imap <S-Up> <Esc>v<Up>
+imap <S-Down> <Esc>v<Down>
+imap <S-Left> <Esc>v<Left>
+imap <S-Right> <Esc>v<Right>
+
+" Allow Copy, Cut, Paste, Undo
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
+imap <C-z> <Esc>ui
+nmap <C-z> i<C-z>
+
+"Plugins
+call plug#begin('~/.vim/plugged')
+
+"-------"
+" C/C++ "
+"-------"
+
+"Switch CPP / Headers
+Plug 'https://github.com/vim-scripts/a.vim'
+":A switches to the header file corresponding to the current file being edited (or vise versa)
+":AS splits and switches
+":AV vertical splits and switches
+map <F2> :A<CR>
+
+
+"------------------"
+" Files / Features "
+"------------------"
+
+"Fully path finder
+Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+
+call plug#end()
+
+
+
+nnoremap <leader>. :CtrlPTag<cr>
