@@ -1,0 +1,54 @@
+#-------------------------------------------------------- 
+# Example cat .gitconfig 
+[user]
+	name = ToTo
+	email = toto@tutu.fr
+[alias]
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    st = status
+    poule = pull --recurse-submodules
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+[push]
+	default = matching
+[diff]
+    tool = meld
+[difftool "meld"]
+	cmd = "meld \"$LOCAL\" \"$REMOTE\""
+[core]
+	editor = /usr/bin/vim
+
+#-------------------------------------------------------- 
+# If you encounter problems with git commit
+git config --global core.editor /usr/bin/vim 
+
+#-------------------------------------------------------- 
+# Git pull rebase and stash : https://stackoverflow.com/questions/30208928/can-git-pull-automatically-stash-and-pop-pending-changes
+git config --global pull.rebase      true
+git config --global rebase.autoStash true
+
+#--------------------------------------------------------
+# Git diff with tool
+$ git diff --color=always 1dd764e c242e1e --stat | head
+ CMakeLists.txt        |  10 +
+ libs/toto.cpp         | 156 +++++++++-
+ libs/toto.hpp         |  23 +-
+
+$ cat ~/.gitconfig
+[...]
+[diff]
+    tool = meld
+[difftool "meld"]
+    cmd = "meld \"$LOCAL\" \"$REMOTE\""
+
+$ git difftool --color=always --tool=meld 1dd764e c242e1e
+
+$ git difftool --color=always --tool=meld 1dd764e c242e1e -- products/toto.c
+
+Viewing (1/1): 'products/toto.c'
+Launch 'meld' [Y/n]: 
+
