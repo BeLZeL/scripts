@@ -20,6 +20,9 @@ http://apprendre-python.com/page-virtualenv-python-environnement-virtuel
 # Most elegant way to check if the string is empty
 if not myString:
 
+#---------------------------------------------------------
+# Print 'n' chars
+print('-' * 3)
 
 #=============================================================================#
 # OTHERS                                                                      #
