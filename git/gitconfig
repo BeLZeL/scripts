@@ -45,10 +45,7 @@ $ cat ~/.gitconfig
 [difftool "meld"]
     cmd = "meld \"$LOCAL\" \"$REMOTE\""
 
+$ git difftool --dir-diff
+$ git difftool
 $ git difftool --color=always --tool=meld 1dd764e c242e1e
-
 $ git difftool --color=always --tool=meld 1dd764e c242e1e -- products/toto.c
-
-Viewing (1/1): 'products/toto.c'
-Launch 'meld' [Y/n]: 
-
