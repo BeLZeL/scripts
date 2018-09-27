@@ -125,6 +125,48 @@ echo "( 1 - $val2 / $val1 ) * 100 " | bc -l | cut -d'.' -f1
 
 
 #=============================================================================#
+# FILES / DIRS / SYMLINKS                                                      #
+#=============================================================================#
+
+
+#------------------------------------------------------------------------------
+# Search target of a symlink
+readlink <link name>
+
+#------------------------------------------------------------------------------
+# Change target of a symlink
+ln -sfn <new target> <link name>
+
+#------------------------------------------------------------------------------
+# du with hidden files/folders
+du -sch .[!.]* * | sort -rh | head
+
+#------------------------------------------------------------------------------
+# Rename file's extension or create dir/subdirs easily
+mv /big/path/truc.{txt,csv}
+mkdir -p {projectA,projectB}/{src,lib,test}
+
+#------------------------------------------------------------------------------
+# Rename multiple files
+touch toto.1
+touch toto.2
+touch toto.3
+rename 's/^toto./prefix.toto./g' toto.*
+ll
+prefix.toto.1
+prefix.toto.2
+prefix.toto.3
+
+#------------------------------------------------------------------------------
+# Create and go to new directory
+mkdir <dir> && cd $_
+
+#------------------------------------------------------------------------------
+# List a remote directory
+rsync -avz user@server:~/remote_dir
+
+
+#=============================================================================#
 # FIND                                                                        #
 #=============================================================================#
 
@@ -205,6 +247,7 @@ C|3|-|-
 # SHORTCUTS                                                                   #
 #=============================================================================#
 
+
 Alt + . : find previous args
 Ctrl + Alt + e : extend alias (ls *txt -> ls --color=auto *txt)
 Ctrl + x then * : extend globs (ls *txt -> ls file1.txt file2.txt file3.txt)
@@ -217,11 +260,6 @@ Ctrl + x then Ctrl + e : open command in vim and execute it
 
 
 #------------------------------------------------------------------------------
-# du with hidden files/folders
-du -sch .[!.]* * | sort -rh | head
-
-
-#------------------------------------------------------------------------------
 # Open file with default application
 xdg-open toto.jpg
 
@@ -229,31 +267,6 @@ xdg-open toto.jpg
 #------------------------------------------------------------------------------
 # Case insensitive search with less
 -> use the command "-i" inside less
-
-
-#------------------------------------------------------------------------------
-# Rename file's extension or create dir/subdirs easily
-mv /big/path/truc.{txt,csv}
-mkdir -p {projectA,projectB}/{src,lib,test}
-
-#------------------------------------------------------------------------------
-# Rename multiple files
-touch toto.1
-touch toto.2
-touch toto.3
-rename 's/^toto./prefix.toto./g' toto.*
-ll
-prefix.toto.1
-prefix.toto.2
-prefix.toto.3
-
-#------------------------------------------------------------------------------
-# Create and go to new directory
-mkdir <dir> && cd $_
-
-#------------------------------------------------------------------------------
-# List a remote directory
-rsync -avz user@server:~/remote_dir
 
 #------------------------------------------------------------------------------
 # Array
