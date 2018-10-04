@@ -1,3 +1,7 @@
+Important note : terminator v1.90 (stretch) has some bugs with profiles/layout/custom commands at startup.
+Choose a specific profile : terminator -l <layout>
+Cltr + l : change layout
+Prferences to create new layouts
 
 ----------------------------------
 
@@ -41,7 +45,6 @@ borderless = True
     Ctrl+Shift+Plus : Augmenter police (pas numpad)
     Ctrl+Moins : Diminuer police (pas numpad)
     Ctrl+Shift+0 : Reset police (pas numpad)
-
 
 ----------------------------------
 
