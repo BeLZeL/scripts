@@ -1,0 +1,16 @@
+= Lock screen =
+
+* L'écran se verrouille automatiquement au bout de quelques secondes d'inactivités
+* Pour remédier à celà :
+ # aptitude install kde-config-screenlocker
+ $ kcmshell5 --list | grep locker
+ screenlocker                     - Screen Locking Timeouts
+ $ kcmshell5 screenlocker
+
+Sources : https://forum.kde.org/viewtopic.php?f=289&t=125371
+
+= L'écran ne se rallume pas après mise en veille =
+
+* Aller dans le menu K, Configuration du système, Notifications.
+* Choisir Source de l'événement : Ecran de veille
+* Ecran de veille déverrouillé : exécuter la commande : /usr/bin/xset -d :0 dpms force on; /usr/bin/xset -d :0 dpms force off; /usr/bin/xset -d :0 dpms force on
