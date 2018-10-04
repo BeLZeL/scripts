@@ -4,3 +4,12 @@
 ** Outils de personnalisation ou lancer gnome-tweak-tool
 ** Aller dans "barre supérieure"
 ** Cocher "afficher les secondes"
+
+== Ajouter un raccourci ==
+
+cp /usr/share/applications/firefox-esr.desktop ~/.local/share/applications/firefox-esr-profiles.desktop
+vim ~/.local/share/applications/firefox-esr-profiles.desktop
+:%s/Firefox ESR/Firefox ESR with profile/g
+Exec=/usr/lib/firefox-esr/firefox-esr %u -P -no-remote
+
+Touche "Windows" puis rechercher le logiciel, puis ajouter aux favoris.
