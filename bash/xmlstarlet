@@ -55,6 +55,56 @@ cat file.xml | xmlstarlet sel -t -m "//OrgMod[2]" -v 'OrgMod_subname/text()' -n
 Homo sapiens  
 
 ###############################################################################
+# Get specific values and attributes
+echo '<?xml version="1.0"?>
+<spaceapes>
+    <monkey name="Gordo">
+        <date>12/13/58</date>
+        <species>Squirrel</species>
+    </monkey>
+    <monkey name="Able">
+        <date>5/28/59</date>
+        <species>Rhesus</species>
+    </monkey>
+    <monkey name="Baker">
+        <date>5/28/59</date>
+        <species>Squirrel</species>
+    </monkey>
+    <monkey name="Sam">
+        <date>12/04/59</date>
+        <species>Rhesus</species>
+    </monkey>
+</spaceapes>' |\
+xmlstarlet sel -t -m "//monkey" -v "species" -o " " -v "@name" -n
+
+Squirrel Gordo
+Rhesus Able
+Squirrel Baker
+Rhesus Sam
+
+###############################################################################
+# Transform specific nodes
+echo '<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <node1>value1</node1>
+    <node2>value2</node2>
+    <node3 varName="qt">
+        <subnode31>-37</subnode31>
+        <subnode32>41.1</subnode32>
+    </node3>
+    <node4>value4</node4>
+</root>' |\
+xmlstarlet sel \
+    -t -m "/root/*[count(*)=0]"             -v "name()" -o ": " -v "text()" -n \
+    -t -m "/root/*[count(*)>0]/*" -o "    " -v "name()" -o ": " -v "text()" -n
+
+node1: value1
+node2: value2
+node4: value4
+    subnode31: -37
+    subnode32: 41.1
+
+###############################################################################
 # Slow
 for logfile in $(ls log*.bz2)
 do
