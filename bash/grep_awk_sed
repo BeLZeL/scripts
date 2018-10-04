@@ -1,4 +1,20 @@
 #------------------------------------------------------------------------------
+# Add a new empty line between each line
+$ echo -ne "1\n2\n3\n" | sed 's/$/\n/g'
+1
+
+2
+
+3
+
+
+#------------------------------------------------------------------------------
+# Aggregate lines
+$ echo -ne "1\n2\n3\n" | perl -00pe 's/\n/ /g'
+1 2 3 
+
+
+#------------------------------------------------------------------------------
 # Transform lines to list
 echo -ne "AAA\nBBB\nCCC\n" | perl -00pe "s|^|<START>|sg" | perl -00pe "s|\n$|<END>|sg" | perl -pe "s/\n/<DELIM>/g"
 <START>AAA<DELIM>BBB<DELIM>CCC<END>
