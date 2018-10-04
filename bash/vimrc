@@ -15,12 +15,13 @@ autocmd Filetype h set fileencoding=iso-8859-1
 set t_Co=256                          " turn syntax highlighting on
 syntax on
 colorscheme Tomorrow-Night-Eighties
+"colorscheme badwolf
 set nocompatible
 set nopaste
 set pastetoggle=<F9>       " Toggle between 'paste' and 'nopaste'
 set autoindent smartindent " Display the cursor position on the last line of the screen
 set ruler                  " Display the cursor position on the last line of the screen
-set cmdheight=2            " Set the command window height to 2 lines
+"set cmdheight=2            " Set the command window height to 2 lines
 set number                 " Display line numbers on the left
 set mouse=a                " Use Mouse Scroll Wheel
 set cursorline             " Highlight current line
@@ -51,37 +52,97 @@ imap <S-Left> <Esc>v<Left>
 imap <S-Right> <Esc>v<Right>
 
 " Allow Copy, Cut, Paste, Undo
-vmap <C-c> "+yi
+"set clipboard+=unnamedplus
+nmap <C-a> ggVG
+vmap <C-c> "+y
 vmap <C-x> "+c
-vmap <C-v> c<ESC>"+p
-imap <C-v> <ESC>"+pa
-imap <C-z> <Esc>ui
-nmap <C-z> i<C-z>
+vmap <S-Insert> c<ESC>"+p
+imap <S-Insert> <ESC>"+pa
+"imap <C-z> <Esc>ui
+"nmap <C-z> i<C-z>
 
-"Plugins
+" Generate tags
+nnoremap <F12> :!ctags -R --fields=+Smt *<CR>
+
+"----------------------------------------------------------
+
 call plug#begin('~/.vim/plugged')
 
-"-------"
-" C/C++ "
-"-------"
 
-"Switch CPP / Headers
+"==============================="
+" Layout / Files / Git Features "
+"==============================="
+
+
+"----------------------
+" Fully path finder
+Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+"nnoremap <leader>. :CtrlPTag<cr>
+
+
+"----------------------
+" File System Explorer + Git
+Plug 'https://github.com/scrooloose/nerdtree'
+Plug 'https://github.com/Xuyuanp/nerdtree-git-plugin'
+" How can I map a specific key or shortcut to open NERDTree? + Refresh Git
+map <C-n> :NERDTreeToggle<CR>R<Esc>
+" Closes the tree window after opening a file.
+let g:NERDTreeQuitOnOpen=1
+" How can I open a NERDTree automatically when vim starts up if no files were specified?
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" How can I close vim if the only window left open is a NERDTree?
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+
+"----------------------
+" Git awesome (:Gblame and K)
+Plug 'https://github.com/tpope/vim-fugitive.git'
+
+
+"----------------------
+" Status Line
+Plug 'https://github.com/vim-airline/vim-airline'
+Plug 'https://github.com/vim-airline/vim-airline-themes'
+let g:airline_powerline_fonts = 1
+
+
+"----------------------
+" Manage Undo
+Plug 'https://github.com/mbbill/undotree'
+nnoremap <F5> :UndotreeToggle<cr>
+map <C-z> g-
+map <C-u> g+
+if has("persistent_undo")
+    set undodir=~/.vim/undodir/
+    set undofile
+endif
+
+
+"======="
+" C/C++ "
+"======="
+
+
+"----------------------
+" Switch CPP / Headers
 Plug 'https://github.com/vim-scripts/a.vim'
-":A switches to the header file corresponding to the current file being edited (or vise versa)
-":AS splits and switches
-":AV vertical splits and switches
+" :A switches to the header file corresponding to the current file being edited (or vise versa)
+" :AS splits and switches
+" :AV vertical splits and switches
 map <F2> :A<CR>
 
 
-"------------------"
-" Files / Features "
-"------------------"
+"----------------------
+" Browse tags
+Plug 'https://github.com/majutsushi/tagbar'
+nmap <C-m> :TagbarOpenAutoClose<CR>
+let g:tagbar_autofocus=1
 
-"Fully path finder
-Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+Plug 'https://github.com/Valloric/YouCompleteMe'
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf=0
+
+
 
 call plug#end()
-
-
-
-nnoremap <leader>. :CtrlPTag<cr>
