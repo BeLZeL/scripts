@@ -1,0 +1,17 @@
+
+#=============================================================================#
+# METHOD                                                                      #
+#=============================================================================#
+
+#------------------------------------------------------------------------------
+# Const method : "this" pointer will essentially become a pointer to "const" object, and you cannot therefore change any member data.
+# Mandatory for "getters"
+# https://stackoverflow.com/questions/751681/meaning-of-const-last-in-a-function-declaration-of-a-class
+
+bool classname::method() const { ... }
+
+#------------------------------------------------------------------------------
+# Override method :
+
+int moyenne(int i1, int i2); 
+float moyenne(float f1, float f2); //surcharge valide 
