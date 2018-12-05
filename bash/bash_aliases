@@ -65,7 +65,7 @@ xml  () { echo "$*" | perl -p -e "s/\n//g" | xmlstarlet fo -s 4; }
 xml_root  () { echo "<xml_root>$*</xml_root>" | perl -p -e "s/\n//g" | xmlstarlet fo -s 4; }
 echo_clean() { echo "$*" | perl -p -e "s/\s*\n/\n/g"; }
 cat_clean () { cat "$*" | perl -p -e "s/\s*\n/\n/g"; }
-cdl() { cd "$*" ; ls -l; }
+function cl { cd $* && ls -l; }
 
 function demon() { ( eval "$@" & ) }
 export -f demon
