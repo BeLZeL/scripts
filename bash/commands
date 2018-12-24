@@ -415,7 +415,7 @@ dpkg -l <exact package name>
 apt-cache policy <package name>
 
 #------------------------------------------------------------------------------
-# Find package from file
+# Find package name with filename
 # http://www.commentcamarche.net/faq/6947-trouver-a-quel-paquet-appartient-un-fichier
 dpkg -S <file>
 
@@ -425,6 +425,11 @@ while true; do
     inotifywait --quiet --recursive -e MODIFY --exclude 'swp$' .
     [...] make or rsync [...]
 done
+
+#------------------------------------------------------------------------------
+# Dependencies
+aptitude why <package name>
+
 
 
 #=============================================================================#
@@ -448,6 +453,16 @@ function gdb_clean()
 }
 
 $ gdb_clean ./binary core
+
+
+#=============================================================================#
+# TOP                                                                         #
+#=============================================================================#
+
+
+$ top
+Inside top, tape 'o', then 'COMMAND=<string>'
+
 
 #=============================================================================#
 # EOF                                                                         #
