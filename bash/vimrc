@@ -8,8 +8,8 @@
 set enc=utf-8
 set fenc=utf-8
 set termencoding=utf-8
-autocmd Filetype c set fileencoding=iso-8859-1
-autocmd Filetype h set fileencoding=iso-8859-1
+"autocmd Filetype c set fileencoding=iso-8859-1
+"autocmd Filetype h set fileencoding=iso-8859-1
 
 " Basic settings
 set t_Co=256                          " turn syntax highlighting on
@@ -126,11 +126,9 @@ endif
 
 "----------------------
 " Switch CPP / Headers
-Plug 'https://github.com/vim-scripts/a.vim'
-" :A switches to the header file corresponding to the current file being edited (or vise versa)
-" :AS splits and switches
-" :AV vertical splits and switches
-map <F2> :A<CR>
+Plug 'https://github.com/derekwyatt/vim-fswitch'
+"map <F2> :FSHere<CR>
+nnoremap <F2> :FSHere<CR>
 
 
 "----------------------
