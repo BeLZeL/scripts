@@ -1,4 +1,14 @@
 #-------------------------------------------------------- 
+# Command line example
+
+$ git config --get remote.origin.url
+$ git config [--global] pull.rebase true
+$ git config [--global] rebase.autoStash true
+$ git config [--global] user.name "Your Name"
+$ git config [--global] user.email you@example.com
+
+
+#-------------------------------------------------------- 
 # Example cat .gitconfig 
 [user]
 	name = ToTo
@@ -22,14 +32,17 @@
 [core]
 	editor = /usr/bin/vim
 
+
 #-------------------------------------------------------- 
 # If you encounter problems with git commit
 git config --global core.editor /usr/bin/vim 
+
 
 #-------------------------------------------------------- 
 # Git pull rebase and stash : https://stackoverflow.com/questions/30208928/can-git-pull-automatically-stash-and-pop-pending-changes
 git config --global pull.rebase      true
 git config --global rebase.autoStash true
+
 
 #--------------------------------------------------------
 # Git diff with tool
