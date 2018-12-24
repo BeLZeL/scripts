@@ -1,9 +1,57 @@
 
 Characters autorized for Branch name : A-Za-z0-9/_-
 
+
+#==========================#
+# Create Shared Dev Branch #
+#==========================#
+
+
+BRANCH=user/ticketnumber
+
+git checkout -b ${BRANCH}
+git add -A
+git commit -m "First commit"
+git push -u origin ${BRANCH}
+
+
+#====================#
+# Merge Pull Request #
+#====================#
+
+
+git ls-remote --heads
+
+BRANCH=user/ticketnumber
+
+git checkout -b ${BRANCH} origin/${BRANCH}
+
+# Diff
+git diff --stat master...${BRANCH}
+git diff master...${BRANCH}
+git difftool --dir-diff --color=always --tool=meld master...${BRANCH}
+Optional :
+    # modifications
+    git add -A
+    git commit -m ""
+    git push
+git checkout master
+git merge --squash ${BRANCH}
+Optional :
+    # modifications
+git add -A
+git difftool --dir-diff --cached --color=always --tool=meld
+git commit # already contains commit messages
+git push
+git push origin --delete ${BRANCH}
+git branch -D ${BRANCH}
+git fetch --prune
+
+
 #==================#
 # Local Operations #
 #==================#
+
 
 #--------------------------------------------------------
 # Create a new local branch
@@ -27,6 +75,7 @@ git diff master...<branch> | git apply
 #===================#
 # Remote Operations #
 #===================#
+
 
 #-------------------------------------------------------- 
 # List remote branch
