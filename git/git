@@ -130,19 +130,74 @@ git remote add origin <url>
 git push -u origin master
 
 #-------------------------------------------------------- 
-# Log and filename
-git log --name-status
-
-#-------------------------------------------------------- 
 # Git pull rebase and stash : https://stackoverflow.com/questions/30208928/can-git-pull-automatically-stash-and-pop-pending-changes
 # with 3 commands
-git stash save "TMP" ; git pull --rebase ; git stash pop
-# with one command (A TESTER)
+git stash save "<message>" ; git pull --rebase ; git stash pop
+
+# with one command
 git pull --rebase --autostash
+
 # with git config
 git config [--global ] pull.rebase true
 git config [--global ] rebase.autoStash true
 
+# List of stash
+git stash list
+
+# with untracked files
+git stash save -u "<message>"
+
+# https://stackoverflow.com/questions/10508903/cannot-apply-stash-to-working-directory
+# Restore Stash files tracked and untracked
+# "Could not restore untracked files from stash"
+# "Impossible de restaurer les fichiers non-suivis depuis le remisage"
+rm `git ls-tree -r stash@{0}^3 --name-only`
+git stash apply
+
+# Revert à Stash 
+git stash show -p stash@{0} | git apply -R
+
+# https://git-scm.com/book/fr/v2/Utilitaires-Git-Remisage-et-nettoyage
+# Converting a stash to a branch :
+git stash branch <branch>
+
+
+#=============================================================================#
+# GIT INIT                                                                    #
+#=============================================================================#
+
+
+#-------------------------------------------------------- 
+# Local repository
+
+$ git init <project.git> && cd $_
+$ echo "Dum Apud Persas, ut supra narravimus, perfidia regis motus agitat insperatos" > file
+$ git add file && git commit -m "test" file
+$ echo "Dum apud Persas, ut supra narravimus, perfidia regis motus agitat insperatos" > file
+$ git diff --word-diff
+Dum [-Apud-]{+apud+} Persas, ut supra narravimus, perfidia regis motus agitat insperatos
+
+#-------------------------------------------------------- 
+# Remote repository
+
+<user>@<server>:~/git$ git init --bare <project.git>
+$ git clone <user>@<server>:git/<project.git>
+$ touch file && git add file && git commit -m "test" file
+$ git push --set-upstream origin master
+    
+    
+#=============================================================================#
+# GIT LOG                                                                     #
+#=============================================================================#
+
+
+#-------------------------------------------------------- 
+# Log and filename
+git log --name-status
+
+#-------------------------------------------------------- 
+# Find history of a deleted file
+git log -- <deleted filename>
 
 #-------------------------------------------------------- 
 # History of a function
