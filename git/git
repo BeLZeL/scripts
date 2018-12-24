@@ -1,4 +1,18 @@
 #--------------------------------------------------------
+# Checkout quick and efficient (with just last commit history)
+git clone <url> <target directory> --depth=1
+
+#--------------------------------------------------------
+# Switch to previous branch
+git checkout -
+
+#--------------------------------------------------------
+# Diff with previous commit
+git diff --stat HEAD^
+git diff --stat HEAD^ HEAD
+git diff --stat HEAD^ HEAD -- <file>
+
+#--------------------------------------------------------
 # Diff between commits
 git diff --stat 152cb7b 53886f6
 
@@ -45,11 +59,16 @@ git bisect fixed master
 git bisect unfixed $some-old-sha1
 
 #--------------------------------------------------------
-# Re-work on a local commit
+# Re-work and remove local commit (NOT PUSHED)
+git reset HEAD~1
 git reset HEAD~ --soft
 
 #--------------------------------------------------------
-# Force reset
+# Re-work on a remote commit (PUSHED)
+git revert HEAD
+
+#--------------------------------------------------------
+# Force reset (modified files from these commits are reset)
 git reset 99e0c04 --hard
 git push origin master --force
 
@@ -67,9 +86,10 @@ git commit --amend -m "New Message"
 
 #-------------------------------------------------------- 
 # Move a patch from a repo to another (TODO TEST)
-$ git log --pretty=email --patch-with-stat --reverse --full-index --binary -- tonjolifichiersrc > /tmp/patch
+[FAILED] git log --pretty=email --patch-with-stat --reverse --full-index --binary -- tonjolifichiersrc > /tmp/patch
+$ git format-patch ${commit_from}..${commit_to} <path ?> --stdout | sed 's@<path from>@<path to>@g' > <patch filename>
 $ cd lenouveaurepo
-$ git am < /tmp/patch
+$ git am --signoff -k -3 < <patch filename>
 
 #-------------------------------------------------------- 
 # Move current changes from a repo to another
