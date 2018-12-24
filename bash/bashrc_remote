@@ -1,0 +1,27 @@
+# https://superuser.com/questions/503784/loading-local-shell-aliases-to-ssh-session-dynamicaly/593640
+# Tricks to export some aliases/functions on remote server :
+
+#------------------------------------------------------------------------------
+# In your local .bashrc :
+
+function sshs() {
+    RC_DATA=`cat ~/.bash_aliases_remote | base64 -w 0`
+    ssh -t $@ "echo \"${RC_DATA}\" | base64 --decode > /tmp/${USER}_bashrc; bash --rcfile /tmp/${USER}_bashrc; rm /tmp/${USER}_bashrc"
+}
+
+#------------------------------------------------------------------------------
+# Create this new file, with this content
+
+$ cat .bash_aliases_remote 
+
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
+function cl { cd $* && ls -l; }
+
+#------------------------------------------------------------------------------
+# Test it
+
+$ sshs <user>@<server>
+<user>@<server>:~$ cl <path>
