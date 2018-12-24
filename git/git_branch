@@ -96,13 +96,44 @@ git push -u origin <branch>
 #--------------------------------------------------------
 # Delete a remote branch
 git push origin --delete <branch>
-git branch --unset-upstream"
+git branch --unset-upstream
+# Then you need to delete local branch
+
+
+
+#======================#
+# Remote Branch Merged #
+#======================#
+
+
+#--------------------------------------------------------
+# Get a remote merged branches
+git branch -a --merged origin/master
+git branch -r --merged origin/master
+
+#--------------------------------------------------------
+# Get a remote un-merged branches
+git branch -va --no-merged origin/master
+
+#--------------------------------------------------------
+# Delete remote merged branches
+git branch -r --merged origin/master | grep -v "origin/master" | sed 's@\s*origin/@@g' | xargs git push origin --delete
+git branch -a --merged origin/master | egrep -v "(^\*|master)" | sed 's@\s*remotes/origin/@@g' | xargs git push origin --delete
 
 
 
 #===================#
 # Tricky Operations #
 #===================#
+
+
+#--------------------------------------------------------
+# Get a remote branch (try)
+git fetch
+git checkout --track origin/<branch>
+git checkout master
+git merge --squash <branch>
+( Then try git reset HEAD or git reset HEAD * )
 
 #--------------------------------------------------------
 # Rebase a branch (commit by commit)
