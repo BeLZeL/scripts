@@ -1,5 +1,34 @@
 ===============================================================================
 
+-- Rights
+ r -- SELECT ("read")
+ w -- UPDATE ("write")
+ a -- INSERT ("append")
+ d -- DELETE
+ R -- RULE
+ x -- REFERENCES
+ t -- TRIGGER
+ X -- EXECUTE
+ U -- USAGE
+ C -- CREATE
+ T -- TEMPORARY
+                  
+===============================================================================
+
+-- Bulk Multi Commands and parse results
+
+psql -U postgres -h <host> <db> << EOF
+DELETE FROM <table> where user_id ='A' ;
+DELETE FROM <table> where user_id ='B' ;
+EOF
+
+echo "DELETE FROM <table> where user_id ='A' ; DELETE FROM <table> where user_id ='B' ; " | psql -U postgres -h 127.0.0.1 ib_proorder -tA
+
+-- WARNING : -c will return only the last result !!
+psql -U postgres -h 127.0.0.1 ib_proorder -tAc "DELETE FROM <table> where user_id ='A' ; DELETE FROM <table> where user_id ='B' ; " 
+
+===============================================================================
+
 -- Execute query every SEC seconds
 #!/usr/bin/env bash
 set -o errexit
@@ -11,7 +40,6 @@ select * from table
 \watch 30
 ;
 EOQ
-
 
 ===============================================================================
 
@@ -113,11 +141,46 @@ ORDER BY 1,2;
 
 ===============================================================================
 
+-- Approx. Number of rows / records in all tables
+-- https://stackoverflow.com/questions/2596670/how-do-you-find-the-row-count-for-all-your-tables-in-postgres
+
+WITH
+first_req AS  (
+SELECT schemaname,relname,n_live_tup 
+  FROM pg_stat_user_tables 
+  ORDER BY n_live_tup DESC
+),
+second_req AS (
+    SELECT 
+      nspname AS schemaname,relname,reltuples::bigint
+    FROM pg_class C
+    LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace)
+    WHERE 
+      nspname NOT IN ('pg_catalog', 'information_schema') AND
+      relkind='r' 
+    ORDER BY reltuples DESC
+)
+SELECT first_req.relname, n_live_tup, reltuples, (n_live_tup - reltuples) as diff FROM first_req, second_req WHERE first_req.relname = second_req.relname ORDER BY reltuples DESC;
+
+===============================================================================
+
+-- Search tables with this column name (method 1)
+
+select c.relname, a.attname
+from pg_class as c
+    inner join pg_attribute as a on a.attrelid = c.oid
+where a.attname ~ '<column>' and c.relkind = 'r' order by relname;
+
+-- Search tables and data_type with a column name (method 2)
+
+select table_name, column_name, data_type from INFORMATION_SCHEMA.COLUMNS where column_name ~ '<column>' and table_schema = 'public' order by 1, 2, 3;
+
+===============================================================================
+
 -- Export/Import to a file
 
 \COPY ( select col1, col2 from table ) TO '/tmp/file' (DELIMITER '|');
 \COPY table (col1, col2)             FROM '/tmp/file' (DELIMITER '|');
-
 
 ===============================================================================
 
@@ -205,12 +268,6 @@ SELECT * FROM table_1 t1
 LEFT OUTER JOIN table_2 t2
 ON t1.id = t2.id
 WHERE t2.id IS NULL AND t1.cum_qty != 0 LIMIT 5;
-
-===============================================================================
--- Show source of PLSQL function
-
-SELECT p.proname,p.prosrc from pg_proc as p where p.proname='my_function';
-
 
 ===============================================================================
 
