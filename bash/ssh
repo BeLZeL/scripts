@@ -1,4 +1,11 @@
 #------------------------------------------------------------------------------
+# Remote command (colored ls) and stay logged (bash -i)
+# https://serverfault.com/questions/79645/ssh-run-a-command-on-login-and-then-stay-logged-in
+# $1 : user
+# $2 : server
+function sshls() { ssh -tl $1 $2 -- ' ls -lrt --color=always ; bash -i '; }
+
+#------------------------------------------------------------------------------
 # Tunnel
 home@linux $ ssh -4 -N -f -L 2345:localhost:5432 user@remote
 home@linux $ psql -U user -h localhost bdd_name
