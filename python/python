@@ -17,6 +17,20 @@ http://apprendre-python.com/page-virtualenv-python-environnement-virtuel
 
 
 #---------------------------------------------------------
+# String Format Examples
+# https://www.python-course.eu/python3_formatted_output.php
+# https://pyformat.info/
+
+"First argument: {0}, second one: {1}".format(47,11) 
+'First argument: 47, second one: 11'
+
+"Art: {a:5d},  Price: {p:8.2f}".format(a=453, p=59.058)
+'Art:   453,  Price:    59.06'
+
+"{0:>20s} {1:6.2f}".format('Spam & Eggs:', 6.99)
+'        Spam & Eggs:   6.99'
+
+#---------------------------------------------------------
 # Most elegant way to check if the string is empty
 if not myString:
 
@@ -24,10 +38,16 @@ if not myString:
 # Print 'n' chars
 print('-' * 3)
 
+
 #=============================================================================#
 # OTHERS                                                                      #
 #=============================================================================#
 
+# Manage dry-run quick and dirty
+#!/usr/bin/env python3
+import sys
+DRY_RUN = 1 if ( len(sys.argv) == 2 and sys.argv[1] == '--dry-run' ) else 0
+print(DRY_RUN)
 
 #---------------------------------------------------------
 # Run a command with pipe getting stdout
@@ -71,6 +91,10 @@ print(datetime.now() - start)
 token=open("/home/user/token", "r").read()
 
 #---------------------------------------------------------
+# Write a file
+token=open("/home/user/token", "w").write("string")
+
+#---------------------------------------------------------
 # Create directory if not exists
 import os
 if not os.path.exists(directory):
@@ -83,6 +107,7 @@ if not os.path.exists(directory):
 
 #---------------------------------------------------------
 # Parse JSON
+# https://docs.python.org/fr/3/library/json.html
 >>> import json
 >>> json.loads('{"buildDate": "2018-06-05T09:35:40Z","currentVersion": "1.0.0","metadata": {"timestamp": "2018-06-19T09:04:24Z","version": "1.0.0"}}')['buildDate']
 u'2018-06-05T09:35:40Z'
@@ -96,3 +121,11 @@ def func_line():
 # Compare two dictionnaries
 shared_items = {k: x[k] for k in x if k in y and x[k] == y[k]}
 print(len(shared_items))
+
+#---------------------------------------------------------
+# Random
+import random
+random.random()
+random.randrange(2)
+random.sample([1,2,3],2)
+
