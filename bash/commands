@@ -63,21 +63,24 @@ $ pgrep firefox : will list all processes whose commands match firefox
 $ pgrep -f firefox : will list all processes whose entire command lines match firefox
 $ pgrep -x firefox : will list all processes whose commands exactly match firefox
 
-
 #------------------------------------------------------------------------------
-# C'est pratique, la commande timeout
+# Launch command until timeout
 timeout 5m netcat {ip} {port} > dump.txt
-Et hop, 5min de flux, pas besoin de surveiller.
-
 
 #------------------------------------------------------------------------------
 # Watch with differences
 watch -d ...
 
-
 #------------------------------------------------------------------------------
 # Access denied
 sudo iptables -I INPUT -s <ip> -j REJECT
+
+#------------------------------------------------------------------------------
+# Sequence
+$ seq 1 3 | tr '\n' '-'
+1-2-3-
+$ seq -f "%02.0f" 1 3 | tr '\n' '-'
+01-02-03-
 
 
 #=============================================================================#
