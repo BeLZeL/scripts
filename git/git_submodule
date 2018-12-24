@@ -1,0 +1,34 @@
+#--------------------------------------------------------
+# Add a submodule
+git submodule add <url>.git <path>
+
+#--------------------------------------------------------
+# Replace a submodule
+git rm -r --cached <path>
+git submodule add <url>.git <path>
+
+#--------------------------------------------------------
+# Refresh submodules
+git submodule sync
+git submodule update --init --recursive --remote --merge
+
+#--------------------------------------------------------
+# Find submodules (.git/config)
+$ cat .git/config
+[submodule "<path>"]
+    url = <url>.git
+
+#--------------------------------------------------------
+# Find submodules (git config)
+$ git config --file .gitmodules --get-regexp path | awk '{ print $2 }'
+<path>
+
+#--------------------------------------------------------
+# Find submodules (git submodule)
+$ git submodule foreach
+Entree dans '<path>'
+
+#--------------------------------------------------------
+# Check version of submodules
+git submodule status
+ 0576ad24e90949722f28f9146d2cbc29740f6472 <path> (1.1.1~3)
