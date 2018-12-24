@@ -106,6 +106,14 @@ ERROR:
 # See hexadecimal or try ghex (GNOME hex editor)
 hexdump -C <file>
 
+#------------------------------------------------------------------------------
+# Indirection parameter, variable whose name is the value of another variable, substitution
+$ env | grep HISTSIZE
+HISTSIZE=15000
+$ myvar=HISTSIZE
+$ echo ${!myvar}
+15000
+
 
 #=============================================================================#
 # DATE                                                                        #
