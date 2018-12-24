@@ -2,13 +2,13 @@
 # XMLStarlet SEL #
 #================#
 
-###############################################################################
+#------------------------------------------------------------------------------
 # Extract only this path (with all childs) in a single string
 res=$(cat file.xml | xmlstarlet sel -t \
  -c '/big/path/to/have')
 echo "<ROOT>${res}</ROOT>" | xmlstarlet fo -s 4
 
-###############################################################################
+#------------------------------------------------------------------------------
 # Extract path and attributes, order by attr1
 cat file.xml \
 | xmlstarlet sel -t \
@@ -16,12 +16,12 @@ cat file.xml \
  -v 'concat(@attr1,"|",@attr2,"|",@attr3)' \
  -n
 
-###############################################################################
+#------------------------------------------------------------------------------
 # Search each node having attr1 and extract it line by line
 xmlstarlet sel -t \
     -m '/big/path' -i "node[@attr1]" -c "*" -n file.xml
 
-###############################################################################
+#------------------------------------------------------------------------------
 # Loop on each interesting line, using previous example
 FLEX_LINE_BY_LINE=$( ... see upside ... )
 echo "${FLEX_LINE_BY_LINE}" | \
@@ -36,7 +36,7 @@ do
     | sort -n
 done
 
-###############################################################################
+#------------------------------------------------------------------------------
 # Get specific node
 #<OrgName_mod>
 #    <OrgMod>
@@ -54,7 +54,7 @@ cat file.xml | xmlstarlet sel -t -m "//OrgMod[OrgMod_subtype/@value='nat-host']"
 cat file.xml | xmlstarlet sel -t -m "//OrgMod[2]" -v 'OrgMod_subname/text()' -n
 Homo sapiens  
 
-###############################################################################
+#------------------------------------------------------------------------------
 # Get specific values and attributes
 echo '<?xml version="1.0"?>
 <spaceapes>
@@ -82,7 +82,7 @@ Rhesus Able
 Squirrel Baker
 Rhesus Sam
 
-###############################################################################
+#------------------------------------------------------------------------------
 # Transform specific nodes
 echo '<?xml version="1.0" encoding="UTF-8"?>
 <root>
@@ -104,7 +104,7 @@ node4: value4
     subnode31: -37
     subnode32: 41.1
 
-###############################################################################
+#------------------------------------------------------------------------------
 # Slow
 for logfile in $(ls log*.bz2)
 do
