@@ -146,7 +146,19 @@ readlink <link name>
 
 #------------------------------------------------------------------------------
 # Change target of a symlink
-ln -sfn <new target> <link name>
+ln -nfs <new target> <link name>
+
+Example :
+$ mkdir 1 2
+$ touch 1/1.txt 2/2.txt
+$ ln -nfs 1 first
+$ ln -nfs 2 second
+$ ln -nfs first master
+$ ls master
+master/1.txt
+$ ln -nfs second master
+$ ls master
+master/2.txt
 
 #------------------------------------------------------------------------------
 # du with hidden files/folders
