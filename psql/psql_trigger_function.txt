@@ -1,0 +1,25 @@
+--------------
+-- TRIGGERS --
+--------------
+
+-- List of triggers (and table)
+select tgrelid::regclass, tgname from pg_trigger;
+
+-- With good rights on table and trigger
+\d <table>
+Triggers:
+    <trigger> AFTER INSERT OR DELETE OR UPDATE ON <table> FOR EACH ROW EXECUTE PROCEDURE <function>()
+
+---------------
+-- FUNCTIONS --
+---------------
+
+-- Show source of PLSQL function
+SELECT p.prosrc from pg_proc as p where p.proname='<function>';
+
+-- Show informations about functions
+\df+
+\df+ <function>
+
+-- Show source code of a function
+\ef <function>
