@@ -219,6 +219,7 @@ $ find . -name "*.ext" -exec cp --parents {} </PATH/> \;
 
 #------------------------------------------------------------------------------
 # Find and delete empty files 
+find . -size 0c -delete
 find . -size 0c -type f -name "*" -exec rm {} \;
 find . -name "*.log" -size 0 | xargs rm
 
@@ -234,6 +235,20 @@ find . -size 0c -ctime -2 -type f -name "*" -exec ls -l {} \;
 #------------------------------------------------------------------------------
 # Find big files
 find . -size +100M -type f -name "*" -exec ls -l {} \;
+
+#------------------------------------------------------------------------------
+# Find old files (> 1 year)
+find . -type f -mtime +365
+find . -type f -mtime +365 -exec ls -l {} \;
+find . -type f -mtime +365 -delete
+
+#------------------------------------------------------------------------------
+# Find oldest files
+find -type f -printf '%T+ %p\n' | sort | head -1
+
+#------------------------------------------------------------------------------
+# Find duplicate files (doublons, twice)
+find -not -empty -type f -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate | less
 
 
 #=============================================================================#
