@@ -29,11 +29,13 @@ end
 
 #---------------------
 # Start VM
-$ vagrant up
+# https://www.vagrantup.com/docs/cli/up.html
+$ vagrant up <host>
+$ vagrant up --parallel
 
 #---------------------
 # Connect to VM
-$ vagrant ssh
+$ vagrant ssh <host>
 
 #---------------------
 # Root
@@ -50,6 +52,23 @@ $ vagrant rsync
 
 vagrant@stretch:~$ ls /vagrant/
 toto  Vagrantfile
+
+#---------------------
+# Clean inaccessible VMs
+
+Error :
+12:01 $ vagrant up os9
+Bringing machine 'os9' up with 'virtualbox' provider...
+Your VM has become "inaccessible." Unfortunately, this is a critical error
+with VirtualBox that Vagrant can not cleanly recover from. Please open VirtualBox
+and clear out your inaccessible virtual machines or find a way to fix
+them.
+
+Solution :
+for vm in $(vboxmanage list vms | grep inaccessible | sed 's/.*{\(.*\)}.*/\1/g')
+do
+    vboxmanage unregistervm ${vm}
+done
 
 #---------------------
 # Links
