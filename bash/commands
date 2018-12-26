@@ -250,6 +250,10 @@ find -type f -printf '%T+ %p\n' | sort | head -1
 # Find duplicate files (doublons, twice)
 find -not -empty -type f -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate | less
 
+#------------------------------------------------------------------------------
+# Find symlink whose contents match pattern
+find / -lname <target> 2>/dev/null
+
 
 #=============================================================================#
 # JOIN                                                                        #
