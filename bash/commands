@@ -328,6 +328,10 @@ $ echo ${test[2]}
 deux
 
 #------------------------------------------------------------------------------
+# Split string to array, and use ${ARRargs[0]} or ${#ARRargs[*]}
+ARRargs=(${args// / })
+    
+#------------------------------------------------------------------------------
 # Array Join (https://zaiste.net/posts/how_to_join_elements_of_an_array_in_bash/)
 $ SOURCES=("TOTO" "TUTU")
 $ function join_by { local IFS="$1"; shift; echo "$*"; }
