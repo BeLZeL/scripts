@@ -13,4 +13,5 @@ select nextval(('reqorders_seq'::text)::regclass);
 select currval('reqorders_seq');
  135355586
 
-
+-- never tried
+alter sequence reqorders_seq restart 325771300;
