@@ -43,6 +43,13 @@ $ kate -n $(find . -name "*.ext" | xargs grep -l "AAA" | xargs grep -L "BBB")
 
 
 #------------------------------------------------------------------------------
+# Grep with partial binary file
+# https://stackoverflow.com/questions/9988379/how-to-grep-a-text-file-which-contains-some-binary-data
+$ grep -e '<pattern>' file.log
+Fichier binaire file.log correspondant
+$ cat -v file.log | grep -e "<pattern>"
+
+#------------------------------------------------------------------------------
 # Grep datetime and extract some lines (with id)
 # Re-Grep only these lines
 $ egrep "^08:00:0" log | grep "Notification" > output
