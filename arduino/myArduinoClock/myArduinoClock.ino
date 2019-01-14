@@ -1,4 +1,8 @@
+
+// https://www.arduino.cc/en/Reference/Wire
 #include <Wire.h>
+
+// https://github.com/NorthernWidget/DS3231
 #include <DS3231.h>
 
 DS3231 Clock;
@@ -23,12 +27,12 @@ enum DOWS {
 #define YELLOW 5
 #define RED 6
 
-void flash_led(int pin)
+void flash_led(int pin, int mydelay=500)
 {
   digitalWrite(pin, HIGH);
-  delay(500);
+  delay(mydelay);
   digitalWrite(pin, LOW);
-  delay(500);
+  delay(mydelay);
 }
 
 void flash_number(int number)
@@ -38,37 +42,19 @@ void flash_number(int number)
 
   for ( int i=0 ; i<number_1 ; ++i )
     flash_led(RED);
-
-  // Ack
-  flash_led(GREEN);
   
   for ( int i=0 ; i<number_2 ; ++i )
     flash_led(YELLOW);
 
   // Ack
-  flash_led(GREEN);
-  flash_led(GREEN);
+  flash_led(GREEN, 1500);
 }
 
 void setup()
 {
   Serial.begin(9600);
-
-  // Initialize DS3231
-  Serial.println("Initialize DS3231");;
-  //clock.begin();
-
-    // Start the I2C interface
-Wire.begin();
-
-  // Set sketch compiling time
-//  clock.setDateTime(__DATE__, __TIME__);
-
-  // Set from UNIX timestamp
-  // clock.setDateTime(1397408400);
-
-  // Manual (YYYY, MM, DD, HH, II, SS
-  // clock.setDateTime(2016, 12, 9, 11, 46, 00);
+  Serial.println("Initialize DS3231");
+  Wire.begin();
 
   pinMode(RED, OUTPUT);
   pinMode(GREEN, OUTPUT);
@@ -80,8 +66,6 @@ Wire.begin();
   digitalWrite(YELLOW, LOW);
   digitalWrite(13, LOW);
 
-  flash_led(GREEN);
-
   int hour = Clock.getHour(h12, PM);
   int minute = Clock.getMinute();
   
@@ -89,7 +73,9 @@ Wire.begin();
   Serial.println(minute, DEC);
   Serial.println(Clock.getSecond(), DEC);
   Serial.println(Clock.getDoW(), DEC);
-    
+
+  // Start flash
+  flash_led(GREEN, 1500);
   flash_number(hour);
   flash_number(minute);
 }
@@ -108,11 +94,11 @@ void loop()
     case JEUDI:
     case VENDREDI:
     {
-      // Orange : 7h00 - 7h30
-      if ( current_hour == 7 && current_minute < 30 )
+      // Orange : 7h00 - 7h15
+      if ( current_hour == 7 && current_minute < 15 )
         pinColor = YELLOW;
-      // Green 7h30 - 10h00
-      else if ( ( current_hour == 7 && current_minute >= 30 ) || current_hour == 8 || current_hour == 9 || current_hour == 10 )
+      // Green 7h15 - 10h00
+      else if ( ( current_hour == 7 && current_minute >= 15 ) || current_hour == 8 || current_hour == 9 || current_hour == 10 )
         pinColor = GREEN;
       break;
     }
