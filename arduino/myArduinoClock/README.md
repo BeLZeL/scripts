@@ -33,10 +33,10 @@ Example, it's 21h59 :
 
 Monday, Tuesday, Thursday, Friday :
 * red : before 7h00
-* orange : bewteen 7h00 and 7h15
+* orange : between 7h00 and 7h15
 * green : after 7h15
 
 Wednesday, Saturday, Sunday :
 * red : before 8h00
-* orange : bewteen 8h00 and 8h30
+* orange : between 8h00 and 8h30
 * green : after 8h30
