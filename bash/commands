@@ -103,12 +103,21 @@ $ echo ${filename_ext%.txt}
 toto
 
 #------------------------------------------------------------------------------
-# Starts with
-$ res=$(echo "ERROR: truc")
+# Starts with, ends with
+$ res="ERROR: truc"
+
 $ echo "${res}"
 ERROR: truc
+
 $ echo "${res::6}"
 ERROR:
+
+$ echo "${res#* }"
+truc
+
+$ echo "${res% *}"
+ERROR:
+
 
 #------------------------------------------------------------------------------
 # See hexadecimal or try ghex (GNOME hex editor)
