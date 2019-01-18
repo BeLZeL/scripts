@@ -70,6 +70,29 @@ do
     vboxmanage unregistervm ${vm}
 done
 
+
+#---------------------
+# Export / Import a box
+
+export$ vagrant package <file.box>
+import$ vagrant add box <name> <file.box>
+
+
+#---------------------
+# Copy files to a Vagrant guest via SCP, or reverse
+# https://github.com/invernizzi/vagrant-scp
+
+vagrant plugin install vagrant-scp
+vagrant scp file_on_host.txt :file_on_vm.txt
+vagrant scp :file_on_vm.txt file_on_host.txt
+
+
+#---------------------
+# VirtualBox Shared Directory (VirtualBox Guest Additions)
+
+https://doc.ubuntu-fr.org/virtualbox_additions_invite
+
+
 #---------------------
 # Links
 * https://en.wikipedia.org/wiki/Vagrant_(software)
