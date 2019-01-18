@@ -48,6 +48,7 @@ $ kate -n $(find . -name "*.ext" | xargs grep -l "AAA" | xargs grep -L "BBB")
 $ grep -e '<pattern>' file.log
 Fichier binaire file.log correspondant
 $ cat -v file.log | grep -e "<pattern>"
+$ bunzip2 -c file.log.bz2 | cat -v | grep -e "<pattern>"
 
 #------------------------------------------------------------------------------
 # Grep datetime and extract some lines (with id)
