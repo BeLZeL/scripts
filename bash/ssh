@@ -123,3 +123,9 @@ do
 EOT
     )"
 done
+
+
+#----------------------------------------------------------
+# Double ssh connections then get a specific file
+
+ssh -t <user>@<server1> ssh <server2> 'cat file.html' > /tmp/file.html
