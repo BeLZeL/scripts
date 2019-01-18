@@ -111,6 +111,15 @@ if not os.path.exists(directory):
     os.mkdir(directory)
 
 #---------------------------------------------------------
+# List files in current directory
+from __future__ import print_function
+import os 
+path = '.' 
+files = os.listdir(path)
+for name in files:
+    print(name)
+
+#---------------------------------------------------------
 # Functional programming
  >>> [ x * x for x in range(10) if x % 2 ]
  [1, 9, 25, 49, 81]
