@@ -28,6 +28,14 @@ $ eval find . $T
 #=============================================================================#
 
 #------------------------------------------------------------------
+# Perform a lock to launch a script only one at a time
+#!/bin/bash
+LOCKFILE=/tmp/lock.tmp
+[ -e "${LOCKFILE}" ] && exit || touch "${LOCKFILE}"
+sleep 10
+rm -f ${LOCKFILE}
+
+#------------------------------------------------------------------
 # Compress and split
 tar -cvJf test.txz *
 gpg -c test.txz
