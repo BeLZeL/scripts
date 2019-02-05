@@ -5,6 +5,8 @@
 # OVERRIDE VARIABLES                                                          #
 #=============================================================================#
 
+export PATH=$PATH:~/.local/bin
+
 # Search a valid directory
 shopt -s cdspell
 
