@@ -1,3 +1,9 @@
+
+
+
+
+
+
 #--------------------------------------------------------
 # Checkout quick and efficient (with just last commit history)
 git clone <url> <target directory> --depth=1
@@ -58,23 +64,7 @@ git bisect start --term-new=fixed --term-old=unfixed
 git bisect fixed master
 git bisect unfixed $some-old-sha1
 
-#--------------------------------------------------------
-# Re-work and remove local commit (NOT PUSHED)
-git reset HEAD~1
-git reset HEAD~ --soft
 
-#--------------------------------------------------------
-# Re-work on a remote commit (PUSHED)
-git revert HEAD
-
-#--------------------------------------------------------
-# Force reset (modified files from these commits are reset)
-git reset 99e0c04 --hard
-git push origin master --force
-
-#--------------------------------------------------------
-# Reset local
-git reset HEAD --hard
 
 #--------------------------------------------------------
 # Add a new file to the previous local commit, without launching an editor :
@@ -102,11 +92,6 @@ repos2 $ git apply /tmp/patch
 git diff --cached --stat
 
 #-------------------------------------------------------- 
-# Cancel a git add
-git reset
-git reset <file>
-
-#-------------------------------------------------------- 
 # Use Tag (https://git-scm.com/book/en/v2/Git-Basics-Tagging)
 # Commit before tag, and just :
 git tag v1.2.3
@@ -128,38 +113,6 @@ git remote set-url origin <url>
 # Push local commits to Remote
 git remote add origin <url>
 git push -u origin master
-
-#-------------------------------------------------------- 
-# Git pull rebase and stash : https://stackoverflow.com/questions/30208928/can-git-pull-automatically-stash-and-pop-pending-changes
-# with 3 commands
-git stash save "<message>" ; git pull --rebase ; git stash pop
-
-# with one command
-git pull --rebase --autostash
-
-# with git config
-git config [--global ] pull.rebase true
-git config [--global ] rebase.autoStash true
-
-# List of stash
-git stash list
-
-# with untracked files
-git stash save -u "<message>"
-
-# https://stackoverflow.com/questions/10508903/cannot-apply-stash-to-working-directory
-# Restore Stash files tracked and untracked
-# "Could not restore untracked files from stash"
-# "Impossible de restaurer les fichiers non-suivis depuis le remisage"
-rm `git ls-tree -r stash@{0}^3 --name-only`
-git stash apply
-
-# Revert à Stash 
-git stash show -p stash@{0} | git apply -R
-
-# https://git-scm.com/book/fr/v2/Utilitaires-Git-Remisage-et-nettoyage
-# Converting a stash to a branch :
-git stash branch <branch>
 
 
 #=============================================================================#
@@ -203,3 +156,107 @@ git log -- <deleted filename>
 # History of a function
 # -L <start>,<end>:<file>, -L :<regex>:<file>
 git log -L :main:toto.c
+
+
+#=============================================================================#
+# GIT MERGE (non destructive)                                                 #
+#=============================================================================#
+
+
+#--------------------------------------------------------
+# Merge all commits from <branch> to master, and add after master (fast forward)
+$ git checkout master && git merge <branch>
+
+#--------------------------------------------------------
+# Merge all commits from <branch> to master in only ONE commit, and add after master (fast forward)
+$ git merge --squash ${BRANCH}
+
+
+#=============================================================================#
+# GIT REBASE (destructive)                                                    #
+#=============================================================================#
+
+
+#--------------------------------------------------------
+# Update your branch with last commits on master (fast forward)
+$ git checkout <branch> && git rebase master
+
+
+#=============================================================================#
+# GIT REVERT (non destructive)                                                #
+#=============================================================================#
+
+
+#--------------------------------------------------------
+# Generate a patch with a revert commit, for example re-work last remote commit (ALREADY PUSHED)
+$ git revert HEAD
+
+
+#=============================================================================#
+# GIT RESET (destructive)                                                    #
+#=============================================================================#
+
+
+#--------------------------------------------------------
+# Reset local
+git reset HEAD --hard
+
+#--------------------------------------------------------
+# Get back previous state on your local working directory, for example re-work and remove local commit (NOT PUSHED)
+git reset HEAD~1
+git reset HEAD~ --soft
+
+#--------------------------------------------------------
+# Force reset (modified files from these commits are reset)
+git reset 99e0c04 --hard
+git push origin master --force
+
+#-------------------------------------------------------- 
+# Cancel a git add
+git reset
+git reset <file>
+
+
+#=============================================================================#
+# GIT STASH                                                                   #
+#=============================================================================#
+
+
+git stash push
+git stash pop
+git statsh apply
+git stash drop
+git stash branch
+
+#-------------------------------------------------------- 
+# Git pull rebase and stash : https://stackoverflow.com/questions/30208928/can-git-pull-automatically-stash-and-pop-pending-changes
+# with 3 commands
+git stash save "<message>" ; git pull --rebase ; git stash pop
+
+# with one command
+git pull --rebase --autostash
+
+# with git config
+git config [--global ] pull.rebase true
+git config [--global ] rebase.autoStash true
+
+# List of stash
+git stash list
+
+# with untracked files
+git stash save -u "<message>"
+
+# https://stackoverflow.com/questions/10508903/cannot-apply-stash-to-working-directory
+# Restore Stash files tracked and untracked
+# "Could not restore untracked files from stash"
+# "Impossible de restaurer les fichiers non-suivis depuis le remisage"
+rm `git ls-tree -r stash@{0}^3 --name-only`
+git stash apply
+
+# Revert à Stash 
+git stash show -p stash@{0} | git apply -R
+
+# https://git-scm.com/book/fr/v2/Utilitaires-Git-Remisage-et-nettoyage
+# Converting a stash to a branch :
+git stash branch <branch>
+
