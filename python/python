@@ -38,7 +38,6 @@ if not myString:
 # Print 'n' chars
 print('-' * 3)
 
-
 #---------------------------------------------------------
 # Get substring with regex
 import re
@@ -49,9 +48,77 @@ except AttributeError:
     sub_filename = filename
 -> sub_filename='toto'
 
+#---------------------------------------------------------
+# Method to print a class
+def __str__(self):
+    return "My name is {}".format(self.name)
+
+
+#=============================================================================#
+# PROCESS                                                                     #
+#=============================================================================#
+
+
+#---------------------------------------------------------
+# Run a command with pipe getting stdout
+import subprocess
+p = subprocess.check_output("date | cut -d' ' -f2", shell=True)
+print(p.decode('UTF-8').rstrip())
+
+
+#=============================================================================#
+# READ/WRITE/FILES                                                            #
+#=============================================================================#
+
+
+#---------------------------------------------------------
+# read stdin (rstrip = chomp = trimmed = remove last 'blank' char)
+import sys
+for line in sys.stdin:   
+    print(line.rstrip())
+
+#---------------------------------------------------------
+# Read a file to string
+token=open("/home/user/token", "r").read()
+
+#---------------------------------------------------------
+# Write a file from string
+token=open("/home/user/token", "w").write("string")
+
+#---------------------------------------------------------
+# Read a file line by line with grep style
+import re
+import os
+fichier=open("/tmp/list", "r")
+for line in fichier.readlines():
+    line = line.rstrip()
+    try:
+        first_word = re.search('([^ ]*) .*', line).group(1)
+    except AttributeError:
+        continue
+    print(line + "\t======> " + first_word )
+fichier.close()
+
+#---------------------------------------------------------
+# Create directory if not exists
+import os
+if not os.path.exists(directory):
+    os.mkdir(directory)
+
+#---------------------------------------------------------
+# List files in current directory
+from __future__ import print_function
+import os 
+path = '.' 
+files = os.listdir(path)
+for name in files:
+    print(name)
+
+
 #=============================================================================#
 # OTHERS                                                                      #
 #=============================================================================#
+
 
 # Manage dry-run quick and dirty
 #!/usr/bin/env python3
@@ -59,11 +126,6 @@ import sys
 DRY_RUN = 1 if ( len(sys.argv) == 2 and sys.argv[1] == '--dry-run' ) else 0
 print(DRY_RUN)
 
-#---------------------------------------------------------
-# Run a command with pipe getting stdout
-import subprocess
-p = subprocess.run("date | cut -d' ' -f2", shell=True, stdout=subprocess.PIPE)
-print(p.stdout.decode('UTF-8'))
 
 #---------------------------------------------------------
 # Parse Args
@@ -71,12 +133,6 @@ import sys
 print('Number of arguments:', len(sys.argv), 'arguments.')
 print('Argument List:', str(sys.argv))
 print('Process:', str(sys.argv[0]))
-
-#---------------------------------------------------------
-# read stdin (rstrip = chomp = trimmed = remove last 'blank' char)
-import sys
-for line in sys.stdin:   
-    print(line.rstrip())
 
 #---------------------------------------------------------
 # Python: about catching ANY exception
@@ -95,29 +151,6 @@ from datetime import datetime
 start = datetime.now()
 print(datetime.now() - start)
 -> 0:00:00.894091
-
-#---------------------------------------------------------
-# Read a file
-token=open("/home/user/token", "r").read()
-
-#---------------------------------------------------------
-# Write a file
-token=open("/home/user/token", "w").write("string")
-
-#---------------------------------------------------------
-# Create directory if not exists
-import os
-if not os.path.exists(directory):
-    os.mkdir(directory)
-
-#---------------------------------------------------------
-# List files in current directory
-from __future__ import print_function
-import os 
-path = '.' 
-files = os.listdir(path)
-for name in files:
-    print(name)
 
 #---------------------------------------------------------
 # Functional programming
