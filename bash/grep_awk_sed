@@ -140,3 +140,130 @@ $ ./elapsed.sh
 14:28:38.252609 | 279.217 ms
 14:36:23.847652 | 185.954 ms
 
+
+#------------------------------------------------------------------------------
+# AWK : Print until pattern (included)
+$ seq 1 10 | awk 'BEGIN { p = 1 } { if ( p == 1 ) print $0 } /7/ { p = 0; }' | wc -l
+7
+
+# AWK : Print until pattern (not included)
+$ seq 1 10 | awk 'BEGIN { p = 1 } /7/ { p = 0; } { if ( p == 1 ) print $0 }' | wc -l
+6
+
+
+#=============================================================================#
+# GREP : colors                                                               #
+#=============================================================================#
+
+
+# Show pattern in red (default color)
+grep <pattern> file
+
+# Show pattern in green
+GREP_COLOR="1;32" grep <pattern> file
+
+# Show pattern in red (default color) with less
+grep --color=always <pattern> file | less -R
+
+# Show pattern in green with less
+GREP_COLOR="1;32" grep --color=always <pattern> file | less -R
+
+
+#=============================================================================#
+# AWK : Merge lines and filter lines                                          #
+#=============================================================================#
+
+
+Example with :
+
+$ cat /tmp/file
+{
+    A
+    B
+    C
+}
+{
+    D
+    E
+    F
+}
+{
+    G
+    H
+    I
+}
+
+$ cat /tmp/file | awk ' BEGIN { OFS=""; RS=ORS="}\n"} {$1=$1}1'
+{ABC}
+{DEF}
+{GHI}
+
+$ cat /tmp/file | awk ' BEGIN { OFS=" "; RS=ORS="}\n"} {$1=$1}1'
+{ A B C}
+{ D E F}
+{ G H I}
+
+$ cat /tmp/file | awk ' BEGIN { OFS=" "; RS="}\n" ; ORS=" }\n"} {$1=$1}1'
+{ A B C }
+{ D E F }
+{ G H I }
+
+$ cat /tmp/file | awk ' BEGIN { FS="\n" ; OFS=""; RS=ORS="}\n"} {$1=$1}1'
+{    A    B    C}
+{    D    E    F}
+{    G    H    I}
+
+$ cat /tmp/file | awk ' BEGIN { FS="\n" ; OFS="@@@"; RS=ORS="}\n"} {$1=$1}1'
+{@@@    A@@@    B@@@    C@@@}
+{@@@    D@@@    E@@@    F@@@}
+{@@@    G@@@    H@@@    I@@@}
+
+# Filter : D
+$ cat /tmp/file | awk ' BEGIN { FS="\n" ; OFS="@@@"; RS=ORS="}\n"} {$1=$1}1' | grep -v 'D' | sed 's/@@@/\n/g'
+{
+    A
+    B
+    C
+}
+{
+    G
+    H
+    I
+}
+
+# Filter : G and H
+$ export DELIM='@@@' ; cat /tmp/file | awk -v DELIM=$DELIM ' BEGIN { FS="\n" ; OFS=DELIM; RS=ORS="}\n"} {$1=$1}1' | grep -v "G${DELIM}\s*H" | sed 's/@@@/\n/g'
+{
+    A
+    B
+    C
+}
+{
+    D
+    E
+    F
+}
+
+
+#=============================================================================#
+# Replace code source / functions                                             #
+#=============================================================================#
+
+
+# CHECK : find, xargs grep, sed
+$ find . -type f -name "*.[ch]*" \
+| xargs grep -e "datetime_copy(.*, application_now" \
+| sed 's/datetime_copy(\(.*\), application_now())/application_now_r(\1)/g' 
+
+# APPLY : find, xargs grep -l, xargs sed -i
+$ find . -type f -name "*.[ch]*" \
+| xargs grep -le "datetime_copy(.*, application_now" \
+| xargs sed -i 's/datetime_copy(\(.*\), application_now())/application_now_r(\1)/g'
+
+
+#=============================================================================#
+# Unbuffered version                                                          #
+#=============================================================================#
+
+
+tail -f file | grep --line-buffered pattern | sed --unbuffered 's///g' | awk '{ print $0; system("")}'
