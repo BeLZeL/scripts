@@ -4,3 +4,11 @@ Permission denied (publickey).
 
 Go to Gogs / User Profile / Your settings / SSH Keys / Add key
 $ cat ~/.ssh/id_rsa.pub
+
+$ ssh gogs@gogs-multi...
+PTY allocation request failed on channel 0
+Hi there, You've successfully authenticated, but Gogs does not provide shell access.
+If this is unexpected, please log in with password and setup Gogs under another user.
+Connection to gogs-multi... closed.
+
+Then create a new empty repository from Gogs, then clone it.
