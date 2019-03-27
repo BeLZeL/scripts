@@ -16,6 +16,12 @@ set -x
 
 #------------------------------------------------------------------
 # Arguments in scripts
+echo "$#" : nb args
+echo "$@" : args
+echo "$1" : first arg
+echo "$?" : returned result
+
+#------------------------------------------------------------------
 # Use eval
 $ touch test.toto
 $ T="-name '*.toto'"
