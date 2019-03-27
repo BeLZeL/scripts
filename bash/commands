@@ -15,6 +15,7 @@ set -x
 
 
 #------------------------------------------------------------------
+# Arguments in scripts
 # Use eval
 $ touch test.toto
 $ T="-name '*.toto'"
