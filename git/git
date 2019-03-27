@@ -159,6 +159,24 @@ git log -L :main:toto.c
 
 
 #=============================================================================#
+# MERGE A BRANCH                                                              #
+#=============================================================================#
+
+
+#--------------------------------------------------------
+# https://delicious-insights.com/fr/articles/bien-utiliser-git-merge-et-rebase/
+# Merge :
+#     * avec preservation des commits
+#     * sans aiguillage
+#     * avec reintegration des commits de master entre temps
+git checkout master
+git rebase master quick-fixes
+git checkout master
+git merge quick-fixes
+git push
+
+
+#=============================================================================#
 # GIT MERGE (non destructive)                                                 #
 #=============================================================================#
 
