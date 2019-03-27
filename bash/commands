@@ -112,10 +112,14 @@ $ printf '%02d' $n
 02
 
 #------------------------------------------------------------------------------
-# Remove ext
-$ filename_ext="toto.txt"
-$ echo ${filename_ext%.txt}
-toto
+# Remove or get extension filename
+$ f="toto.tutu.txt"
+$ echo ${f%.txt}
+toto.tutu
+$ echo ${f#*.}
+tutu.txt
+$ echo ${f##*.}
+txt
 
 #------------------------------------------------------------------------------
 # Starts with, ends with
