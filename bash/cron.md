@@ -2,7 +2,7 @@
 # Cron using date
 
 * * * * * date +"\%H:\%M:\%S" >> /tmp/debug.log
-
+* * * * * touch /tmp/file_$(date +"\%H-\%M-\%S")
 
 #------------------------------------------------------------------------------
 # Cron every two weeks (thursday 10:00)
