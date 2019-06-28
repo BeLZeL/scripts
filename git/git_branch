@@ -36,12 +36,21 @@ Optional :
     git commit -m ""
     git push
 git checkout master
+
+POUR UN SEUL COMMIT
 git merge --squash ${BRANCH}
+
+OU BIEN POUR DISTINGUER LES COMMITS
+git rebase master ${BRANCH}
+git checkout master
+git merge ${BRANCH}
+
 Optional :
     # modifications
-git add -A
-git difftool --dir-diff --cached --color=always --tool=meld
-git commit # already contains commit messages
+    git add -A
+    git difftool --dir-diff --cached --color=always --tool=meld
+    git commit # already contains commit messages
+
 git push
 git push origin --delete ${BRANCH}
 git branch -D ${BRANCH}

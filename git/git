@@ -159,7 +159,7 @@ git log -L :main:toto.c
 
 
 #=============================================================================#
-# MERGE A BRANCH                                                              #
+# GIT REBASE / MERGE A BRANCH                                                 #
 #=============================================================================#
 
 
@@ -169,11 +169,16 @@ git log -L :main:toto.c
 #     * avec preservation des commits
 #     * sans aiguillage
 #     * avec reintegration des commits de master entre temps
+BRANCH_QUICK_FIXES=quick_fixes
+git checkout -b ${BRANCH_QUICK_FIXES} origin/${BRANCH_QUICK_FIXES}
 git checkout master
-git rebase master quick-fixes
+git rebase master ${BRANCH_QUICK_FIXES}
 git checkout master
-git merge quick-fixes
-git push
+git merge ${BRANCH_QUICK_FIXES}
+git push (master ?)
+git push origin --delete ${BRANCH_QUICK_FIXES}
+git branch -D ${BRANCH_QUICK_FIXES}
+git fetch --prune
 
 
 #=============================================================================#
@@ -197,7 +202,9 @@ $ git merge --squash ${BRANCH}
 
 #--------------------------------------------------------
 # Update your branch with last commits on master (fast forward)
+$ git checkout master && git pull --rebase
 $ git checkout <branch> && git rebase master
+$ git push --force (warning, instead of git pull and git push)
 
 
 #=============================================================================#
