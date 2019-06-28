@@ -53,6 +53,14 @@ except AttributeError:
 def __str__(self):
     return "My name is {}".format(self.name)
 
+#---------------------------------------------------------
+# Search any substring of a list into another string
+mylist = ["dog", "cat", "wildcat", "thundercat", "cow", "hooo"]
+if any(x in "hello / wildcat / world" for x in mylist):
+    print("found")
+if not any(x in "hello / wildat / world" for x in mylist):
+    print("not found")
+
 
 #=============================================================================#
 # PROCESS                                                                     #
