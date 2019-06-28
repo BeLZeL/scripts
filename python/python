@@ -161,6 +161,14 @@ print(datetime.now() - start)
 -> 0:00:00.894091
 
 #---------------------------------------------------------
+# Print date
+from datetime import datetime
+>>> print(datetime.today().date())
+2019-06-12
+>>> print(datetime.today().strftime('%Y%m%d'))
+20190612
+
+#---------------------------------------------------------
 # Functional programming
  >>> [ x * x for x in range(10) if x % 2 ]
  [1, 9, 25, 49, 81]
