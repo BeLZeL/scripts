@@ -315,6 +315,10 @@ find / -lname <target> 2>/dev/null
 # Find first sub-directories
 find ~/git -mindepth 1 -maxdepth 1 -type d
 
+#------------------------------------------------------------------------------
+# Sum of filesize
+find . -type f -name "*.log" -exec ls -l {} \; | awk '{ total += $5 } END { print total / 1024 / 1024, "Mo" }'
+
 
 #=============================================================================#
 # JOIN                                                                        #
