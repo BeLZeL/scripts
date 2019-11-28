@@ -1,3 +1,9 @@
+Create a new repo :
+http://127.0.0.1:3000/repo/create
+owner : team
+visibility : public
+
+
 $ git clone gogs@gogs.com:main/repo.git
 Clonage dans 'repo'...
 Permission denied (publickey).
