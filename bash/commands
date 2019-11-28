@@ -99,6 +99,11 @@ timeout 5m netcat {ip} {port} > dump.txt
 watch -d ...
 
 #------------------------------------------------------------------------------
+# Watch with pipe
+$ watch 'date | cut -d" " -f4'
+08:30:15
+
+#------------------------------------------------------------------------------
 # Access denied
 sudo iptables -I INPUT -s <ip> -j REJECT
 
