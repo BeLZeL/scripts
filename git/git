@@ -1,9 +1,4 @@
 
-
-
-
-
-
 #--------------------------------------------------------
 # Checkout quick and efficient (with just last commit history)
 git clone <url> <target directory> --depth=1
@@ -64,8 +59,6 @@ git bisect start --term-new=fixed --term-old=unfixed
 git bisect fixed master
 git bisect unfixed $some-old-sha1
 
-
-
 #--------------------------------------------------------
 # Add a new file to the previous local commit, without launching an editor :
 git commit --amend --no-edit
@@ -86,6 +79,11 @@ $ git am --signoff -k -3 < <patch filename>
 # https://stackoverflow.com/questions/5159185/create-a-git-patch-from-the-changes-in-the-current-working-directory
 repos1 $ git diff > /tmp/patch
 repos2 $ git apply /tmp/patch
+
+#-------------------------------------------------------- 
+# Move a subfolder from a repo to another
+# https://help.github.com/en/articles/splitting-a-subfolder-out-into-a-new-repository
+git filter-branch --prune-empty --subdirectory-filter FOLDER-NAME  BRANCH-NAME 
 
 #-------------------------------------------------------- 
 # Check diff added but not committed
