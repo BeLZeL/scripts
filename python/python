@@ -1,6 +1,9 @@
 #---------------------------------------------------------
-# shebang
+# shebang (but ps -e will return 'python3')
 #!/usr/bin/env python3
+
+# shebang (ps -e will return '<script_name.py>')
+#!/usr/bin/python3
 
 #---------------------------------------------------------
 # Documentation
@@ -161,12 +164,31 @@ print(datetime.now() - start)
 -> 0:00:00.894091
 
 #---------------------------------------------------------
+# Diff time (with millis) of two strings
+from datetime import datetime
+
+request='07:08:00.317'
+response='07:08:03.352'
+d1 = datetime.strptime(request,  '%H:%M:%S.%f')
+d2 = datetime.strptime(response, '%H:%M:%S.%f')
+print(d2 - d1)
+-> 0:00:03.035000
+
+#---------------------------------------------------------
 # Print date
 from datetime import datetime
 >>> print(datetime.today().date())
 2019-06-12
 >>> print(datetime.today().strftime('%Y%m%d'))
 20190612
+
+#---------------------------------------------------------
+# Convert specific format of datetime to a datetime object
+$ echo "20191108-155841" | python3 -c "from datetime import datetime; dt = input(); print(datetime.strptime(dt, '%Y%m%d-%H%M%S'))"
+$ echo "20191108-155841" | python3 -c "from datetime import datetime; print(datetime.strptime(input(), '%Y%m%d-%H%M%S'))"
+2019-11-08 15:58:41
+$ echo "20191108-155841" | python3 -c "from datetime import datetime; print(datetime.strftime(datetime.strptime(input(), '%Y%m%d-%H%M%S'), '%H:%M:%S'))"
+15:58:41
 
 #---------------------------------------------------------
 # Functional programming
