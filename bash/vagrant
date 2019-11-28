@@ -5,8 +5,31 @@
 # modprobe vboxdrv
 
 #---------------------
+# With this specific error
+$ VBoxManage --version
+WARNING: The character device /dev/vboxdrv does not exist.
+	 Please install the virtualbox-dkms package and the appropriate
+	 headers, most likely linux-headers-amd64.
+
+	 You will not be able to start VMs until this problem is fixed.
+5.2.24_Debianr128122
+# modprobe vboxdrv
+modprobe: ERROR: could not insert 'vboxdrv': Invalid argument
+
+Solution : reinstall
+# aptitude remove vagrant virtualbox linux-headers-amd64
+# aptitude install linux-headers-amd64
+# aptitude install -t stretch-backports vagrant virtualbox
+# modprobe vboxdrv
+
+#---------------------
 # Get image
 vagrant init debian/stretch64
+
+#---------------------
+# vagrant box
+vagrant box list
+vagrant box add my-stretch64 stretch64.box
 
 #---------------------
 # Template
@@ -41,6 +64,11 @@ $ vagrant ssh <host>
 # Root
 vagrant@stretch:~$ sudo -s
 root@stretch:/home/vagrant#
+
+#---------------------
+# vagrant-sshfs (aptitude install)
+ config.vm.synced_folder ".", "/sshfs", type: "sshfs"
+The current directory (".") will be mounted as "/sshfs" in VM. 
 
 #---------------------
 # Sync /vagrant
