@@ -5,6 +5,23 @@
 
 
 #------------------------------------------------------------------------------
+# Checkout all repositories
+
+# Conf
+URL=gogs@gogs:user
+list_of_repositories=$(ssh gogs@gogs "list.sh")
+dir=/backups/all_gits/
+
+# Script
+cd $dir
+for r in $list_of_repositories
+do
+    echo "Checkout $r"
+    git clone -n $URL/$r --depth 1 $dir/$r
+done
+
+
+#------------------------------------------------------------------------------
 # Checkout just a file
 
 # Conf
