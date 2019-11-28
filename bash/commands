@@ -330,12 +330,20 @@ find -not -empty -type f -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repe
 find / -lname <target> 2>/dev/null
 
 #------------------------------------------------------------------------------
+# Show linked files
+find / -lname <target> 2>/dev/null | xargs readlink
+
+#------------------------------------------------------------------------------
 # Find first sub-directories
 find ~/git -mindepth 1 -maxdepth 1 -type d
 
 #------------------------------------------------------------------------------
 # Sum of filesize
 find . -type f -name "*.log" -exec ls -l {} \; | awk '{ total += $5 } END { print total / 1024 / 1024, "Mo" }'
+
+#------------------------------------------------------------------------------
+# Find all files in a git repository
+find . -type f \( ! -path ".git" ! -name .gitignore \)
 
 
 #=============================================================================#
