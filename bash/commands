@@ -423,9 +423,23 @@ Ctrl + x then Ctrl + e : open command in vim and execute it
 
 
 #------------------------------------------------------------------------------
+# Modulo
+for i in $(seq 1 567)
+do
+    if [ $(echo "$i %  100" | bc) -eq 0 ]
+    then
+        echo "$i OK"
+    fi
+done
+
+#------------------------------------------------------------------------------
+# Use CDPATH to define the base directory for cd command
+# https://linux.101hacks.com/cd-command/cdpath/
+$ export CDPATH=.:~:/etc:/var
+
+#------------------------------------------------------------------------------
 # Open file with default application
 xdg-open toto.jpg
-
 
 #------------------------------------------------------------------------------
 # Case insensitive search with less
