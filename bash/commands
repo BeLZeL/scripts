@@ -375,6 +375,36 @@ B|2|B|2
 C|3|-|-
 -|-|D|4
 
+#------------------------------------------------------------------------------
+# Join multiple files
+
+#!/bin/bash
+separator='|'
+main_column=1
+secondary_column=5
+
+cpt=1
+files=$(ls -1 summary_*.txt)
+columns="1.${main_column}"
+
+for file in ${files}
+do
+    if [ ${cpt} -eq 1 ]
+    then
+        cp ${file} join
+        join -j ${main_column} -t ${separator} -o ${columns},1.${secondary_column} join ${file} > join_tmp
+        mv -f join_tmp join
+    else
+        columns="${columns},1.${cpt}"
+        join -j ${main_column} -t ${separator} -o ${columns},2.${secondary_column} join ${file} > join_tmp
+        mv -f join_tmp join
+    fi
+
+    cpt=$(( cpt + 1 ))
+done
+
+cat join
+
 
 #=============================================================================#
 # SHORTCUTS                                                                   #
