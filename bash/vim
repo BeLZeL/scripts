@@ -1,10 +1,18 @@
 #-----------------------------
+# Search and replace in vim
+# https://vim.fandom.com/wiki/Search_and_replace
+# Replace all lines
+:%s/foo/bar/g
+# Replace current line
+:s/foo/bar/g
+
+#-----------------------------
 # Tutorial for vim
 $ vimtutor
 
 
 #-----------------------------
-# Install vim them
+# Install vim theme
 # https://github.com/chriskempson/tomorrow-theme
 
 $ curl -fLo ~/.vim/colors/Tomorrow.vim                --create-dirs https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow.vim
