@@ -150,7 +150,7 @@ echo "14:28:38.252609|START
 14:36:23.847652|START
 14:36:24.033606|END" | awk -F "|" 'BEGIN { dt_start=0 }
 function convert_string_to_millis(str) {
-    current_datetime=$1
+    current_datetime=str
 
     cmd = "date +\"%s\" -d \""current_datetime"\""
     cmd | getline current_seconds
@@ -164,10 +164,54 @@ function convert_string_to_millis(str) {
 }
 /START/ { dt_start=convert_string_to_millis($1); str_start=$1 }
 /END/   { printf("%s | %s ms\n", str_start, convert_string_to_millis($1) - dt_start) }
-
+'
 $ ./elapsed.sh 
 14:28:38.252609 | 279.217 ms
 14:36:23.847652 | 185.954 ms
+
+
+#------------------------------------------------------------------------------
+# Time elapsed in seconds between two lines (format %H:%M:%S) (diff) (v3)
+#!/bin/bash
+
+echo "
+
+20190701 16:00:00 : End 8
+20190701 16:22:55 : Start
+20190701 16:34:23 : End 8
+20190701 16:35:01 : Start
+20190701 16:45:33 : End 8
+
+" | awk -F " " 'BEGIN {
+    dt_start=0; str_start="00:00:00";
+    print "Diff,    Start,   End"
+}
+
+function convert_string_to_millis(str) {
+    current_datetime=str
+
+    cmd = "date +\"%s\" -d \""current_datetime"\""
+    cmd | getline current_seconds
+    close(cmd)
+
+    return current_seconds
+}
+
+/Start/ { str_start=$2 ; dt_start=convert_string_to_millis(str_start); }
+/End/   { str_end=$2   ; dt_end=convert_string_to_millis(str_end); 
+
+    cmd = "date -u -d \"0 "dt_end" sec - "dt_start" sec\" +\"%H:%M:%S\""
+    cmd | getline diff_time
+    close(cmd)
+    
+    print diff_time, str_start, str_end
+}
+'
+$ ./elapsed.sh
+Diff,    Start,   End
+14:00:00 00:00:00 16:00:00
+00:11:28 16:22:55 16:34:23
+00:10:32 16:35:01 16:45:33
 
 
 #------------------------------------------------------------------------------
