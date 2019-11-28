@@ -1,0 +1,23 @@
+#----------------------------------------------------------
+#!/bin/bash
+# Search Firefox and open URL
+WID=`xdotool search --name "Mozilla Firefox" | head -1`
+xdotool windowactivate $WID
+xdotool key ctrl+l
+xdotool type "www.tux-planet.fr"
+xdotool key "Return"
+
+
+#----------------------------------------------------------
+#!/bin/bash
+# Open terminator and type 'date' (not perfect)
+setxkbmap fr
+terminator 2>/dev/null &
+res=$!
+echo "--> ${res}"
+sleep 1
+WID=`xdotool search --pid ${res}`
+echo "--> $WID"
+xdotool windowactivate $WID
+xdotool type "date"
+xdotool key "Return"
