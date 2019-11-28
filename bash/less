@@ -15,3 +15,7 @@ ma – mark the current position with the letter ‘a’,
 -i/pattern - search case insensitive
 
 sources : https://www.thegeekstuff.com/2010/02/unix-less-command-10-tips-for-effective-navigation/
+
+#------------------------------------------------------------------------------
+# Color
+grep --color=always "<pattern>" <file> | less -R
