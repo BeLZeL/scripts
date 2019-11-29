@@ -22,10 +22,10 @@ DELETE FROM <table> where user_id ='A' ;
 DELETE FROM <table> where user_id ='B' ;
 EOF
 
-echo "DELETE FROM <table> where user_id ='A' ; DELETE FROM <table> where user_id ='B' ; " | psql -U postgres -h 127.0.0.1 ib_proorder -tA
+echo "DELETE FROM <table> where user_id ='A' ; DELETE FROM <table> where user_id ='B' ; " | psql -U postgres -h 127.0.0.1 db -tA
 
 -- WARNING : -c will return only the last result !!
-psql -U postgres -h 127.0.0.1 ib_proorder -tAc "DELETE FROM <table> where user_id ='A' ; DELETE FROM <table> where user_id ='B' ; " 
+psql -U postgres -h 127.0.0.1 db -tAc "DELETE FROM <table> where user_id ='A' ; DELETE FROM <table> where user_id ='B' ; " 
 
 ===============================================================================
 
