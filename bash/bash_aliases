@@ -220,6 +220,10 @@ GIT_PROMPT_ONLY_IN_REPO=1
 GIT_PROMPT_SHOW_UPSTREAM=0
 source ~/.bash-git-prompt/gitprompt.sh
 
+# ssh-add for eclipse
+export GIT_SSH=/usr/bin/ssh
+
+
 #=============================================================================#
 # CUSTOM AND NON-COMMITED THINGS                                              #
 #=============================================================================#
