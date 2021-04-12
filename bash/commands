@@ -263,6 +263,14 @@ mkdir <dir> && cd $_
 # List a remote directory
 rsync -avz user@server:~/remote_dir
 
+#------------------------------------------------------------------------------
+# Read and Parse a file
+cat /tmp/file | \
+while IFS= read -r line
+do
+    echo "${line}"
+done
+
 
 #=============================================================================#
 # FIND                                                                        #
