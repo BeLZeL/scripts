@@ -29,11 +29,27 @@ $ find . $T
 $ eval find . $T
 ./test.toto
 
+#------------------------------------------------------------------
+# Increment count (result = 10)
+cpt=0
+for n in $(seq 1 10)
+do
+    cpt=$(( cpt + 1 ))
+done
+echo "${cpt}"
+
 
 #=============================================================================#
 # OTHERS                                                                      #
 #=============================================================================#
 
+
+#------------------------------------------------------------------
+# Colors : https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# red
+echo -e "\e[31mHello World\e[0m"
+# green
+echo -e "\e[32mHello World\e[0m"
 
 #------------------------------------------------------------------
 # https://dougvitale.wordpress.com/2011/12/21/deprecated-linux-networking-commands-and-their-replacements/
