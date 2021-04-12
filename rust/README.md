@@ -1,4 +1,13 @@
 Pour installer et utiliser rust : https://rustup.rs/
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+Il y a des fichiers installés dans ~/.cargo et ~/.rustup.
+
+Pour mettre à jour : https://www.rust-lang.org/learn/get-started
+$ rustup update
+
+Initier un nouveau projet :
+$ cargo new hello-rust
 
 
 # -----------------------------------------------------------------------------
