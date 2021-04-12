@@ -74,3 +74,37 @@ vagrant@stretch:~/sshfs/001_hello_world$ rustc main.rs
 
 ~/rust/001_hello_world$ ./main 
 Hello World !
+
+
+# -----------------------------------------------------------------------------
+# Install crate
+
+vagrant@stretch:~$ cargo install postgres
+    Updating crates.io index
+  Downloaded postgres v0.15.2
+  Downloaded 1 crate (25.1 KB) in 1.97s
+error: specified package `postgres v0.15.2` has no binaries
+
+
+# -----------------------------------------------------------------------------
+# Cargo
+
+$ cargo new hello_cargo
+     Created binary (application) `hello_cargo` package
+$ cd hello_cargo
+$ cat src/main.rs 
+fn main() {
+    println!("Hello, world!");
+}
+
+$ cargo build
+   Compiling hello_cargo v0.1.0 (/sshfs/hello_cargo)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.33s
+
+$ ./target/debug/hello_cargo 
+Hello, world!
+
+
+# -----------------------------------------------------------------------------
+# Tutorials / Links
+https://parallel-rust-cpp.github.io/introduction.html
