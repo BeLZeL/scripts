@@ -199,10 +199,12 @@ $ git merge --squash ${BRANCH}
 
 
 #--------------------------------------------------------
-# Update your branch with last commits on master (fast forward)
+# Update your OLD REMOTE BRANCH with last commits on MASTER (fast forward)
 $ git checkout master && git pull --rebase
 $ git checkout <branch> && git rebase master
 $ git push --force (warning, instead of git pull and git push)
+# Then on already checkout remote branch
+$ git reset --hard (or something
 
 
 #=============================================================================#
