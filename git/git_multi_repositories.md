@@ -88,3 +88,21 @@ do
     rm -fr $dir/$r
 done
 find $dir -name "*_merged" -size 0 | xargs rm
+
+
+
+#------------------------------------------------------------------------------
+# Update all repositories
+
+# Conf
+URL=gogs@gogs:user
+list_of_repositories=$(ssh gogs@gogs "list.sh")
+dir=/backups/all_gits/
+
+# Script
+for subdir in $list_of_repositories
+do
+    cd $dir/${subdir}
+    echo "Update ${subdir%.git}"
+    git pull --rebase
+done
