@@ -296,3 +296,15 @@ WHERE median = 1;
  max
 -----
   10
+
+===============================================================================
+
+-- update empty values from another filled tables
+
+UPDATE table_dest
+SET val1 = table_src.val1, val2 = table_src.val2
+FROM table_src
+WHERE   table_src.order_id = table_dest.id
+    AND table_dest.val1 = 0
+    AND table_dest.val2 = 0
+    AND table_dest.val3 = 'EXECUTED';
