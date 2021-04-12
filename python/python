@@ -125,18 +125,38 @@ files = os.listdir(path)
 for name in files:
     print(name)
 
+#---------------------------------------------------------
+# Parse fields of file (format "123|456")
+import re
+import os
+fichier=open("/tmp/fichier.txt", "r")
+for line in fichier.readlines():
+    line = line.rstrip()
+    try:
+        m = re.match(r"([0-9]*)\|([0-9]*)", line)
+        field1 = m.group(1)
+        field2 = m.group(2)
+    except AttributeError:
+        continue
+fichier.close()
+
 
 #=============================================================================#
 # OTHERS                                                                      #
 #=============================================================================#
 
 
+#---------------------------------------------------------
+# Sleep
+import time
+time.sleep(1)
+
+#---------------------------------------------------------
 # Manage dry-run quick and dirty
 #!/usr/bin/env python3
 import sys
 DRY_RUN = 1 if ( len(sys.argv) == 2 and sys.argv[1] == '--dry-run' ) else 0
 print(DRY_RUN)
-
 
 #---------------------------------------------------------
 # Parse Args
