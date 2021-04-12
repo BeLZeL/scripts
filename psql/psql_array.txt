@@ -60,6 +60,14 @@ select * from (select id, unnest(alert_ids) as aid from meta_alerts) as foo wher
 
 
 #--------------
+# Search if in array
+
+select left_ids from (select unnest('{A,B,C}'::varchar[]) as left_ids) as list_table
+LEFT JOIN full_table ON list_table.left_ids = full_table.id
+WHERE full_table.id IS NULL;
+
+
+#--------------
 # merge same values with array_agg
 
 select array_agg(reporter) from alerts where id in ( ... ) ;
