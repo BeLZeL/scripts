@@ -186,6 +186,16 @@ echo "$val2 / $val1" | bc -l
 .54032258064516129032
 echo "( 1 - $val2 / $val1 ) * 100 " | bc -l | cut -d'.' -f1
 45
+echo "$val1 - $val2" | bc -l
+5.700000000
+
+#------------------------------------------------------------------------------
+# Difference datetime millis
+starttime=$(date +%s.%N)
+sleep 1
+endtime=$(date +%s.%N)
+echo "$endtime - $starttime" | bc -l
+1.006520165
 
 #------------------------------------------------------------------------------
 # Month period of previous year
