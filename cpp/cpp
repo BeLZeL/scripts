@@ -15,3 +15,10 @@ bool classname::method() const { ... }
 
 int moyenne(int i1, int i2); 
 float moyenne(float f1, float f2); //surcharge valide 
+
+https://connect.ed-diamond.com/GNU-Linux-Magazine/GLMF-232/C-Moderne-C17-partie-1
+* Structured Binding Declarations
+* [[fallthrough]], [[maybe_unused]], [[nodiscard]]
+* string_view
+* boyer_moore_searcher
+* optional, variant, any
