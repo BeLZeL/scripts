@@ -209,6 +209,8 @@ $ echo "20191108-155841" | python3 -c "from datetime import datetime; print(date
 2019-11-08 15:58:41
 $ echo "20191108-155841" | python3 -c "from datetime import datetime; print(datetime.strftime(datetime.strptime(input(), '%Y%m%d-%H%M%S'), '%H:%M:%S'))"
 15:58:41
+$ echo "20191108-155841" | python3 -c "from datetime import datetime, timedelta; print(datetime.strftime(datetime.strptime(input(), '%Y%m%d-%H%M%S') + timedelta(hours=2), '%H:%M:%S'))"
+17:58:41
 
 #---------------------------------------------------------
 # Functional programming
