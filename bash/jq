@@ -120,3 +120,25 @@ $ echo '[[{"key": "value"},{"key": "value2"}]]' | jq '.[][]' | jq 'if .key == "v
   "key": "value2"
 }
 
+
+#------------------------------------------------------------------------------
+# Convert lines to JSON list
+
+$ cat list.txt
+Abc
+Def
+Ghijk
+
+$ jq -Rn '[inputs | match("(.*)") | .captures | (.[0].string)] ' list.txt
+[
+  "Abc",
+  "Def",
+  "Ghijk"
+]
+
+$ jq -Rn '[inputs | .] ' list.txt
+[
+  "Abc",
+  "Def",
+  "Ghijk"
+]
