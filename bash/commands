@@ -256,6 +256,12 @@ done
 20201101 to 20201130
 20201201 to 20201231
 
+#------------------------------------------------------------------------------
+# Start a process five seconds before a minute (wait and sleep until the good time)
+$ start_at_second=55
+$ sleep $(echo "scale=0 ; ( (60 + $start_at_second) - ($(date +%s) % 60 ) ) % 60" | bc -l); date
+jeudi 10 juin 2021, 14:16:55 (UTC+0200)
+
 
 #=============================================================================#
 # FILES / DIRS / SYMLINKS                                                     #
