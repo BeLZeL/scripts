@@ -71,6 +71,27 @@ sleep 10
 rm -f ${LOCKFILE}
 
 #------------------------------------------------------------------
+# Perform a lock to launch a script only one at a time (v2)
+# https://stackoverflow.com/questions/1715137/what-is-the-best-way-to-ensure-only-one-instance-of-a-bash-script-is-running
+# aptitude install procmail -> lockfile
+#!/bin/bash
+
+LOCKFILE="/var/lock/`basename $0`"
+TWO_HOURS=7200
+LOGS=/tmp/log.log
+
+if ! lockfile -r 0 -l ${TWO_HOURS} ${LOCKFILE} > /dev/null 2>&1; then
+    date +"%Y%m%d %H%M%S process already locked" >> ${LOGS}
+    exit 1
+fi
+
+trap "rm -f ${LOCKFILE} && date +'%Y%m%d %H%M%S process unlocked' >> ${LOGS} " EXIT
+
+date +"%Y%m%d %H%M%S process starts" >> ${LOGS}
+echo "ok" && sleep 10 && echo "done"
+date +"%Y%m%d %H%M%S process ends" >> ${LOGS}
+
+#------------------------------------------------------------------
 # Compress and split
 tar -cvJf test.txz *
 gpg -c test.txz
