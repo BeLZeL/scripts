@@ -290,7 +290,7 @@ master/2.txt
 
 #------------------------------------------------------------------------------
 # du with hidden files/folders
-du -sch .[!.]* * | sort -rh | head
+du -sch .[!.]* * 2>/dev/null | sort -rh | head
 
 #------------------------------------------------------------------------------
 # Rename file's extension or create dir/subdirs easily
