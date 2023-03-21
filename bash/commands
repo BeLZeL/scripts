@@ -486,7 +486,7 @@ cat join
 #=============================================================================#
 
 
-Alt + . : find previous args
+Alt + . : find previous last arg
 Ctrl + Alt + e : extend alias (ls *txt -> ls --color=auto *txt)
 Ctrl + x then * : extend globs (ls *txt -> ls file1.txt file2.txt file3.txt)
 Ctrl + x then Ctrl + e : open command in vim and execute it
