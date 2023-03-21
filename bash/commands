@@ -324,6 +324,12 @@ do
     echo "${line}"
 done
 
+#------------------------------------------------------------------------------
+# Remote Diff
+$ diff <(ssh user@server cat /etc/hostname) <(ssh user@server cat /etc/hostname)
+< host1
+---
+> host2
 
 #=============================================================================#
 # FIND                                                                        #
