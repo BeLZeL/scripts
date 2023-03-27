@@ -1,4 +1,10 @@
 #------------------------------------------------------------------------------
+# https://github.com/ggreer/the_silver_searcher
+# Improve grep -> package silversearcher-ag
+
+ag pattern
+
+#------------------------------------------------------------------------------
 # Add a new empty line between each line
 $ echo -ne "1\n2\n3\n" | sed 's/$/\n/g'
 1
