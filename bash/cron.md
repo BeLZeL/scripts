@@ -24,3 +24,6 @@ $ head ~/run.sh
 00 20 * * * something stop ; [ "$(date '+\%w')" -eq 0 ] && printf "Hello\nWorld" >> /tmp/reset.log ; something start ; 
 # NOK : https://serverfault.com/questions/169706/strange-problem-with-crontab-and-echo
 00 20 * * * something stop ; [ "$(date '+\%w')" -eq 0 ] && echo -e "Hello\nWorld" >> /tmp/reset.log ; something start ;
+#------------------------------------------------------------------------------
+# Generate a backup
+crontab -l > ~/crontab_save/crontab_save_$(date +"%Y%m%d_%H%M%S")
