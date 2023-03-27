@@ -204,7 +204,7 @@ $ git checkout master && git pull --rebase
 $ git checkout <branch> && git rebase master
 $ git push --force (warning, instead of git pull and git push)
 # Then on already checkout remote branch
-$ git reset --hard (or something
+$ git reset --hard (or something)
 
 
 #=============================================================================#
@@ -249,7 +249,7 @@ git reset <file>
 
 git stash push
 git stash pop
-git statsh apply
+git stash apply
 git stash drop
 git stash branch
 
