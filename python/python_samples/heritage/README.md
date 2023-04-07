@@ -1,0 +1,1 @@
+https://deusyss.developpez.com/tutoriels/Python/heritage_metaclasse/
