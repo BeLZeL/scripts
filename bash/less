@@ -1,21 +1,65 @@
 less
 ----
 
-g – go to the start of file
-G – go to the end of file
-F – same as tail -f
-/ – search pattern forward
-n – for next match in forward
-N – for previous match in backward
-CTRL+G – show the current file name along with line, byte and percentage statistics.
-&pattern – display only the matching lines, not all.
-ma – mark the current position with the letter ‘a’,
-'a – go to the marked position ‘a’.
-
--i/pattern - search case insensitive
-
-sources : https://www.thegeekstuff.com/2010/02/unix-less-command-10-tips-for-effective-navigation/
+Home or g  –  go to the start of file
+End  or G  –  go to the end of file
+F (or less +F)  –  same as tail -f
+/  –  search pattern forward
+?  –  search pattern backward
+n  –  for next match in forward
+N  –  for previous match in backward
 
 #------------------------------------------------------------------------------
+# Show lines which contain (caracter '&' is displayed by '&/') (slower than grep):
+    &pattern  –  search pattern
+    &pa.*ern  –  search regex
+    &^R/var  – search /var
+    &\/var  –  search /var
+    &.*([0-9]|[A-Z])$  –  search both
+
+#------------------------------------------------------------------------------
+# Marks :
+    ma  –  mark the current position with the letter ‘a’,
+    'a  –  go to the marked position ‘a’.
+    -J  –  Displays a status column at the left edge of the screen. 
+
+#------------------------------------------------------------------------------
+# Search
+    -i/pattern  –  search case insensitive (/ignore -> IGNORE and ignore | /IGNORE -> IGNORE but not ignore)
+    -I/pattern  –  search and pattern case insensitive (/ignore -> IGNORE and ignore | /IGNORE -> IGNORE and ignore)
+    /@pattern  –  search first occurrence
+    -G : suppresses all highlighting of strings found by search commands 
+
+# Search History if ~/.lesshst exists
+    / + Up
+    
 # Color
-grep --color=always "<pattern>" <file> | less -R
+$ grep --color=always "<pattern>" <file> | less -R
+
+# Causes a line number to be displayed at the beginning of each line in the display. (-n + Enter to suppress)
+$ less -N log
+
+# Deactivate clearing the screen
+$ less -X log
+
+# it tells less to start at the first occurrence of pattern in the file.
+$ less -p pattern log
+
+#------------------------------------------------------------------------------
+
+# Goto line number
+50g
+
+# open multiple files
+    :n  –  open next file
+    :p  –  open previous file
+
+# show the current file name along with line, byte and percentage statistics.
+CTRL+g
+
+#------------------------------------------------------------------------------
+# sources :
+* https://www.thegeekstuff.com/2010/02/unix-less-command-10-tips-for-effective-navigation/
+* https://www.geeksforgeeks.org/less-command-linux-examples/
+* https://unix.stackexchange.com/questions/419847/search-a-pattern-with-less-without-losing-the-current-one
+* https://linuxhint.com/linux-less-command/
