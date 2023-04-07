@@ -1,0 +1,35 @@
+#------------------------------------------------------------------------------
+# https://github.com/sharkdp/fd
+# Improve find -> package fd-find
+
+# On Ubuntu / Debian :
+$ ln -s $(which fdfind) ~/.local/bin/fd
+
+# Used with 'tree' :
+$ fd -e ext | tree --fromfile
+
+# Used with 'xargs' :
+$ fd -0 -e ext | xargs -0 wc -l
+
+#------------------------------------------------------------------------------
+# Search on dir/subdir (strict)
+$ fd -e ext . 'dir/subdir'
+
+# Search on dir/subdir with regex (dir/subdir*)
+$ fd -e ext --full-path 'dir/subdir'
+
+# Search hidden directories
+$ fd --hidden --type d --max-depth 1 "\." "~"
+$ fd -H -td -d1 "\." ~
+$ fd -H -td -d1 "\."
+
+# Search pattern in hidden directories
+$ fd hosts $(fd -H -td -d1 "\.")
+
+#------------------------------------------------------------------------------
+# Load files matching "AAA" without matching "BBB"
+$ kate -n $(find . -name "*.ext" | xargs grep -L "BBB" | xargs grep -l "AAA")
+$ kate -n $(find . -name "*.ext" | xargs grep -l "AAA" | xargs grep -L "BBB")
+$ kate -n $(fd -e ext | xargs grep -l "AAA" | xargs grep -L "BBB")
+$ kate -n $(fd -e ext . 'dir/subdir' -0 | xargs -0 grep -l "AAA" -Z | xargs -0 grep -L "BBB")
+$ kate -n $(fd -e ext . 'dir/subdir' -0 | xargs -0 ag -l "AAA" -0 | xargs -0 ag -L "BBB")
