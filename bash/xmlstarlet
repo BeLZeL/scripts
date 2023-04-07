@@ -9,6 +9,15 @@ res=$(cat file.xml | xmlstarlet sel -t \
 echo "<ROOT>${res}</ROOT>" | xmlstarlet fo -s 4
 
 #------------------------------------------------------------------------------
+# Check value of two attributes
+xmlstarlet sel -T -t -m "/root" \
+    --if "node1/@host = node2/@host" \
+        -o "ok" \
+    --else \
+        -o "failed" \
+    --break -n file.xml
+
+#------------------------------------------------------------------------------
 # Extract path and attributes, order by attr1
 cat file.xml \
 | xmlstarlet sel -t \
