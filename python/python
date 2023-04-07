@@ -38,10 +38,6 @@ http://apprendre-python.com/page-virtualenv-python-environnement-virtuel
 if not myString:
 
 #---------------------------------------------------------
-# Print 'n' chars
-print('-' * 3)
-
-#---------------------------------------------------------
 # Get substring with regex
 import re
 filename='toto.txt'
@@ -50,11 +46,6 @@ try:
 except AttributeError:
     sub_filename = filename
 -> sub_filename='toto'
-
-#---------------------------------------------------------
-# Method to print a class
-def __str__(self):
-    return "My name is {}".format(self.name)
 
 #---------------------------------------------------------
 # Search any substring of a list into another string
