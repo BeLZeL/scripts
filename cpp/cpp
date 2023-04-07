@@ -1,3 +1,34 @@
+Principe de la Programmation Orientée Objet (POO)
+
+* Encapsulation : https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-242/principes-de-l-oriente-objet-en-c-l-encapsulation
+
+* Héritage et polymorphisme : https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-243/principes-de-l-oriente-objet-en-c-heritage-et-polymorphisme
+
+* Généricité : https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-248/principes-de-l-oriente-objet-en-c-la-genericite
+-> fonctions génériques avec utilisation de template
+-> classes génériques comme des listes d'éléments
+-> bibliothèque de modèles standard : vector, map, find, algorithmes
+
+#------------------------------------------------------------------------------
+
+Humour et design patterns : https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-165/la-conception-de-logiciels-a-l-aide-de-design-patterns
+
+C++0x : 07/2011 https://connect.ed-diamond.com/GNU-Linux-Magazine/glmfhs-055/c0x-et-gcc
+C++   : 11/2013 https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-165/c-standard-library-stl-repartons-sur-de-bonnes-bases (string, vector, itérateurs, deque, list, namespace)
+C++   : 02/2014 https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-168/c-standard-library-stl-repartons-sur-de-bonnes-bases-suite (map, multimap, unordered_map, unordered_multimap, count, count_if, find, find_if, copy, copy_if, etc., exceptions, istream, ostream, fstream)
+C++11 : 10/2012 https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-153/c-11-et-gcc (foreach, enum, nullptr)
+C++11/C++14 : 11/2019 https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-231/c-moderne-c11-c14
+
+PAS LU
+C++17 : 12/2019 https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-232/c-moderne-c17-partie-1
+C++17 : 01/2020 https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-233/c-moderne-c17-partie-2
+C++20 : 02/2020 https://connect.ed-diamond.com/GNU-Linux-Magazine/glmf-234/c-moderne-c20-et-au-dela
+
+C++11 :
+* Principe de Rvalue reference : https://connect.ed-diamond.com/GNU-Linux-Magazine/glmfhs-055/c0x-et-gcc#index_h3_25
+* Lambda : https://connect.ed-diamond.com/GNU-Linux-Magazine/glmfhs-055/c0x-et-gcc#index_h3_26
+* Smart Pointers : https://connect.ed-diamond.com/GNU-Linux-Magazine/glmfhs-055/c0x-et-gcc#index_h3_35
+
 
 #=============================================================================#
 # METHOD                                                                      #
