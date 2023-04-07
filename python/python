@@ -66,6 +66,45 @@ if not any(x in "hello / wildat / world" for x in mylist):
 
 
 #=============================================================================#
+# STRING                                                                      #
+#=============================================================================#
+
+
+#---------------------------------------------------------
+# F-strings
+# https://peps.python.org/pep-0498/
+# https://docs.python.org/3.9/reference/lexical_analysis.html#f-strings
+# https://connect.ed-diamond.com/GNU-Linux-Magazine/glmfhs-111/le-point-sur-le-debogage-en-python
+>>> name = "Eric"
+>>> age = 74
+
+>>> f"Hello, {name}. You are {age}."
+'Hello, Eric. You are 74.'
+
+>>> f"Hello, {name!r}. You are {age}."
+"Hello, 'Eric'. You are 74."
+
+# Python 3.8+
+>>> f"Hello, {name=}. {age=}."
+"Hello, name='Eric'. age=74."
+
+>>> from Point import Point
+>>> p = Point(2, 3)
+>>> print(f'{p=}')
+p=Point(x=2, y=3)
+
+#---------------------------------------------------------
+# Print 'n' chars
+print('-' * 3)
+
+#---------------------------------------------------------
+# Method to print a class
+def __str__(self):
+    return "My name is {}".format(self.name)
+    # try also ?
+    return "My name is {name}".format(**self)
+
+#=============================================================================#
 # PROCESS                                                                     #
 #=============================================================================#
 
