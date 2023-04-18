@@ -50,6 +50,23 @@ for (i = 1; i <= NF; i++)
 A, C, E; 1, 3, 5; a, c, e;
 
 #------------------------------------------------------------------------------
+# AWK : transform column 4 to a fixed value
+echo -ne "A, B, C, D, E; 1, 2, 3, 4, 5; a, b, c, d, e;" | awk '{
+for (i = 1; i <= NF; i++)
+{
+    if ( i == 4 )  
+        printf("%s", " FOUR"); 
+    else
+        printf("%s", $i);
+    if ( i < NF )
+        printf FS;
+    else
+        printf RS;
+}
+}' RS=';' FS=","
+A, B, C, FOUR, E; 1, 2, 3, FOUR, 5; a, b, c, FOUR, e;
+
+#------------------------------------------------------------------------------
 # Transform lines to list
 echo -ne "AAA\nBBB\nCCC\n" | perl -00pe "s|^|<START>|sg" | perl -00pe "s|\n$|<END>|sg" | perl -pe "s/\n/<DELIM>/g"
 <START>AAA<DELIM>BBB<DELIM>CCC<END>
