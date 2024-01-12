@@ -66,6 +66,12 @@ for (i = 1; i <= NF; i++)
 }' RS=';' FS=","
 A, B, C, FOUR, E; 1, 2, 3, FOUR, 5; a, b, c, FOUR, e;
 
+echo -ne "A, B, C, D, E; 1, 2, 3, 4, 5; a, b, c, d, e;" | awk '{$4="FOUR";print}' RS=';' FS=", " OFS=", " ORS=";"
+A, B, C, FOUR, E; 1, 2, 3, FOUR, 5; a, b, c, FOUR, e;
+
+echo -ne "A, B, C, D, E; 1, 2, 3, 4, 5; a, b, c, d, e;" | awk -F ", " -v OFS=", " '{$4="FOUR";print}' RS=';' ORS=";"
+A, B, C, FOUR, E; 1, 2, 3, FOUR, 5; a, b, c, FOUR, e;
+
 #------------------------------------------------------------------------------
 # Transform lines to list
 echo -ne "AAA\nBBB\nCCC\n" | perl -00pe "s|^|<START>|sg" | perl -00pe "s|\n$|<END>|sg" | perl -pe "s/\n/<DELIM>/g"
