@@ -130,6 +130,15 @@ sed -i '/pattern/s/string_scr/string_dest/g' file
 
 
 #------------------------------------------------------------------------------
+# Remplace un retour à la ligne par les caractères '\n'
+$ echo -e 'a\nbaaa\nhello\nworld' | sed ':a;N;$!ba;s|\n|\\n|g'
+-> `:a` : étiquette
+-> `N` : ajoute la ligne suivante au texte (donc je suppose que ca concatène toutes les lignes)
+-> `$!ba` : si ce n'est pas la dernière ligne, saute vers `a`
+a\nbaaa\nhello\nworld
+
+
+#------------------------------------------------------------------------------
 # Time elapsed in milliseconds between two lines (format %H:%M:%S.xxx) (diff) (v1)
 
 echo "06:51:03.124 INFO   SUBSCRIBE on account [TOTO1]
