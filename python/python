@@ -181,6 +181,33 @@ for line in fichier.readlines():
         continue
 fichier.close()
 
+#=============================================================================#
+# LAMBDA / FILTER                                                             #
+#=============================================================================#
+
+Le code Python compare deux dictionnaires, `dict1` et `dict2`, et trouve les clés communes entre les deux dictionnaires.
+Ensuite, il vérifie si les valeurs correspondantes de ces clés communes sont différentes dans les deux dictionnaires.
+Si une différence est trouvée, la clé est ajoutée à la liste `diff`.
+```
+dict1 = { 'c': 3, 'b': 2, 'd': 5 }
+dict2 = { 'a': 1, 'b': 2, 'd': 4 }
+
+keys1 = set(dict1.keys())
+keys2 = set(dict2.keys())
+common = keys1 & keys2
+    
+diff = [k for k in common if dict1[k] != dict2[k]]
+print(diff)
+```
+
+Et on peut simplifier/adapter éventuellement par :
+```
+dict1 = {'c': 3, 'b': 2, 'd': 5}
+dict2 = {'a': 1, 'b': 2, 'd': 4}
+
+diff = list(filter(lambda k: dict1.get(k) != dict2.get(k), set(dict1.keys()) & set(dict2.keys())))
+print(diff)
+```
 
 #=============================================================================#
 # OTHERS                                                                      #
