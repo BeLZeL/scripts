@@ -276,6 +276,16 @@ shared_items = {k: x[k] for k in x if k in y and x[k] == y[k]}
 print(len(shared_items))
 
 #---------------------------------------------------------
+# Print list of string of dict without quotes
+>>> myDict = {}
+>>> myDict['test1']=["hello","world"]
+>>> myDict['test2']=["hello","world"]
+>>> print(myDict)
+{'test1': ['hello', 'world'], 'test2': ['hello', 'world']}
+>>> print('{%s}' % (', '.join('%s : [%s]' % (k,', '.join(map(str, myDict[k]))) for k in myDict.keys())))
+{test1 : [hello, world], test2 : [hello, world]}
+
+#---------------------------------------------------------
 # Random
 import random
 random.random()
