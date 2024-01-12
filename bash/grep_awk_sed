@@ -89,6 +89,10 @@ echo -ne "A\nB\nC\n" | perl -00pe "s|^|('|sg" | perl -00pe "s|\n$|')|sg" | perl 
 echo -ne "A\nB\nC\n" | perl -00pe 's|^|"|sg' | perl -00pe 's|\n$|"|sg' | perl -pe "s/\n/\\\|/g"
 "A\|B\|C"
 
+# Transform to single-quoted list
+echo -ne "A\nB\nC\n" | perl -00pe "s|^|'|sg" | perl -00pe "s|\n$|'|sg" | perl -pe "s/\n/\|/g"
+'A|B|C'
+
 # Transform to spaced list
 echo -ne "A\nB\nC\n" | tr '\n' ' '
 A B C 
