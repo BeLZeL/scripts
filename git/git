@@ -1,3 +1,7 @@
+#--------------------------------------------------------
+# Show modified files
+git status -s
+git status --porcelain
 
 #--------------------------------------------------------
 # Checkout quick and efficient (with just last commit history)
