@@ -95,6 +95,17 @@ def __str__(self):
     # try also ?
     return "My name is {name}".format(**self)
 
+#---------------------------------------------------------    
+# Text wrap properly
+# $ cat input | py > output
+# Nearly same as 
+# $ fold -s -w 250 input > output
+#!/usr/bin/env python3
+import sys
+import textwrap
+for line in sys.stdin:   
+    print("\n".join(textwrap.wrap(line.rstrip(), width=250)))
+    
 #=============================================================================#
 # PROCESS                                                                     #
 #=============================================================================#
