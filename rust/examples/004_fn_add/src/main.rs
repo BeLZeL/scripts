@@ -1,14 +1,24 @@
-fn add_function(x: i32, y: i32, res: &i32) -> &i32 {
-    println!("The value of x + y is: {}", x + y);
-    res = &(x + y);
-    return res;
+fn add(mut x: u8, y: u8) -> u8 {
+    x += y;
+    x
+}
+
+fn add_ptr(x: &mut u8, y: u8) -> u8 {
+    *x += y;
+    *x
 }
 
 fn main() {
-    let a=2;
-    let b=3;
-    let res2 = 0;
-    let res1 = add_function(a, b, &res2);
-    println!("Result from parameters is {}", res2);
-    println!("Result from return is {}", res1);
+
+    let mut x = 42;
+
+    let mut z = add(x, 15);
+    println!("Result {} == {}!", add(x, 15), z); // show 57 == 57
+
+    z = add_ptr(&mut x, 15);
+    println!("Result {} == {}!", x, z); // show 57 == 57
+
+    z += 1;
+    println!("Result {} != {}!", x, z); // show 57 != 58
+
 }
