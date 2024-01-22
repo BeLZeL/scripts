@@ -331,3 +331,21 @@ WHERE   table_src.order_id = table_dest.id
     AND table_dest.val1 = 0
     AND table_dest.val2 = 0
     AND table_dest.val3 = 'EXECUTED';
+
+===============================================================================
+
+-- Store lines into a temporary table, and do computation / jointure on it    
+-- "lines" contains values separated by '|'
+-- tmp_table will be automatically destroyed after quit
+    
+cat lines | psql -h <host> -p <port> <db> -c "CREATE TEMPORARY TABLE tmp_table( \
+field1 VARCHAR, \
+field2 VARCHAR, \
+field3 VARCHAR); \
+COPY tmp_table ( field1, field2, field3 ) FROM stdin (DELIMITER '|');\
+select * from tmp_table limit 5;
+select * from tmp_table, other_table where tmp_table.field3 = other_table.field3 AND other_table.id is null limit 5;
+select other_table.id, count(distinct(tmp_table.field1)) from tmp_table, other_table where tmp_table.field3 = other_table.field3 AND other_table.id is null group by 1 order by 1;
+" > results
+
+===============================================================================
