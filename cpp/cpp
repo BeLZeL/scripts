@@ -60,3 +60,13 @@ https://connect.ed-diamond.com/GNU-Linux-Magazine/GLMF-232/C-Moderne-C17-partie-
 # Assembleur
 gcc -O2 -S code1.cpp -o gcc_temp.ass
 clang -O2 -S code1.cpp -o clang_temp.ass
+
+#------------------------------------------------------------------------------
+# C++20 Likely :  pour marquer le test d’une branche qui a de fortes chances de s’évaluer à vrai
+# https://connect.ed-diamond.com/gnu-linux-magazine/glmf-263/les-codes-fantastiques-une-prediction-exceptionnelle
+
+int foo(bool val) {
+  if(val) [[likely]]
+    return bar();
+  return 1;
+}
