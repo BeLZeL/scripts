@@ -53,3 +53,10 @@ https://connect.ed-diamond.com/GNU-Linux-Magazine/GLMF-232/C-Moderne-C17-partie-
 * string_view
 * boyer_moore_searcher
 * optional, variant, any
+
+#------------------------------------------------------------------------------
+# GCC/Clang Options
+
+# Assembleur
+gcc -O2 -S code1.cpp -o gcc_temp.ass
+clang -O2 -S code1.cpp -o clang_temp.ass
