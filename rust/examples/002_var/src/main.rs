@@ -36,4 +36,19 @@ fn main() {
         println!("double that and you get {}!", x * 2); // show 246
     }
     /* ==================================================== */
+
+
+    /* frozen var --------------------------------------------- */
+    let mut age = 100;
+    {
+        // shadowing by immutable age variable
+        let age = age;
+        // age = 2; // error, age variable is frozen in this scope
+        println!("age variable inner block = {}", age); // show 100
+        // age goes out of scope
+    }
+    // age variable is not frozen in this scope
+    age = 3;
+    println!("age variable outer block = {}", age); // show 3
+    /* ==================================================== */
 }
