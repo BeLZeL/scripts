@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="EMPTY_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/001_hello_world/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/002_var/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/004_fn_add/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/006_guess/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/003_vect/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/005_string_length/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/008_struct/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/015_closure/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/001_hello_world/target" />
+      <excludeFolder url="file://$MODULE_DIR$/002_var/target" />
+      <excludeFolder url="file://$MODULE_DIR$/004_fn_add/target" />
+      <excludeFolder url="file://$MODULE_DIR$/006_guess/target" />
+      <excludeFolder url="file://$MODULE_DIR$/003_vect/target" />
+      <excludeFolder url="file://$MODULE_DIR$/005_string_length/target" />
+      <excludeFolder url="file://$MODULE_DIR$/008_struct/target" />
+      <excludeFolder url="file://$MODULE_DIR$/015_closure/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
