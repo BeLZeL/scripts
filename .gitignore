@@ -1,0 +1,2 @@
+/rust/examples/*/target/
+/rust/examples/*/Cargo.lock
