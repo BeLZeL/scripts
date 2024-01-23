@@ -1,9 +1,13 @@
 fn main() {
-    let v = vec![1, 2, 3];
+    let mut v = vec![1, 2, 3];
 
     println!("First value = {}", v[0]); //show 1
     println!("Number of values = {}", v.len()); //show 3
     println!("Values = {:?}", v); //show [1, 2, 3]
+    v.push(4);
+    println!("Values = {:?}", v); //show [1, 2, 3, 4]
+    v.remove(2);
+    println!("Values = {:?}", v); //show [1, 2, 4]
 
     //-----------------
 
@@ -40,4 +44,25 @@ fn main() {
     println!("changed slice = {:?}", sliced_colors); // show ["green", "purple"]
     colors[1] = "black"; // sliced_colors can't be used after
     println!("array = {:?}", colors); // show ["red", "black", "purple", "white"]
+
+    // Iter
+    {
+        let numbers = vec![1, 2, 3];
+        let mut numbers_iterator = numbers.iter();
+        println!("{:?}, {:?}, {:?}, {:?}", numbers_iterator.next(), numbers_iterator.next(), numbers_iterator.next(), numbers_iterator.next()); // show Some(1), Some(2), Some(3), None
+        numbers_iterator = numbers.iter();
+        println!("{:?}, {:?}, {:?}", numbers_iterator.next().unwrap(), numbers_iterator.next().unwrap(), numbers_iterator.next().unwrap()); // show 1, 2, 3
+        for number in numbers.iter() {
+            println!("{}", number); // show 1 2 3
+        }
+    }
+
+    // Iter_mut
+    {
+        let mut numbers = vec![1, 2, 3];
+        for number in numbers.iter_mut() {
+            *number = *number * 2;
+            println!("{}", number); // show 2 4 6
+        }
+    }
 }
