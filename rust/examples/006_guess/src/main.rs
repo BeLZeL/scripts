@@ -2,6 +2,34 @@ use rand::Rng;
 use std::cmp::Ordering;
 use std::io;
 
+fn read_stdin() -> Result<String, io::Error> {
+    let mut input = String::new();
+    /*
+    match io::stdin().read_line(&mut input) {
+        Ok(_) => Ok(input),
+        Err(e) => Err(e),
+    }
+    */
+    io::stdin().read_line(&mut input)?;
+    Ok(input)
+}
+
+fn read_int() -> Result<i32, std::num::ParseIntError> {
+    Ok(read_stdin()
+        .expect("Parsing Error")
+        .trim().parse::<i32>()?)
+}
+
+/* POSSIBLE
+fn read_int() -> Result<i32, std::num::ParseIntError> {
+    let res = read_stdin()
+        .expect("Parsing Error")
+        .trim().parse::<i32>()?;
+    Ok(res)
+}
+*/
+
+/* POSSIBLE
 fn read_int() -> Result<i32, std::num::ParseIntError> {
     let mut buffer = String::new();
     io::stdin()
@@ -9,6 +37,7 @@ fn read_int() -> Result<i32, std::num::ParseIntError> {
         .expect("Failed to read line");
     buffer.trim().parse::<i32>()
 }
+ */
 
 fn main() {
     println!("Guess the number!");
