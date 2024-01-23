@@ -6,3 +6,6 @@ En résumé :
 * assignation conditionnelle avec `let ... if`
 * assignation et pointeur avec `&mut`
 * bloc conditionnel et assignation avec `if let`
+
+Liens :
+* https://www.programiz.com/rust/variables-mutability
