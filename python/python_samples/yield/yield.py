@@ -14,6 +14,10 @@ o
 r
 l
 d
+<generator object gen_yield_range at 0x7ff4735f81e0>
+0
+1
+2
 '''
 
 def gen_classic(string):
