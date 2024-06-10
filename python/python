@@ -48,6 +48,27 @@ except AttributeError:
 -> sub_filename='toto'
 
 #---------------------------------------------------------
+# Named regex
+
+import re 
+def get_numbers_and_comment(line):
+    if sub := re.search('^(?P<start>\d*)-(?P<end>\d*)[ :]*(?P<comment>.*?)$', line):
+        list_of_results = []
+        for n in range(int(sub.group('start')), int(sub.group('end')) + 1):
+            list_of_results.append((int(n), sub.group('comment')))
+        return list_of_results
+    if sub := re.search('^(?P<number>\d*)[ :]*(?P<comment>.*?)$', line):
+        return [( int(sub.group('number')), sub.group('comment') )]
+    return None
+
+print(get_numbers_and_comment("1"))                #--> [(1, '')]
+print(get_numbers_and_comment("2 Comment1"))       #--> [(2, 'Comment1')]
+print(get_numbers_and_comment("3 : Comment2"))     #--> [(3, 'Comment2')]
+print(get_numbers_and_comment("4-6"))              #--> [(4, ''), (5, ''), (6, '')]
+print(get_numbers_and_comment("7-9 Comment3"))     #--> [(7, 'Comment3'), (8, 'Comment3'), (9, 'Comment3')]
+print(get_numbers_and_comment("10-12 : Comment4")) #--> [(10, 'Comment4'), (11, 'Comment4'), (12, 'Comment4')]
+
+#---------------------------------------------------------
 # Search any substring of a list into another string
 mylist = ["dog", "cat", "wildcat", "thundercat", "cow", "hooo"]
 if any(x in "hello / wildcat / world" for x in mylist):
