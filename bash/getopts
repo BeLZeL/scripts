@@ -1,0 +1,37 @@
+while getopts 'he:p:' arg; do
+    case ${arg} in
+        e)
+            case ${OPTARG} in
+                elf)
+                    ;;
+                dwarf)
+                    ;;
+                *)
+                    printf "Invalid entity '%s'. Please provide an entity in [elf, dwarf]\n" "${OPTARG}"
+                    exit 1
+                    ;;
+            esac
+            readonly ENTITY="${OPTARG}"
+            ;;
+        p)
+            case ${OPTARG} in
+                classic)
+                    ;;
+                extra)
+                    ;;
+                *)
+                    printf "Invalid profile '%s'. Please provide a profile in [classic, extra]\n" "${OPTARG}"
+                    exit 1
+                    ;;
+            esac
+            readonly MAIN_PROFILE="${OPTARG}"
+            ;;
+        [\?h])
+            printf "Usage: %s [-h] -e\n" "${0##*/}"
+            printf "\t-h display this message\n"
+            printf "\t-e set entity [elf, dwarf]\n"
+            printf "\t-p set profile [classic, extra]\n"
+            exit 1
+            ;;
+    esac
+done
