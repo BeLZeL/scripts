@@ -521,6 +521,25 @@ cat join
 
 
 #=============================================================================#
+# INOTIFY                                                                     #
+#=============================================================================#
+
+
+inotify : Supervised file system
+ aptitude install inotify-tools
+ 
+Watch a file into a directory :
+ $ inotifywait -m -r -q --format '%w%f : %e' /tmp/test
+
+Watch a directory until timeout :
+ $ inotifywatch -v -e access -e modify -t 60 -r /tmp
+
+Monitor the writing of a file :
+ $ (sleep 2 && echo "finished" > /tmp/test/process.status &); inotifywait -e close_write -r -q --include "process.status" --format '%w%f : %e (finished detected)' /tmp/test 
+ /tmp/test/process.status : CLOSE_WRITE,CLOSE (finished detected)
+
+
+#=============================================================================#
 # SHORTCUTS                                                                   #
 #=============================================================================#
 
