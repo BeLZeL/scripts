@@ -2,6 +2,39 @@
 Characters autorized for Branch name : A-Za-z0-9/_-
 
 
+#==========================
+# Used 20241127
+J'ai 4 commit dans une branche.
+Je souhaiterai la mettre à jour en réintégrant tous les commit master.
+#--------------------------
+Le `rebase` réapplique vos commits sur la branche `master` mise à jour, ce qui permet d'obtenir un historique de commits plus linéaire.
+
+```bash
+# Assurez-vous que vous êtes sur la branche que vous souhaitez mettre à jour
+git checkout votre-branche
+
+# Mettez à jour la branche master locale avec les derniers commits du dépôt distant
+git fetch origin
+git checkout master
+git pull origin master
+
+# Revenez à votre branche et lancez le rebase
+git checkout votre-branche
+git rebase master
+```
+
+Si des conflits se produisent, vous devrez les résoudre manuellement, puis continuer le rebase :
+
+```bash
+# Après avoir résolu les conflits
+git add fichiers_résolus
+git rebase --continue
+```
+#==========================
+
+
+
+
 #==========================#
 # Create Shared Dev Branch #
 #==========================#
