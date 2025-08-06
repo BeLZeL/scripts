@@ -94,6 +94,9 @@ SELECT * FROM table1 WHERE column1 in :var;
 \set var 'column1 in (\'A\',\'B\')'
 SELECT * FROM table1 WHERE :var;
 
+day="2024-03-18"
+ssh user@server " psql -h <host> <db> -v day=${day} <<< \"\echo :'day'\""
+
 ===============================================================================
 
 -- Taille des index et des tables avec le ratio
