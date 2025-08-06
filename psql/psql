@@ -352,3 +352,9 @@ select other_table.id, count(distinct(tmp_table.field1)) from tmp_table, other_t
 " > results
 
 ===============================================================================
+
+-- Where clause on datetime from the beginning of previous month
+-- 20250216 -> 20250101
+dt >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month')
+
+===============================================================================
