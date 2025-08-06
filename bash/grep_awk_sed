@@ -83,6 +83,7 @@ echo -ne "1\n2\n3\n" | perl -00pe "s|^|(|sg" | perl -00pe "s|\n$|)|sg" | perl -p
 
 # Transform to SQL list with quotes
 echo -ne "A\nB\nC\n" | perl -00pe "s|^|('|sg" | perl -00pe "s|\n$|')|sg" | perl -pe "s/\n/','/g"
+echo -ne "A\nB\nC\n" | sed "s/^/'/; s/$/'/" | paste -sd, | sed "s/^/(/; s/$/)/"
 ('A','B','C')
 
 # Transform to GREP list
