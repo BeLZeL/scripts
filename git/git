@@ -166,6 +166,7 @@ git log -L :main:toto.c
 
 
 #--------------------------------------------------------
+# Used 20241120
 # https://delicious-insights.com/fr/articles/bien-utiliser-git-merge-et-rebase/
 # Merge :
 #     * avec preservation des commits
