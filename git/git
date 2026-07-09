@@ -4,6 +4,16 @@ git status -s
 git status --porcelain
 
 #--------------------------------------------------------
+# Compress/pack/compact objects on local repository
+# https://stackoverflow.com/questions/35410336/how-to-compact-local-git-repository
+# Expire all the unreachable content and pack the repository in the most
+# compact way.
+git gc --aggressive --prune=now
+
+# Also clear the reflog as well
+git reflog expire --expire=now --all
+
+#--------------------------------------------------------
 # Checkout quick and efficient (with just last commit history)
 git clone <url> <target directory> --depth=1
 
