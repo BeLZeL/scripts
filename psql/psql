@@ -358,3 +358,18 @@ select other_table.id, count(distinct(tmp_table.field1)) from tmp_table, other_t
 dt >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month')
 
 ===============================================================================
+
+-- FILTER
+-- https://docs.postgresql.fr/current/sql-expressions.html#SYNTAX-AGGREGATES
+
+select count(*) from table where status = 'FAILED';
+select count(*) FILTER (where status = 'FAILED') from table;
+select count(case when status='FAILED' then 1 end) from table where status = 'FAILED';
+  5222
+
+select ROUND ( 100.0 * count(*) FILTER (where status = 'FAILED' ) / count(*), 1) || '%' AS perc from table;
+select ROUND ( 100.0 * count(case when status = 'FAILED' then 1 end) / count(*), 1) || '%' AS perc from table;
+ 1.2%
+
+select sum(nb) FILTER (where status = 'FAILED') from table;
+ 1.844774409270828e+19
